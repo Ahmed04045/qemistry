@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>الترتيب — Qemistry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="/translations.js"></script>
+  <style>
+    .lb-page { min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:0 20px 60px; }
+    .lb-header { width:100%; max-width:640px; padding:36px 0 24px; text-align:center; }
+    .lb-title { font-size:26px; font-weight:700; margin-bottom:6px; }
+    .lb-sub { font-size:13px; color:var(--text3); }
+    .lb-list { width:100%; max-width:640px; display:flex; flex-direction:column; gap:8px; }
+
+    .lb-row { display:flex; align-items:center; gap:14px; background:var(--bg2);
+      border:1px solid var(--border); border-radius:14px; padding:12px 16px;
+      transition:border-color .2s, transform .15s; }
+    .lb-row:hover { border-color:rgba(139,92,246,.3); transform:translateX(-2px); }
+
+    /* Top 3 */
+    .lb-row.rank-1 { background:linear-gradient(135deg, rgba(255,215,0,.06), rgba(255,180,0,.03)); border-color:rgba(255,215,0,.3); }
+    .lb-row.rank-2 { background:linear-gradient(135deg, rgba(192,192,192,.06), rgba(160,160,160,.03)); border-color:rgba(192,192,192,.3); }
+    .lb-row.rank-3 { background:linear-gradient(135deg, rgba(205,127,50,.06), rgba(180,100,30,.03)); border-color:rgba(205,127,50,.3); }
+
+    /* Logged-in user highlight */
+    .lb-row.is-me { background:linear-gradient(135deg, rgba(139,92,246,.1), rgba(124,58,237,.05)); border-color:rgba(139,92,246,.5); }
+    .lb-row.is-me .lb-username { color:#c4b5fd; }
+
+    .lb-rank { width:32px; text-align:center; font-size:20px; font-weight:700; flex-shrink:0; }
+    .lb-rank-num { font-size:14px; font-weight:700; color:var(--text3); }
+
+    .lb-avatar { width:40px; height:40px; border-radius:50%; border:2px solid var(--border2);
+      overflow:hidden; background:var(--surface); display:flex; align-items:center;
+      justify-content:center; font-size:18px; flex-shrink:0; }
+    .lb-avatar img { width:100%; height:100%; object-fit:cover; }
+
+    .lb-info { flex:1; min-width:0; }
+    .lb-username { font-size:14px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .lb-me-badge { display:inline-block; font-size:10px; background:rgba(139,92,246,.2);
+      color:#c4b5fd; border-radius:6px; padding:1px 6px; margin-right:6px; vertical-align:middle; }
+
+    .lb-points { font-size:15px; font-weight:700; color:#fbbf24; white-space:nowrap; flex-shrink:0; }
+    .lb-pts-label { font-size:11px; color:var(--text3); font-weight:400; }
+
+    .lb-empty { color:var(--text3); font-size:14px; text-align:center; padding:40px 0; }
+
+    /* Tabs */
+    .lb-tabs { width:100%; max-width:640px; display:flex; gap:8px; margin-bottom:20px; }
+    .lb-tab { flex:1; padding:10px; border-radius:10px; font-family:'Tajawal',sans-serif; font-size:14px; font-weight:700;
+      cursor:pointer; border:1px solid var(--border); background:var(--bg2); color:var(--text3); transition:all .2s; }
+    .lb-tab.active { background:rgba(139,92,246,.15); border-color:rgba(139,92,246,.4); color:#c4b5fd; }
+
+    /* Teams grid */
+    .lb-teams-grid { width:100%; max-width:640px; display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+    .lb-team-card { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:20px 14px;
+      display:flex; flex-direction:column; align-items:center; gap:8px; transition:border-color .2s, transform .15s; }
+    .lb-team-card:hover { border-color:rgba(139,92,246,.3); transform:translateY(-2px); }
+    .lb-team-card.my-team { border-color:rgba(139,92,246,.5); background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(124,58,237,.05)); }
+    .lb-team-card.rank-1 { border-color:rgba(255,215,0,.4); background:linear-gradient(135deg,rgba(255,215,0,.06),transparent); }
+    .lb-team-card.rank-2 { border-color:rgba(192,192,192,.4); }
+    .lb-team-card.rank-3 { border-color:rgba(205,127,50,.4); }
+    .lb-team-medal { font-size:20px; line-height:1; }
+    .lb-team-name { font-size:13px; font-weight:700; text-align:center; }
+    .lb-team-pts { font-size:15px; font-weight:700; color:#fbbf24; }
+    .lb-team-members { font-size:11px; color:var(--text3); }
+    .lb-no-team { width:100%; max-width:640px; background:var(--bg2); border:1px dashed var(--border2); border-radius:14px;
+      padding:24px; text-align:center; margin-top:8px; }
+    .lb-no-team-title { font-size:15px; font-weight:700; margin-bottom:6px; }
+    .lb-no-team-desc { font-size:13px; color:var(--text3); margin-bottom:14px; }
+    .lb-no-team-btn { display:inline-block; padding:9px 20px; border-radius:10px; font-family:'Tajawal',sans-serif;
+      font-size:13px; font-weight:700; background:rgba(139,92,246,.2); border:1px solid rgba(139,92,246,.4);
+      color:#c4b5fd; text-decoration:none; transition:all .2s; }
+    .lb-no-team-btn:hover { background:rgba(139,92,246,.35); }
+
+    @media(max-width:480px) {
+      .lb-username { font-size:13px; }
+      .lb-points { font-size:14px; }
+      .lb-avatar { width:34px; height:34px; font-size:15px; }
+      .lb-teams-grid { grid-template-columns:repeat(2,1fr); gap:8px; }
+    }
+    @media(min-width:600px) { .lb-teams-grid { grid-template-columns:repeat(3,1fr); } }
+    @media(min-width:960px) { .lb-teams-grid { grid-template-columns:repeat(5,1fr); } }
+  </style>
+</head>
+<body>
+<nav class="g-nav">
+  <a class="g-nav-logo" href="/">Qemistry</a>
+  <div class="g-nav-links">
+    <a href="/" class="g-nav-link" data-path="/">🏠 <span class="g-nav-text" data-t="nav-home">الرئيسية</span></a>
+    <a href="/qemy" class="g-nav-link" data-path="/qemy">🃏 <span class="g-nav-text">Qemy</span></a>
+    <a href="/imposter" class="g-nav-link" data-path="/imposter">🕵️ <span class="g-nav-text" data-t="nav-imposter">برا السالفة</span></a>
+    <a href="/leaderboard" class="g-nav-link active" data-path="/leaderboard">🏆 <span class="g-nav-text" data-t="nav-leaderboard">الترتيب</span></a>
+    <a href="/discover" class="g-nav-link" data-path="/discover">🔍 <span class="g-nav-text" data-t="nav-discover">اكتشف</span></a>
+    <a href="/talent-show" class="g-nav-link" data-path="/talent-show">🎤 <span class="g-nav-text">Talent Show</span></a>
+    <button class="g-nav-bell" id="g-nav-bell" aria-label="الإشعارات">🔔<span class="g-nav-bell-badge" id="g-nav-bell-badge" style="display:none"></span></button>
+    <a href="/#dashboard" class="g-nav-link" id="g-nav-profile">👤 <span class="g-nav-text" data-t="nav-profile">حسابي</span></a>
+    <button class="g-nav-lang" id="g-nav-lang-btn" onclick="togglePageLang()">EN</button>
+  </div>
+</nav>
+
+<div class="lb-page">
+  <div class="lb-header">
+    <div class="lb-title" data-t="lb-title">🏆 لوحة المتصدرين</div>
+    <div class="lb-sub" data-t="lb-sub">أفضل 50 لاعب على Qemistry حسب النقاط</div>
+  </div>
+  <div class="lb-tabs">
+    <button class="lb-tab active" id="tab-individual" onclick="switchTab('individual')">🏅 <span data-t="individual-tab">أفراد</span></button>
+    <button class="lb-tab" id="tab-teams" onclick="switchTab('teams')">⚔️ <span data-t="teams-tab">الفرق</span></button>
+  </div>
+  <div class="lb-list" id="lb-list">
+    <div class="lb-empty" data-t="lb-loading">جاري التحميل...</div>
+  </div>
+  <div class="lb-teams-grid" id="lb-teams" style="display:none"></div>
+</div>
+
+<script src="/avatars.js"></script>
+<script>
+(function () {
+  const currentUser = (() => {
+    try { return JSON.parse(localStorage.getItem('qc_currentUser') || 'null'); } catch { return null; }
+  })();
+  const myId        = currentUser?.id || null;
+  const myCharacter = currentUser?.character_type || null;
+
+  const MEDALS     = ['🥇', '🥈', '🥉'];
+  const SERVER_URL = '';
+
+  const listEl  = document.getElementById('lb-list');
+  const teamsEl = document.getElementById('lb-teams');
+
+  function esc(s) {
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function fmtPoints(n) {
+    const lang = localStorage.getItem('qc_lang') || 'ar';
+    return Number(n || 0).toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US');
+  }
+
+  // ── Tab switching ────────────────────────────────────────
+  window.switchTab = function(tab) {
+    document.getElementById('tab-individual').classList.toggle('active', tab === 'individual');
+    document.getElementById('tab-teams').classList.toggle('active', tab === 'teams');
+    listEl.style.display  = tab === 'individual' ? '' : 'none';
+    teamsEl.style.display = tab === 'teams'      ? '' : 'none';
+    if (tab === 'teams' && !teamsEl.dataset.loaded) loadTeams();
+  };
+
+  // ── Individual leaderboard ───────────────────────────────
+  async function loadIndividual() {
+    try {
+      const res  = await fetch(SERVER_URL + '/api/leaderboard');
+      const data = await res.json();
+      const users = data.users || [];
+
+      if (!users.length) { listEl.innerHTML = `<div class="lb-empty">${window.t ? window.t('lb-no-data') : 'لا توجد بيانات بعد'}</div>`; return; }
+
+      listEl.innerHTML = users.map((u, i) => {
+        const rank   = i + 1;
+        const rankCls = rank <= 3 ? ` rank-${rank}` : '';
+        const isMe   = myId && u.id === myId;
+        const meCls  = isMe ? ' is-me' : '';
+
+        const rankEl = rank <= 3
+          ? `<span class="lb-rank">${MEDALS[rank - 1]}</span>`
+          : `<span class="lb-rank"><span class="lb-rank-num">${rank}</span></span>`;
+
+        // Avatar: character SVG if available, else photo
+        const avatarEl = (u.character_type && window.AVATARS)
+          ? `<div class="lb-avatar" style="border-radius:8px;overflow:hidden;">${window.AVATARS.renderSVG(u.character_type, 40)}</div>`
+          : u.avatar_url && u.avatar_url.startsWith('http')
+            ? `<div class="lb-avatar"><img src="${esc(u.avatar_url)}" alt=""/></div>`
+            : `<div class="lb-avatar">😊</div>`;
+
+        const meBadge = isMe ? `<span class="lb-me-badge">${window.t ? window.t('lb-you') : 'أنت'}</span>` : '';
+
+      return `<div class="lb-row${rankCls}${meCls}">
+        ${rankEl}
+        ${avatarEl}
+        <div class="lb-info">
+          <div class="lb-username">${meBadge}${esc(u.username || 'مجهول')}</div>
+        </div>
+        <div class="lb-points">${fmtPoints(u.points)} <span class="lb-pts-label">${window.t ? window.t('lb-pts') : 'نقطة'}</span></div>
+      </div>`;
+      }).join('');
+
+      if (myId) {
+        const myIdx = users.findIndex(u => u.id === myId);
+        if (myIdx > 5) {
+          setTimeout(() => {
+            const rows = listEl.querySelectorAll('.lb-row');
+            if (rows[myIdx]) rows[myIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 300);
+        }
+      }
+    } catch (e) {
+      listEl.innerHTML = `<div class="lb-empty">${window.t ? window.t('lb-error') : 'تعذّر تحميل البيانات'}</div>`;
+    }
+  }
+
+  // ── Teams leaderboard ────────────────────────────────────
+  async function loadTeams() {
+    teamsEl.dataset.loaded = '1';
+    teamsEl.innerHTML = `<div class="lb-empty" style="grid-column:1/-1">${window.t ? window.t('lb-loading') : 'جاري التحميل...'}</div>`;
+    try {
+      const res  = await fetch(SERVER_URL + '/api/leaderboard?mode=teams');
+      const data = await res.json();
+      const teams = data.teams || [];
+
+      if (!teams.length) {
+        teamsEl.innerHTML = `<div class="lb-empty" style="grid-column:1/-1">${window.t ? window.t('lb-no-teams') : 'لا توجد فرق بعد'}</div>`;
+        return;
+      }
+
+      teamsEl.innerHTML = teams.map((tm, i) => {
+        const rank    = i + 1;
+        const medal   = rank <= 3 ? MEDALS[rank - 1] : '';
+        const rankCls = rank <= 3 ? ` rank-${rank}` : '';
+        const isMyTeam = myCharacter && tm.character_type === myCharacter;
+        const myCls   = isMyTeam ? ' my-team' : '';
+        const ch      = window.AVATARS?.getById(tm.character_type);
+        const svgHtml = window.AVATARS ? window.AVATARS.renderSVG(tm.character_type, 80) : '?';
+        const membersLabel = window.t ? window.t('members-count').replace('{n}', tm.member_count) : tm.member_count + ' عضو';
+        return `<div class="lb-team-card${rankCls}${myCls}">
+          ${medal ? `<div class="lb-team-medal">${medal}</div>` : ''}
+          ${svgHtml}
+          <div class="lb-team-name">${esc(ch ? ch.nameAr + ' / ' + ch.nameEn : tm.character_type)}</div>
+          <div class="lb-team-pts">${fmtPoints(tm.total_points)} <span style="font-size:11px;color:var(--text3);font-weight:400;">${window.t ? window.t('lb-pts') : 'نقطة'}</span></div>
+          <div class="lb-team-members">${membersLabel}</div>
+        </div>`;
+      }).join('');
+
+      // No-team card for current user
+      if (!myCharacter) {
+        const noTeamDiv = document.createElement('div');
+        noTeamDiv.className = 'lb-no-team';
+        noTeamDiv.style.gridColumn = '1/-1';
+        noTeamDiv.innerHTML = `
+          <div class="lb-no-team-title">${window.t ? window.t('no-team-title') : 'أنت مالك فريق بعد!'}</div>
+          <div class="lb-no-team-desc">${window.t ? window.t('quiz-nudge-desc') : 'عمل الاختبار وانضم لفريقك في لوحة الصدارة'}</div>
+          <a href="/quiz" class="lb-no-team-btn">${window.t ? window.t('no-team-btn') : 'اعمل الاختبار وانضم'}</a>`;
+        teamsEl.appendChild(noTeamDiv);
+      }
+    } catch (e) {
+      teamsEl.innerHTML = `<div class="lb-empty" style="grid-column:1/-1">${window.t ? window.t('lb-error') : 'تعذّر تحميل البيانات'}</div>`;
+    }
+  }
+
+  // Lang toggle
+  window.togglePageLang = function() {
+    const next = (localStorage.getItem('qc_lang') || 'ar') === 'ar' ? 'en' : 'ar';
+    localStorage.setItem('qc_lang', next);
+    document.documentElement.lang = next;
+    document.documentElement.dir  = next === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('g-nav-lang-btn').textContent = next === 'ar' ? 'EN' : 'ع';
+    if (typeof applyTranslations === 'function') applyTranslations();
+    // Re-render active tab so JS-generated strings update
+    const onTeams = document.getElementById('tab-teams').classList.contains('active');
+    if (onTeams) { teamsEl.dataset.loaded = ''; loadTeams(); } else { loadIndividual(); }
+  };
+  // Apply lang & translations on boot
+  (function() {
+    const lang = localStorage.getItem('qc_lang') || 'ar';
+    document.documentElement.lang = lang;
+    document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+    const btn = document.getElementById('g-nav-lang-btn');
+    if (btn) btn.textContent = lang === 'ar' ? 'EN' : 'ع';
+    if (typeof applyTranslations === 'function') applyTranslations();
+  })();
+
+  loadIndividual();
+})();
+</script>
+<script src="/notif.js" defer></script>
+</body>
+</html>

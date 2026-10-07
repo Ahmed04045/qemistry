@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qemistry — Story Slides</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Tajawal',sans-serif;
+    background:#111;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:24px;
+    padding:24px 16px 48px;
+  }
+
+  .hint {
+    color:#555;
+    font-size:13px;
+    text-align:center;
+    line-height:1.8;
+    max-width:400px;
+  }
+  .hint strong { color:#888; }
+
+  .slide {
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 9 / 16;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 28px;
+    text-align: center;
+  }
+
+  .slide-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  /* radial glow overlay */
+  .slide-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, var(--glow), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* subtle grid texture */
+  .slide-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  .slide-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0;
+  }
+
+  /* top bar */
+  .slide-top {
+    position: absolute;
+    top: 0; right: 0; left: 0;
+    padding: 20px 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+  }
+  .slide-logo {
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    color: rgba(255,255,255,0.9);
+  }
+  .slide-logo span { color: var(--accent); }
+  .slide-url {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.5px;
+  }
+
+  /* character art */
+  .char-wrap {
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 24px var(--accent));
+    animation: charFloat 2.4s ease-in-out infinite;
+    display: inline-block;
+  }
+  @keyframes charFloat {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-12px); }
+  }
+
+  /* label */
+  .slide-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  /* name */
+  .slide-name {
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    color: #fff;
+    text-shadow: 0 0 30px var(--accent);
+  }
+
+  /* desc */
+  .slide-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 280px;
+  }
+
+  /* early bird badge */
+  .badge-early {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 40px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 10px;
+    backdrop-filter: blur(6px);
+  }
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:.6; transform:scale(0.8); }
+  }
+
+  /* deadline */
+  .badge-deadline {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.3px;
+  }
+
+  /* bottom CTA */
+  .slide-bottom {
+    position: absolute;
+    bottom: 0; right: 0; left: 0;
+    padding: 0 24px 24px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .slide-cta {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 14px;
+    font-size: 16px;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  .slide-cta-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* slide number */
+  .slide-number {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    z-index: 3;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<p class="hint">
+  <strong>10 سلايدات جاهزة للقصة</strong><br>
+  خذ screenshot لكل واحدة وانشرها<br>
+  (اعمل zoom-in لتملأ الشاشة قبل التصوير)
+</p>
+
+<div id="slides-container"></div>
+
+<script src="avatars.js"></script>
+<script>
+  const CHARS = window.AVATARS.chars;
+  const container = document.getElementById('slides-container');
+  container.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:24px;width:100%;';
+
+  CHARS.forEach((ch, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'slide';
+    slide.style.setProperty('--accent', ch.color);
+    slide.style.setProperty('--glow', ch.color + '33');
+
+    // background
+    const bg = document.createElement('div');
+    bg.className = 'slide-bg';
+    bg.style.background = ch.bg;
+    slide.appendChild(bg);
+
+    // number indicator
+    const num = document.createElement('div');
+    num.className = 'slide-number';
+    num.textContent = `${i + 1} / ${CHARS.length}`;
+    slide.appendChild(num);
+
+    // top bar
+    const top = document.createElement('div');
+    top.className = 'slide-top';
+    top.innerHTML = `
+      <div class="slide-logo">Qe<span>mis</span>try</div>
+      <div class="slide-url">qemistry.live</div>
+    `;
+    slide.appendChild(top);
+
+    // inner content
+    const inner = document.createElement('div');
+    inner.className = 'slide-inner';
+
+    // character SVG
+    const charWrap = document.createElement('div');
+    charWrap.className = 'char-wrap';
+    const svgStr = window.AVATARS.renderSVG(ch.id, 200);
+    charWrap.innerHTML = svgStr;
+    inner.appendChild(charWrap);
+
+    // label
+    const label = document.createElement('div');
+    label.className = 'slide-label';
+    label.textContent = 'شخصيتك هي...';
+    inner.appendChild(label);
+
+    // name
+    const name = document.createElement('div');
+    name.className = 'slide-name';
+    name.textContent = ch.nameAr;
+    inner.appendChild(name);
+
+    // desc
+    const desc = document.createElement('div');
+    desc.className = 'slide-desc';
+    desc.textContent = ch.descAr;
+    inner.appendChild(desc);
+
+    // early bird badge
+    const badge = document.createElement('div');
+    badge.className = 'badge-early';
+    badge.innerHTML = `<div class="badge-dot"></div> طائر الفجر 🐣`;
+    inner.appendChild(badge);
+
+    // deadline
+    const deadline = document.createElement('div');
+    deadline.className = 'badge-deadline';
+    deadline.textContent = 'الشارة تنتهي 15 يوليو 2026';
+    inner.appendChild(deadline);
+
+    slide.appendChild(inner);
+
+    // bottom CTA
+    const bottom = document.createElement('div');
+    bottom.className = 'slide-bottom';
+    bottom.innerHTML = `
+      <div class="slide-cta">اكتشف شخصيتك — مجاناً</div>
+      <div class="slide-cta-sub">qemistry.live/quiz</div>
+    `;
+    slide.appendChild(bottom);
+
+    container.appendChild(slide);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <link rel="icon" type="image/png" href="/icon.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4271411908599611"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Profile — Qemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/style.css"/>
+<script src="/translations.js"></script>
+<style>
+.profile-page { min-height:100vh; background:var(--bg); display:flex; flex-direction:column; align-items:center; padding:24px 20px 60px; }
+.back-btn { background:var(--surface); border:1px solid var(--border2); border-radius:var(--radius-sm); padding:8px 16px; color:var(--text); font-family:'Tajawal',sans-serif; font-size:14px; cursor:pointer; transition:all .2s; }
+.back-btn:hover { border-color:var(--accent); }
+.pub-profile-card { background:var(--bg2); border:1px solid var(--border2); border-radius:20px; padding:32px; width:100%; max-width:600px; animation:fadeUp .4s ease both; }
+.pub-avatar { width:100px; height:100px; border-radius:50%; border:3px solid var(--accent); overflow:hidden; background:var(--surface); display:flex; align-items:center; justify-content:center; font-size:42px; margin:0 auto 16px; }
+.pub-avatar img { width:100%; height:100%; object-fit:cover; }
+.pub-name { font-size:24px; font-weight:700; text-align:center; margin-bottom:6px; }
+.pub-joined { font-size:13px; color:var(--text3); text-align:center; margin-bottom:16px; }
+.pub-bio { font-size:14px; color:var(--text2); text-align:center; line-height:1.7; margin-bottom:20px; padding:0 20px; }
+.pub-info-row { display:flex; justify-content:center; gap:24px; margin-bottom:20px; flex-wrap:wrap; }
+.pub-info-item { display:flex; align-items:center; gap:6px; font-size:13px; color:var(--text2); background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:6px 14px; }
+.pub-hobbies { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:24px; }
+.pub-hobby { background:rgba(139,92,246,.12); border:1px solid rgba(139,92,246,.3); border-radius:20px; padding:5px 14px; font-size:12px; color:#c4b5fd; }
+.pub-actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.not-found { text-align:center; padding:60px 20px; color:var(--text3); font-size:16px; }
+/* Quiz nudge banner */
+.quiz-nudge{width:100%;max-width:600px;background:#13132a;border:1px solid rgba(157,78,237,.35);border-right:4px solid #9d4edd;border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:14px;margin-bottom:20px;animation:slideDown .3s ease both;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.quiz-nudge-av{width:44px;height:44px;border-radius:12px;background:rgba(157,78,237,.15);border:1px solid rgba(157,78,237,.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.quiz-nudge-body{flex:1;min-width:0;}
+.quiz-nudge-title{font-size:14px;font-weight:700;color:#c4b5fd;margin-bottom:2px;}
+.quiz-nudge-desc{font-size:12px;color:#64748b;}
+.quiz-nudge-btn{padding:8px 14px;border-radius:8px;background:rgba(157,78,237,.2);border:1px solid rgba(157,78,237,.4);color:#c4b5fd;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .2s;}
+.quiz-nudge-btn:hover{background:rgba(157,78,237,.35);}
+.quiz-nudge-close{background:none;border:none;color:#475569;font-size:18px;cursor:pointer;padding:4px 6px;line-height:1;flex-shrink:0;transition:color .15s;}
+.quiz-nudge-close:hover{color:#94a3b8;}
+/* Character SVG avatar */
+.pub-avatar.char-avatar{border-radius:14px;border:3px solid var(--accent);overflow:visible;background:transparent;}
+.pub-avatar-placeholder{width:100px;height:100px;border-radius:14px;border:3px solid transparent;background:linear-gradient(#13132a,#13132a) padding-box,linear-gradient(135deg,#9d4edd,#4cc9f0) border-box;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(157,78,237,.4);}50%{box-shadow:0 0 0 8px rgba(157,78,237,0);}}
+@media(max-width:480px){.quiz-nudge{flex-wrap:wrap;}.quiz-nudge-btn{width:100%;text-align:center;}}
+</style>
+</head>
+<body>
+<nav class="g-nav">
+  <a class="g-nav-logo" href="/">Qemistry</a>
+  <div class="g-nav-links">
+    <a href="/" class="g-nav-link" data-path="/">🏠 <span class="g-nav-text" data-t="nav-home">الرئيسية</span></a>
+    <a href="/qemy" class="g-nav-link" data-path="/qemy">🃏 <span class="g-nav-text">Qemy</span></a>
+    <a href="/imposter" class="g-nav-link" data-path="/imposter">🕵️ <span class="g-nav-text" data-t="nav-imposter">برا السالفة</span></a>
+    <a href="/leaderboard" class="g-nav-link" data-path="/leaderboard">🏆 <span class="g-nav-text" data-t="nav-leaderboard">الترتيب</span></a>
+    <a href="/discover" class="g-nav-link" data-path="/discover">🔍 <span class="g-nav-text" data-t="nav-discover">اكتشف</span></a>
+    <a href="/talent-show" class="g-nav-link" data-path="/talent-show">🎤 <span class="g-nav-text">Talent Show</span></a>
+    <button class="g-nav-bell" id="g-nav-bell" aria-label="الإشعارات">🔔<span class="g-nav-bell-badge" id="g-nav-bell-badge" style="display:none"></span></button>
+    <a href="/#dashboard" class="g-nav-link" id="g-nav-profile">👤 <span class="g-nav-text" data-t="nav-profile">حسابي</span></a>
+    <button class="g-nav-lang" id="g-nav-lang-btn" onclick="togglePageLang()">EN</button>
+  </div>
+</nav>
+<div class="profile-page" style="padding-top:24px;">
+  <div id="quiz-nudge-wrap"></div>
+  <div id="profile-content">
+    <div style="color:var(--text3);font-size:14px;">Loading...</div>
+  </div>
+</div>
+
+<div class="status-toast" id="toast"></div>
+
+<input type="hidden" id="reportTargetId"/>
+<div class="report-overlay" id="reportOverlay">
+  <div class="report-card">
+    <h3>🚩 Report User</h3>
+    <p>Choose a reason and it will be reviewed immediately</p>
+    <div class="report-options">
+      <button class="report-option" onclick="submitProfileReport('Offensive content')">Offensive or inappropriate content</button>
+      <button class="report-option" onclick="submitProfileReport('Harassment')">Harassment or bullying</button>
+      <button class="report-option" onclick="submitProfileReport('Explicit content')">Explicit content</button>
+      <button class="report-option" onclick="submitProfileReport('Suspicious behavior')">Suspicious behavior</button>
+      <button class="report-option" onclick="submitProfileReport('Other')">Other reason</button>
+    </div>
+    <button class="report-cancel" onclick="document.getElementById('reportOverlay').classList.remove('open')">Cancel</button>
+  </div>
+</div>
+
+<script>
+const SERVER_URL = 'https://www.qemistry.live';
+const authToken   = localStorage.getItem('qc_token');
+const currentUser = JSON.parse(localStorage.getItem('qc_currentUser') || 'null');
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function calcAge(birthdate) {
+  if (!birthdate) return null;
+  const today = new Date();
+  const birth  = new Date(birthdate);
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  return age;
+}
+
+async function checkFriendship(targetId) {
+  if (!currentUser) return;
+  const res  = await fetch(`${SERVER_URL}/friends/me`, {
+    headers: { 'authorization': `Bearer ${authToken}` }
+  });
+  const data = await res.json();
+  const btn  = document.getElementById('friend-btn');
+  const reportBtn = document.getElementById('report-btn');
+  if (!btn) return;
+  const existing = (data.friends || []).find(f =>
+    (f.user_id === currentUser.id && f.friend_id === targetId) ||
+    (f.user_id === targetId && f.friend_id === currentUser.id)
+  );
+  if (!existing) return;
+  if (existing.status === 'pending') {
+    if (existing.user_id === currentUser.id) {
+      btn.textContent = '⏳ Request Sent';
+      btn.disabled = true;
+    } else {
+      btn.textContent = '✅ Accept Request';
+      btn.onclick = () => acceptFromProfile(existing.user_id);
+    }
+  } else if (existing.status === 'accepted') {
+    btn.textContent = '✅ Friends';
+    btn.disabled = true;
+    if (reportBtn) reportBtn.style.display = 'none';
+  }
+}
+
+async function acceptFromProfile(fromUserId) {
+  await fetch(`${SERVER_URL}/friend-respond`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${authToken}` },
+    body: JSON.stringify({ fromUserId, accept: true })
+  });
+  showToast('✅ Friend request accepted');
+  const btn = document.getElementById('friend-btn');
+  if (btn) { btn.textContent = '✅ Friends'; btn.disabled = true; }
+  const reportBtn = document.getElementById('report-btn');
+  if (reportBtn) reportBtn.style.display = 'none';
+}
+
+async function sendFriendRequest(targetId) {
+  if (!authToken) return showToast('⚠️ You must be signed in first');
+  const res  = await fetch(`${SERVER_URL}/friend-request`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${authToken}` },
+    body: JSON.stringify({ targetId })
+  });
+  const data = await res.json();
+  if (data.ok) {
+    showToast('✅ Friend request sent');
+    const btn = document.getElementById('friend-btn');
+    if (btn) { btn.textContent = '⏳ Request Sent'; btn.disabled = true; }
+  } else {
+    showToast('⚠️ Failed to send request');
+  }
+}
+
+function sendReport(targetId) {
+  if (!authToken) return showToast('⚠️ You must be signed in first');
+  document.getElementById('reportTargetId').value = targetId;
+  document.getElementById('reportOverlay').classList.add('open');
+}
+
+async function submitProfileReport(reason) {
+  const targetId = document.getElementById('reportTargetId').value;
+  await fetch(`${SERVER_URL}/reports`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${authToken}` },
+    body: JSON.stringify({ reported_id: targetId, reason })
+  });
+  document.getElementById('reportOverlay').classList.remove('open');
+  showToast('✅ Report submitted');
+}
+
+async function loadProfile() {
+  const pathname = window.location.pathname;
+  let apiUrl;
+
+  if (pathname.startsWith('/u/')) {
+    const uname = decodeURIComponent(pathname.slice(3));
+    if (!uname) { window.location.replace('/'); return; }
+    apiUrl = `${SERVER_URL}/api/profile/by-username/${encodeURIComponent(uname)}`;
+  } else {
+    // Legacy fallback — server redirects /profile?id= to /u/:username but keep this for safety
+    const userId = new URLSearchParams(window.location.search).get('id');
+    if (!userId) { window.location.replace('/'); return; }
+    apiUrl = `${SERVER_URL}/api/profile/${userId}`;
+  }
+
+  const headers = authToken ? { authorization: `Bearer ${authToken}` } : {};
+  const res  = await fetch(apiUrl, { headers });
+  const data = await res.json();
+
+  if (!data.ok) {
+    document.getElementById('profile-content').innerHTML = `
+      <div class="pub-profile-card" style="text-align:center;padding:48px 32px;">
+        <div style="font-size:52px;margin-bottom:16px;">👤</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:8px;">User Not Found</div>
+        <div style="font-size:14px;color:var(--text3);margin-bottom:28px;">This profile doesn't exist or may have been removed.</div>
+        <button class="back-btn" onclick="window.location.href='/'">← Back to Qemistry</button>
+      </div>`;
+    return;
+  }
+
+  const u      = data.user;
+  const age    = calcAge(u.birthdate);
+  const joined = u.created_at ? new Date(u.created_at).toLocaleDateString('en-US', { year:'numeric', month:'long' }) : '';
+  const isMe   = currentUser?.id === u.id;
+
+  document.title = u.username + ' — Qemistry';
+
+  // Quiz nudge — only for own profile, when character missing or temp
+  if (isMe && (!u.character_type || u.character_is_temp)) {
+    const nudgeWrap = document.getElementById('quiz-nudge-wrap');
+    nudgeWrap.innerHTML = `
+      <div class="quiz-nudge" id="quiz-nudge">
+        <div class="quiz-nudge-av">🎭</div>
+        <div class="quiz-nudge-body">
+          <div class="quiz-nudge-title">${window.t ? window.t('quiz-nudge-title') : 'اكتشف شخصيتك!'}</div>
+          <div class="quiz-nudge-desc">${window.t ? window.t('quiz-nudge-desc') : 'عمل الاختبار وانضم لفريقك بلوحة الصدارة'}</div>
+        </div>
+        <a href="/quiz" class="quiz-nudge-btn">${window.t ? window.t('quiz-nudge-btn') : 'ابدأ الاختبار'}</a>
+        <button class="quiz-nudge-close" onclick="document.getElementById('quiz-nudge').remove()">×</button>
+      </div>`;
+  }
+
+  function badgeLabel(b) {
+    const key = 'badge-' + b.replace(/_/g, '-');
+    return (window.t && window.t(key) !== key) ? window.t(key) : b;
+  }
+  const isAr = (localStorage.getItem('qc_lang') || 'ar') === 'ar';
+  const badges = (u.earned_badges || []).map(b => `<span data-badge-id="${b}" style="display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:#c4b5fd;">${badgeLabel(b)}</span>`).join('');
+
+  function esc(s) { const d = document.createElement('div'); d.textContent = String(s ?? ''); return d.innerHTML; }
+
+  // Avatar: character SVG if set, else photo/emoji
+  const avatarHtml = (() => {
+    if (u.character_type && window.AVATARS) {
+      return `<div class="pub-avatar char-avatar" style="border-radius:14px;overflow:hidden;">${window.AVATARS.renderSVG(u.character_type, 96)}</div>`;
+    }
+    if (u.character_type === null || u.character_type === undefined) {
+      return `<div class="pub-avatar-placeholder">?</div>`;
+    }
+    return `<div class="pub-avatar" data-frame="${esc(u.equipped_frame||'default')}">${u.avatar_url ? `<img src="${esc(u.avatar_url)}" alt="avatar"/>` : '😊'}</div>`;
+  })();
+
+  document.getElementById('profile-content').innerHTML = `
+    <div class="pub-profile-card">
+      ${avatarHtml}
+      <div class="pub-name">${esc(u.username)}${u.streak_count > 0 ? ` 🔥${Number(u.streak_count)}` : ''}</div>
+      ${badges ? `<div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:8px;">${badges}</div>` : ''}
+      <div class="pub-joined">Member since ${joined}</div>
+      <div class="pub-info-row" style="margin-bottom:16px;">
+        <div class="pub-info-item">⭐ ${Number(u.points||0).toLocaleString(isAr?'ar-EG':'en-US')} ${isAr?'نقطة':'pts'}</div>
+        <div class="pub-info-item">💬 ${Number(u.total_chats||0).toLocaleString(isAr?'ar-EG':'en-US')} ${isAr?'محادثة':'chats'}</div>
+        <div class="pub-info-item">👥 ${Number(u.friend_count||0).toLocaleString(isAr?'ar-EG':'en-US')} ${isAr?'صديق':'friends'}</div>
+      </div>
+      ${u.bio ? `<div class="pub-bio">${esc(u.bio)}</div>` : ''}
+      <div class="pub-info-row">
+        ${age ? `<div class="pub-info-item">🎂 ${age} years old</div>` : ''}
+      </div>
+      ${u.hobbies?.length ? `
+        <div class="pub-hobbies">
+          ${u.hobbies.map(h => `<div class="pub-hobby">${esc(h)}</div>`).join('')}
+        </div>` : ''}
+      ${!isMe && currentUser ? `
+        <div class="pub-actions" id="friend-actions">
+          <button class="btn-primary" id="friend-btn" onclick="sendFriendRequest('${u.id}')">➕ Add Friend</button>
+          <button class="btn-sm danger" id="report-btn" onclick="sendReport('${u.id}')">🚩 Report</button>
+        </div>` : ''}
+      ${isMe ? `
+        <div class="pub-actions">
+          <button class="btn-primary" onclick="window.location.href='/'">✏️ Edit Profile</button>
+        </div>` : ''}
+    </div>
+  `;
+
+  await checkFriendship(u.id);
+}
+
+loadProfile();
+</script>
+<script src="/avatars.js"></script>
+<script>
+// Lang toggle for g-nav
+window.togglePageLang = function() {
+  const next = (localStorage.getItem('qc_lang') || 'ar') === 'ar' ? 'en' : 'ar';
+  localStorage.setItem('qc_lang', next);
+  document.documentElement.lang = next;
+  document.documentElement.dir  = next === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('g-nav-lang-btn').textContent = next === 'ar' ? 'EN' : 'ع';
+  if (typeof applyTranslations === 'function') applyTranslations();
+  // Update rendered badge labels in-place
+  document.querySelectorAll('[data-badge-id]').forEach(span => {
+    const b = span.dataset.badgeId;
+    const key = 'badge-' + b.replace(/_/g, '-');
+    if (window.t && window.t(key) !== key) span.textContent = window.t(key);
+  });
+};
+(function() {
+  const lang = localStorage.getItem('qc_lang') || 'ar';
+  document.documentElement.lang = lang;
+  document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+  const btn = document.getElementById('g-nav-lang-btn');
+  if (btn) btn.textContent = lang === 'ar' ? 'EN' : 'ع';
+})();
+</script>
+<script src="/notif.js" defer></script>
+</body>
+</html>

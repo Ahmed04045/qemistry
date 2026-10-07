@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4271411908599611"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>404 — Qemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;">
+<div style="text-align:center;">
+  <div style="width:100px;height:100px;border-radius:20px;background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(141,27,61,0.1));border:1px solid rgba(139,92,246,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+    <svg viewBox="0 0 100 100" width="90" height="90" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+      <defs>
+        <radialGradient id="ng-e4" cx="38%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#d8b4fe"/>
+          <stop offset="100%" stop-color="#7c3aed"/>
+        </radialGradient>
+      </defs>
+      <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="44" ry="17" transform="rotate(-18,50,50)"/>
+      <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="40" ry="15" transform="rotate(55,50,50)"/>
+      <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="46" ry="16" transform="rotate(-80,50,50)"/>
+      <circle cx="50" cy="50" r="15" fill="url(#ng-e4)"/>
+      <path d="M 43 44.5 Q 45 43.3 47 44.5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="0.9" stroke-linecap="round"/>
+      <path d="M 53 44.5 Q 55 43.3 57 44.5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="0.9" stroke-linecap="round"/>
+      <circle cx="45" cy="48" r="4.2" fill="white" opacity=".93"/>
+      <circle id="e4-pL" cx="45" cy="48" r="2.5" fill="#2e1065"/>
+      <circle cx="55" cy="48" r="4.2" fill="white" opacity=".93"/>
+      <circle id="e4-pR" cx="55" cy="48" r="2.5" fill="#2e1065"/>
+      <path id="e4-mouth" d="M 45.5 57 Q 50 61 54.5 57" fill="none" stroke="white" stroke-width="1.25" stroke-linecap="round"/>
+      <circle id="e4-ed1" cx="94" cy="50" r="4" fill="#e879f9" style="filter:drop-shadow(0 0 4px #e879f9)"/>
+      <circle id="e4-ed2" cx="16" cy="24" r="3.4" fill="#c084fc" style="filter:drop-shadow(0 0 3px #c084fc)"/>
+      <circle id="e4-ed3" cx="28" cy="82" r="2.9" fill="#a855f7" style="filter:drop-shadow(0 0 3px #a855f7)"/>
+    </svg>
+  </div>
+  <h1 style="font-size:80px;font-weight:700;background:linear-gradient(135deg,#8B5CF6,#8D1B3D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;">404</h1>
+  <h2 style="font-size:22px;font-weight:700;margin-bottom:12px;">الصفحة غير موجودة</h2>
+  <p style="font-size:14px;color:var(--text2);margin-bottom:32px;">الرابط الذي أدخلته غير صحيح أو تم حذف الصفحة</p>
+  <a href="/" style="display:inline-block;background:linear-gradient(135deg,#8D1B3D,#7C3AED);color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:16px;font-weight:600;">الرجوع للرئيسية</a>
+</div>
+<script>
+(function(){
+  const orbDefs=[
+    {cx:50,cy:50,rx:44,ry:17,tilt:-18*Math.PI/180},
+    {cx:50,cy:50,rx:40,ry:15,tilt:55*Math.PI/180},
+    {cx:50,cy:50,rx:46,ry:16,tilt:-80*Math.PI/180},
+  ];
+  const eDef=[{orb:0,off:0},{orb:1,off:Math.PI*.7},{orb:2,off:Math.PI*1.4}];
+  const eds=['e4-ed1','e4-ed2','e4-ed3'].map(id=>document.getElementById(id));
+  const pL=document.getElementById('e4-pL'),pR=document.getElementById('e4-pR'),mouth=document.getElementById('e4-mouth');
+  if(!eds[0])return;
+  let eyeAng=-Math.PI/2,eyeDir=1,eyeTurns=0,t=0,mClock=0;
+  function ePos(o,a){const lx=o.rx*Math.cos(a),ly=o.ry*Math.sin(a);return{x:o.cx+lx*Math.cos(o.tilt)-ly*Math.sin(o.tilt),y:o.cy+lx*Math.sin(o.tilt)+ly*Math.cos(o.tilt)};}
+  function frame(){
+    t+=0.025;mClock+=0.025;
+    eDef.forEach((e,i)=>{const p=ePos(orbDefs[e.orb],t+e.off);if(eds[i]){eds[i].setAttribute('cx',p.x);eds[i].setAttribute('cy',p.y);}});
+    eyeAng+=0.028*eyeDir;eyeTurns+=0.028;
+    if(eyeTurns>=Math.PI*2){eyeTurns=0;eyeDir*=-1;}
+    if(pL){pL.setAttribute('cx',45+Math.cos(eyeAng)*1.7);pL.setAttribute('cy',48+Math.sin(eyeAng)*1.7);}
+    if(pR){pR.setAttribute('cx',55+Math.cos(eyeAng)*1.7);pR.setAttribute('cy',48+Math.sin(eyeAng)*1.7);}
+    const v=(Math.sin(mClock*0.38)+1)/2;
+    const ctrlY=58.5+v*2.2,wx=4.5+v*1.5,baseY=56.8;
+    if(mouth)mouth.setAttribute('d',`M ${50-wx} ${baseY} Q 50 ${ctrlY} ${50+wx} ${baseY}`);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

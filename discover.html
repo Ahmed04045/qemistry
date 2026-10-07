@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>اكتشف — Qemistry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="/translations.js"></script>
+  <style>
+    .disc-page { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 0 16px 60px; }
+
+    /* Header */
+    .disc-header { width: 100%; max-width: 760px; padding: 28px 0 18px; text-align: center; }
+    .disc-title   { font-size: 24px; font-weight: 700; margin-bottom: 5px; }
+    .disc-sub     { font-size: 13px; color: var(--text3); }
+
+    /* Filter chips */
+    .disc-filters { width: 100%; max-width: 760px; margin-bottom: 20px; }
+    .disc-filter-label { font-size: 12px; color: var(--text3); margin-bottom: 10px; }
+    .disc-chips   { display: flex; flex-wrap: wrap; gap: 8px; }
+    .disc-chip    { display: flex; align-items: center; gap: 5px; padding: 6px 14px; border-radius: 20px;
+                    background: var(--bg2); border: 1px solid var(--border); font-size: 13px; color: var(--text2);
+                    cursor: pointer; transition: all .15s; user-select: none; }
+    .disc-chip:hover  { border-color: rgba(139,92,246,.4); color: var(--text); }
+    .disc-chip.active { background: rgba(139,92,246,.15); border-color: var(--accent); color: #c4b5fd; font-weight: 600; }
+    .disc-clear   { background: none; border: none; font-size: 12px; color: var(--text3); cursor: pointer;
+                    padding: 6px 10px; border-radius: 20px; font-family: 'Tajawal', sans-serif;
+                    transition: color .15s; align-self: center; }
+    .disc-clear:hover { color: var(--accent); }
+
+    /* Grid */
+    .disc-grid { width: 100%; max-width: 760px; display: grid;
+                 grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+
+    /* Card */
+    .disc-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 18px;
+                 padding: 20px 16px; display: flex; flex-direction: column; align-items: center;
+                 gap: 10px; transition: border-color .2s, transform .15s; }
+    .disc-card:hover { border-color: rgba(139,92,246,.3); transform: translateY(-3px); }
+
+    .disc-av { width: 60px; height: 60px; border-radius: 50%; overflow: hidden; background: var(--surface);
+               border: 2px solid var(--border2); display: flex; align-items: center;
+               justify-content: center; font-size: 28px; flex-shrink: 0; }
+    .disc-av img { width: 100%; height: 100%; object-fit: cover; }
+
+    .disc-name  { font-size: 15px; font-weight: 700; text-align: center; }
+    .disc-pts   { font-size: 12px; color: #fbbf24; font-weight: 600; }
+
+    .disc-badges { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
+    .disc-badge  { font-size: 10px; padding: 2px 8px; border-radius: 10px;
+                   background: rgba(139,92,246,.12); border: 1px solid rgba(139,92,246,.25); color: #c4b5fd; }
+
+    .disc-interests { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+    .disc-int       { font-size: 11px; padding: 2px 9px; border-radius: 10px;
+                      background: rgba(255,255,255,.05); border: 1px solid var(--border); color: var(--text3); }
+    .disc-int.shared { background: rgba(139,92,246,.15); border-color: rgba(139,92,246,.35); color: #c4b5fd; font-weight: 600; }
+
+    .disc-add { width: 100%; padding: 9px; border-radius: 10px; font-size: 13px; font-weight: 600;
+                font-family: 'Tajawal', sans-serif; cursor: pointer; transition: all .2s;
+                background: rgba(139,92,246,.15); border: 1px solid rgba(139,92,246,.35); color: #c4b5fd; }
+    .disc-add:hover:not(:disabled) { background: rgba(139,92,246,.3); border-color: var(--accent); }
+    .disc-add:disabled { opacity: .5; cursor: default; }
+
+    /* Empty / loading */
+    .disc-empty { width: 100%; max-width: 760px; text-align: center; padding: 60px 20px;
+                  color: var(--text3); font-size: 15px; line-height: 1.8; }
+    .disc-empty-icon { font-size: 48px; margin-bottom: 12px; }
+
+    @media(max-width: 480px) {
+      .disc-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .disc-av   { width: 48px; height: 48px; font-size: 22px; }
+      .disc-name { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+<nav class="g-nav">
+  <a class="g-nav-logo" href="/">Qemistry</a>
+  <div class="g-nav-links">
+    <a href="/" class="g-nav-link" data-path="/">🏠 <span class="g-nav-text" data-t="nav-home">الرئيسية</span></a>
+    <a href="/qemy" class="g-nav-link" data-path="/qemy">🃏 <span class="g-nav-text">Qemy</span></a>
+    <a href="/imposter" class="g-nav-link" data-path="/imposter">🕵️ <span class="g-nav-text" data-t="nav-imposter">برا السالفة</span></a>
+    <a href="/leaderboard" class="g-nav-link" data-path="/leaderboard">🏆 <span class="g-nav-text" data-t="nav-leaderboard">الترتيب</span></a>
+    <a href="/discover" class="g-nav-link active" data-path="/discover">🔍 <span class="g-nav-text" data-t="nav-discover">اكتشف</span></a>
+    <a href="/talent-show" class="g-nav-link" data-path="/talent-show">🎤 <span class="g-nav-text">Talent Show</span></a>
+    <button class="g-nav-bell" id="g-nav-bell" aria-label="الإشعارات">🔔<span class="g-nav-bell-badge" id="g-nav-bell-badge" style="display:none"></span></button>
+    <a href="/#dashboard" class="g-nav-link" id="g-nav-profile">👤 <span class="g-nav-text" data-t="nav-profile">حسابي</span></a>
+    <button class="g-nav-lang" id="g-nav-lang-btn" onclick="togglePageLang()">EN</button>
+  </div>
+</nav>
+
+<div class="disc-page">
+  <div class="disc-header">
+    <div class="disc-title" data-t="disc-title">🔍 اكتشف أشخاصاً جدد</div>
+    <div class="disc-sub" data-t="disc-sub">تصفّح مستخدمي Qemistry وأضف أصدقاء جدداً</div>
+  </div>
+
+  <!-- Interest filters -->
+  <div class="disc-filters">
+    <div class="disc-filter-label" data-t="disc-filter-label">فلتر حسب الاهتمام</div>
+    <div class="disc-chips" id="disc-chips">
+      <div class="disc-chip" data-int="رياضة">⚽ <span data-t="hobby-sport">رياضة</span></div>
+      <div class="disc-chip" data-int="ألعاب">🎮 <span data-t="hobby-gaming">ألعاب</span></div>
+      <div class="disc-chip" data-int="تقنية">💻 <span data-t="hobby-tech">تقنية</span></div>
+      <div class="disc-chip" data-int="موسيقى">🎵 <span data-t="hobby-music">موسيقى</span></div>
+      <div class="disc-chip" data-int="دراسة">📚 <span data-t="hobby-study">دراسة</span></div>
+      <div class="disc-chip" data-int="إبداع">🎨 <span data-t="hobby-creative">إبداع</span></div>
+      <div class="disc-chip" data-int="مطاعم">🍔 <span data-t="hobby-food">مطاعم</span></div>
+      <div class="disc-chip" data-int="سفر">✈️ <span data-t="hobby-travel">سفر</span></div>
+      <div class="disc-chip" data-int="أعمال">💼 <span data-t="hobby-business">أعمال</span></div>
+      <button class="disc-clear" id="disc-clear" data-t="disc-clear" style="display:none">✕ مسح</button>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="disc-grid" id="disc-grid">
+    <div class="disc-empty" style="grid-column:1/-1">
+      <div class="disc-empty-icon">⏳</div>
+      <div data-t="lb-loading">جاري التحميل...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const TOKEN       = localStorage.getItem('qc_token') || '';
+  const currentUser = (() => { try { return JSON.parse(localStorage.getItem('qc_currentUser') || 'null'); } catch { return null; } })();
+  const myHobbies   = new Set(currentUser?.hobbies || []);
+
+  function badgeLabel(b) {
+    const key = 'badge-' + b.replace(/_/g, '-');
+    return (window.t && window.t(key) !== key) ? window.t(key) : b;
+  }
+
+  const HOBBY_KEYS = {
+    'رياضة':'hobby-sport','ألعاب':'hobby-gaming','تقنية':'hobby-tech',
+    'موسيقى':'hobby-music','دراسة':'hobby-study','إبداع':'hobby-creative',
+    'مطاعم':'hobby-food','سفر':'hobby-travel','أعمال':'hobby-business',
+  };
+  function hobbyLabel(h) {
+    const key = HOBBY_KEYS[h];
+    return (key && window.t) ? window.t(key) : h;
+  }
+
+  let selected = new Set();
+  let sentIds  = new Set(); // track sent requests this session
+
+  function esc(s) {
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Chips ────────────────────────────────────────────────
+  document.querySelectorAll('.disc-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const val = chip.dataset.int;
+      if (selected.has(val)) { selected.delete(val); chip.classList.remove('active'); }
+      else                   { selected.add(val);    chip.classList.add('active'); }
+      document.getElementById('disc-clear').style.display = selected.size ? '' : 'none';
+      load();
+    });
+  });
+
+  document.getElementById('disc-clear').addEventListener('click', () => {
+    selected.clear();
+    document.querySelectorAll('.disc-chip').forEach(c => c.classList.remove('active'));
+    document.getElementById('disc-clear').style.display = 'none';
+    load();
+  });
+
+  // ── Load ─────────────────────────────────────────────────
+  async function load() {
+    const grid = document.getElementById('disc-grid');
+    grid.innerHTML = `<div class="disc-empty" style="grid-column:1/-1"><div class="disc-empty-icon">⏳</div><div>${window.t ? window.t('lb-loading') : 'جاري التحميل...'}</div></div>`;
+
+    if (!TOKEN) {
+      grid.innerHTML = `<div class="disc-empty" style="grid-column:1/-1">
+        <div class="disc-empty-icon">🔒</div>
+        <div>${window.t ? window.t('disc-login') : 'سجّل دخولك لاكتشاف المستخدمين'}</div>
+        <a href="/" style="color:var(--accent);text-decoration:none;font-weight:600;">← ${window.t ? window.t('tab-login') : 'تسجيل الدخول'}</a>
+      </div>`;
+      return;
+    }
+
+    try {
+      const qs  = selected.size ? `?interests=${[...selected].join(',')}` : '';
+      const res  = await fetch('/api/discover' + qs, { headers: { authorization: 'Bearer ' + TOKEN } });
+      const data = await res.json();
+      render(data.users || []);
+    } catch (_) {
+      grid.innerHTML = `<div class="disc-empty" style="grid-column:1/-1"><div class="disc-empty-icon">⚠️</div><div>${window.t ? window.t('disc-error') : 'تعذّر التحميل. حاول مجدداً.'}</div></div>`;
+    }
+  }
+
+  // ── Render ───────────────────────────────────────────────
+  function render(users) {
+    const grid = document.getElementById('disc-grid');
+    if (!users.length) {
+      const msg = selected.size
+        ? (window.t ? window.t('disc-no-users-filtered') : 'لا يوجد مستخدمون مشتركون في هذه الاهتمامات حالياً.<br>جرّب تغيير الفلتر!')
+        : (window.t ? window.t('disc-no-users') : 'لا يوجد مستخدمون جدد لاكتشافهم حالياً.<br>عد لاحقاً!');
+      grid.innerHTML = `<div class="disc-empty" style="grid-column:1/-1"><div class="disc-empty-icon">🌵</div><div>${msg}</div></div>`;
+      return;
+    }
+
+    grid.innerHTML = users.map(u => {
+      const frame   = u.equipped_frame || 'default';
+      const badges  = (u.earned_badges || []).map(b => `<span class="disc-badge">${esc(badgeLabel(b))}</span>`).join('');
+      const hobbies = (u.hobbies || []).map(h => {
+        const shared = myHobbies.has(h);
+        return `<span class="disc-int${shared ? ' shared' : ''}">${esc(hobbyLabel(h))}</span>`;
+      }).join('');
+      const lang = localStorage.getItem('qc_lang') || 'ar';
+      const pts  = Number(u.points || 0).toLocaleString(lang === 'ar' ? 'ar-EG' : 'en-US');
+      const avEl = u.avatar_url && u.avatar_url.startsWith('http')
+        ? `<img src="${esc(u.avatar_url)}" alt=""/>`
+        : '😊';
+      const alreadySent = sentIds.has(u.id);
+
+      return `<div class="disc-card">
+        <div class="disc-av" data-frame="${esc(frame)}">${avEl}</div>
+        <div class="disc-name">${esc(u.username)}</div>
+        ${badges ? `<div class="disc-badges">${badges}</div>` : ''}
+        <div class="disc-pts">⭐ ${pts} ${window.t ? window.t('lb-pts') : 'نقطة'}</div>
+        ${hobbies ? `<div class="disc-interests">${hobbies}</div>` : ''}
+        <button class="disc-add" data-uid="${esc(u.id)}" ${alreadySent ? 'disabled' : ''}
+          onclick="addFriend(this)">
+          ${alreadySent ? (window.t ? window.t('disc-sent') : '✅ أُرسل') : (window.t ? window.t('disc-add-friend') : '➕ إضافة صديق')}
+        </button>
+      </div>`;
+    }).join('');
+  }
+
+  // ── Add friend ───────────────────────────────────────────
+  window.addFriend = async function(btn) {
+    if (!TOKEN) { window.location.href = '/'; return; }
+    const uid = btn.dataset.uid;
+    btn.disabled = true;
+    btn.textContent = '⏳';
+    try {
+      const res  = await fetch('/friend-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', authorization: 'Bearer ' + TOKEN },
+        body: JSON.stringify({ targetId: uid })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        sentIds.add(uid);
+        btn.textContent = window.t ? window.t('disc-sent') : '✅ أُرسل';
+      } else {
+        btn.textContent = window.t ? window.t('disc-failed') : '❌ فشل';
+        btn.disabled = false;
+        setTimeout(() => { if (!sentIds.has(uid)) { btn.textContent = window.t ? window.t('disc-add-friend') : '➕ إضافة صديق'; } }, 2000);
+      }
+    } catch (_) {
+      btn.textContent = window.t ? window.t('disc-add-friend') : '➕ إضافة صديق';
+      btn.disabled = false;
+    }
+  };
+
+  // Lang toggle
+  window.togglePageLang = function() {
+    const next = (localStorage.getItem('qc_lang') || 'ar') === 'ar' ? 'en' : 'ar';
+    localStorage.setItem('qc_lang', next);
+    document.documentElement.lang = next;
+    document.documentElement.dir  = next === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('g-nav-lang-btn').textContent = next === 'ar' ? 'EN' : 'ع';
+    if (typeof applyTranslations === 'function') applyTranslations();
+    load(); // re-render cards with new language
+  };
+  (function() {
+    const lang = localStorage.getItem('qc_lang') || 'ar';
+    document.documentElement.lang = lang;
+    document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+    const btn = document.getElementById('g-nav-lang-btn');
+    if (btn) btn.textContent = lang === 'ar' ? 'EN' : 'ع';
+    if (typeof applyTranslations === 'function') applyTranslations();
+  })();
+
+  // Boot
+  load();
+})();
+</script>
+<script src="/notif.js" defer></script>
+</body>
+</html>

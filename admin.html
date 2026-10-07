@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4271411908599611"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>لوحة الإدارة — Qemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+body { font-family:'Tajawal',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+/* Login */
+.admin-login { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+.login-card { background:var(--bg2); border:1px solid var(--border2); border-radius:20px; padding:40px; width:100%; max-width:380px; text-align:center; }
+.login-card h2 { font-size:22px; font-weight:700; margin-bottom:8px; }
+.login-card p { font-size:13px; color:var(--text3); margin-bottom:28px; }
+.admin-input { width:100%; background:var(--surface); border:1px solid var(--border2); border-radius:var(--radius-sm); padding:12px 14px; color:var(--text); font-family:'Tajawal',sans-serif; font-size:15px; outline:none; direction:ltr; transition:border-color .2s; margin-bottom:12px; }
+.admin-input:focus { border-color:var(--accent); }
+
+/* Dashboard */
+.admin-dash { display:none; min-height:100vh; flex-direction:column; }
+.admin-nav { display:flex; align-items:center; justify-content:space-between; padding:14px 28px; background:var(--bg2); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:20; }
+.admin-nav-logo { font-size:16px; font-weight:700; display:flex; align-items:center; gap:8px; }
+.admin-nav-right { display:flex; align-items:center; gap:12px; }
+.admin-body { padding:28px; max-width:1100px; margin:0 auto; width:100%; }
+
+/* Stats */
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:28px; }
+.stat-box { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); padding:20px; text-align:center; transition:border-color .2s; }
+.stat-box:hover { border-color:var(--accent); }
+.stat-box-num { font-size:32px; font-weight:700; background:linear-gradient(90deg,var(--accent),var(--brand2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.stat-box-label { font-size:12px; color:var(--text3); margin-top:4px; }
+
+/* Tabs */
+.admin-tabs { display:flex; background:var(--surface); border-radius:var(--radius-sm); padding:4px; margin-bottom:24px; gap:4px; flex-wrap:wrap; }
+.admin-tab { flex:1; padding:10px 14px; border:none; border-radius:7px; background:transparent; color:var(--text2); font-family:'Tajawal',sans-serif; font-size:13px; font-weight:500; cursor:pointer; transition:all .2s; white-space:nowrap; }
+.admin-tab.active { background:var(--surface2); color:var(--text); }
+
+/* Sections */
+.admin-section { display:none; }
+.admin-section.active { display:block; }
+
+/* Table */
+.admin-table { width:100%; border-collapse:collapse; }
+.admin-table th { background:var(--surface2); padding:10px 14px; text-align:right; font-size:12px; color:var(--text3); font-weight:600; border-bottom:1px solid var(--border); }
+.admin-table td { padding:10px 14px; font-size:13px; border-bottom:1px solid var(--border); vertical-align:middle; }
+.admin-table tr:hover td { background:var(--surface); }
+.admin-table-wrap { background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; overflow-x:auto; }
+
+/* Search */
+.search-row { display:flex; gap:10px; margin-bottom:16px; }
+.search-input { flex:1; background:var(--surface); border:1px solid var(--border2); border-radius:var(--radius-sm); padding:10px 14px; color:var(--text); font-family:'Tajawal',sans-serif; font-size:14px; outline:none; direction:rtl; }
+.search-input:focus { border-color:var(--accent); }
+
+/* Badges */
+.badge-banned { background:rgba(239,68,68,.15); color:#fca5a5; border:1px solid rgba(239,68,68,.3); border-radius:20px; padding:3px 10px; font-size:11px; }
+.badge-active { background:rgba(16,185,129,.1); color:var(--green); border:1px solid rgba(16,185,129,.3); border-radius:20px; padding:3px 10px; font-size:11px; }
+.badge-new { background:rgba(139,92,246,.15); color:#c4b5fd; border:1px solid rgba(139,92,246,.3); border-radius:20px; padding:3px 10px; font-size:11px; }
+.badge-reviewed { background:var(--surface); color:var(--text3); border:1px solid var(--border); border-radius:20px; padding:3px 10px; font-size:11px; }
+
+/* Suspicious card */
+.suspicious-card { background:var(--bg2); border:1px solid rgba(239,68,68,.3); border-radius:var(--radius); padding:20px; margin-bottom:16px; }
+.suspicious-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.suspicious-user { display:flex; align-items:center; gap:12px; }
+.suspicious-avatar { width:44px; height:44px; border-radius:50%; background:var(--surface); border:2px solid rgba(239,68,68,.4); display:flex; align-items:center; justify-content:center; font-size:20px; overflow:hidden; flex-shrink:0; }
+.suspicious-avatar img { width:100%; height:100%; object-fit:cover; }
+.suspicious-name { font-size:15px; font-weight:700; }
+.suspicious-email { font-size:12px; color:var(--text3); }
+.report-count { background:rgba(239,68,68,.15); color:#fca5a5; border:1px solid rgba(239,68,68,.3); border-radius:20px; padding:4px 14px; font-size:13px; font-weight:700; }
+.report-details { background:var(--surface); border-radius:var(--radius-sm); padding:12px; margin-top:10px; display:none; }
+.report-details.open { display:block; }
+.report-item { padding:8px 0; border-bottom:1px solid var(--border); font-size:12px; color:var(--text2); display:flex; justify-content:space-between; }
+.report-item:last-child { border-bottom:none; }
+
+/* User avatar */
+.user-avatar-sm { width:32px; height:32px; border-radius:50%; background:var(--surface); border:1px solid var(--border2); display:flex; align-items:center; justify-content:center; font-size:14px; overflow:hidden; flex-shrink:0; }
+.user-avatar-sm img { width:100%; height:100%; object-fit:cover; }
+
+.empty-admin { text-align:center; padding:40px; color:var(--text3); font-size:14px; }
+.refresh-btn { background:var(--surface); border:1px solid var(--border2); border-radius:var(--radius-sm); padding:8px 16px; color:var(--text2); font-family:'Tajawal',sans-serif; font-size:13px; cursor:pointer; transition:all .2s; }
+.refresh-btn:hover { border-color:var(--accent); color:var(--text); }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="admin-login" id="admin-login">
+  <div class="login-card">
+    <div style="font-size:36px;margin-bottom:12px;">🛡️</div>
+    <h2>لوحة الإدارة</h2>
+    <p>Qemistry — اذا انت مش يمان شلش 😂</p>
+    <input class="admin-input" id="admin-pass" type="password" placeholder="كلمة المرور" onkeydown="if(event.key==='Enter')doAdminLogin()"/>
+    <button class="btn-primary btn-full" onclick="doAdminLogin()">دخول</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="admin-dash" id="admin-dash">
+  <div class="admin-nav">
+    <div class="admin-nav-logo">🛡️ لوحة الإدارة — Qemistry</div>
+    <div class="admin-nav-right">
+      <button class="refresh-btn" onclick="loadAll()">🔄 تحديث</button>
+      <button class="refresh-btn" onclick="adminLogout()">🚪 خروج</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-box-num" id="s-users">—</div><div class="stat-box-label">إجمالي المستخدمين</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="s-online">—</div><div class="stat-box-label">متصل الحين</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="s-reports">—</div><div class="stat-box-label">إجمالي البلاغات</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="s-new-reports">—</div><div class="stat-box-label">بلاغات جديدة</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="s-banned">—</div><div class="stat-box-label">محظورون</div></div>
+    </div>
+
+    <!-- Tabs -->
+     <div class="admin-tabs">
+  <button class="admin-tab active" onclick="switchAdminTab('suspicious')">⚠️ مشبوهون</button>
+  <button class="admin-tab" onclick="switchAdminTab('reports')">🚩 البلاغات</button>
+  <button class="admin-tab" onclick="switchAdminTab('users')">👥 المستخدمون</button>
+  <button class="admin-tab" onclick="switchAdminTab('staff')">👷 الموظفون</button>
+  <button class="admin-tab" onclick="switchAdminTab('tasks')">📋 المهام</button>
+  <button class="admin-tab" onclick="switchAdminTab('talent')">🎤 موهبتنا</button>
+</div>
+
+    <!-- Suspicious -->
+    <div class="admin-section active" id="tab-suspicious">
+      <div id="suspicious-list"><div class="empty-admin">جاري التحميل...</div></div>
+    </div>
+
+    <!-- Reports -->
+    <div class="admin-section" id="tab-reports">
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>المبلِّغ</th>
+              <th>المبلَّغ عنه</th>
+              <th>السبب</th>
+              <th>التاريخ</th>
+              <th>الحالة</th>
+              <th>إجراء</th>
+            </tr>
+          </thead>
+          <tbody id="reports-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Users -->
+    <div class="admin-section" id="tab-users">
+      <div class="search-row">
+        <input class="search-input" id="user-search" placeholder="بحث باسم أو إيميل..." oninput="filterUsers()"/>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>المستخدم</th>
+              <th>الإيميل</th>
+              <th>تاريخ التسجيل</th>
+              <th>المحادثات</th>
+              <th>الحالة</th>
+              <th>إجراء</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Staff -->
+<div class="admin-section" id="tab-staff">
+  <div class="new-task-form" style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:24px;margin-bottom:24px;">
+    <h2 style="font-size:16px;font-weight:700;margin-bottom:16px;">➕ موظف جديد</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div>
+        <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:6px;">الاسم الكامل</label>
+        <input id="staff-name" type="text" placeholder="الاسم" class="search-input"/>
+      </div>
+      <div>
+        <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:6px;">اسم المستخدم</label>
+        <input id="staff-username" type="text" placeholder="username" class="search-input" dir="ltr"/>
+      </div>
+      <div>
+        <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:6px;">كلمة المرور</label>
+        <input id="staff-password" type="password" placeholder="كلمة المرور" class="search-input" dir="ltr" autocomplete="new-password"/>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="createStaff()">إنشاء حساب موظف</button>
+  </div>
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>الاسم</th>
+          <th>اسم المستخدم</th>
+          <th>تاريخ الإنشاء</th>
+          <th>إجراء</th>
+        </tr>
+      </thead>
+      <tbody id="staff-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Tasks -->
+<div class="admin-section" id="tab-tasks">
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:24px;margin-bottom:24px;">
+    <h2 style="font-size:16px;font-weight:700;margin-bottom:16px;">➕ مهمة جديدة</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div>
+        <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:6px;">عنوان المهمة *</label>
+        <input id="task-title" type="text" placeholder="عنوان واضح" class="search-input"/>
+      </div>
+      <div>
+        <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:6px;">تعيين لموظف</label>
+        <select id="task-staff" class="search-input">
+          <option value="">— اختر موظف —</option>
+        </select>
+      </div>
+      <div style="grid-column:1/-1;">
+        <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:6px;">الوصف</label>
+        <textarea id="task-desc" placeholder="تفاصيل المهمة..." class="search-input" style="height:70px;resize:none;"></textarea>
+      </div>
+      <div>
+        <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:6px;">Deadline</label>
+        <input id="task-deadline" type="datetime-local" class="search-input" dir="ltr"/>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="createTask()">إنشاء المهمة</button>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+    <button class="refresh-btn" onclick="filterAdminTasks('all', this)" style="border-color:var(--accent);color:var(--accent);">الكل</button>
+    <button class="refresh-btn" onclick="filterAdminTasks('pending', this)">⏳ معلقة</button>
+    <button class="refresh-btn" onclick="filterAdminTasks('in-progress', this)">🔄 جاري</button>
+    <button class="refresh-btn" onclick="filterAdminTasks('completed', this)">✅ منجزة</button>
+    <button class="refresh-btn" onclick="filterAdminTasks('failed', this)">❌ فشلت</button>
+  </div>
+
+  <div id="admin-tasks-list"></div>
+</div>
+
+<!-- Talent Show Waitlist -->
+<div class="admin-section" id="tab-talent">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+    <div>
+      <div style="font-size:16px;font-weight:700;">🎤 Qemistry Talent Show — قائمة الانتظار</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:4px;">إجمالي المسجلين: <span id="talent-count">—</span></div>
+    </div>
+    <button class="refresh-btn" onclick="loadTalentWaitlist()">🔄 تحديث</button>
+  </div>
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>الاسم / Name</th>
+          <th>البريد / Email</th>
+          <th>الموهبة / Talent</th>
+          <th>تاريخ التسجيل</th>
+        </tr>
+      </thead>
+      <tbody id="talent-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+      </div>
+  </div>
+
+<div class="status-toast" id="toast"></div>
+
+<script>
+const SERVER_URL = 'https://www.qemistry.live';
+let adminToken = '';
+let allUsers = [];
+
+// Escape helper — prevents XSS from user-supplied content in innerHTML
+function _esc(str) {
+  const d = document.createElement('div');
+  d.textContent = String(str ?? '');
+  return d.innerHTML;
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function adminHeaders() {
+  return { 'Content-Type': 'application/json', 'x-admin-token': adminToken };
+}
+
+async function doAdminLogin() {
+  const pass = document.getElementById('admin-pass').value.trim();
+  if (!pass) return;
+  const res  = await fetch(`${SERVER_URL}/admin/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: pass })
+  });
+  const data = await res.json();
+  if (!data.ok) return showToast('⚠️ كلمة المرور خاطئة');
+  adminToken = data.token;
+  sessionStorage.setItem('admin_token', data.token);
+  document.getElementById('admin-pass').value = ''; // clear password from DOM
+  document.getElementById('admin-login').style.display = 'none';
+  document.getElementById('admin-dash').style.display  = 'flex';
+  loadAll();
+}
+
+function adminLogout() {
+  sessionStorage.removeItem('admin_token');
+  adminToken = '';
+  document.getElementById('admin-login').style.display = 'flex';
+  document.getElementById('admin-dash').style.display  = 'none';
+}
+
+async function loadAll() {
+  loadStats();
+  loadSuspicious();
+  loadReports();
+  loadUsers();
+  loadStaff();
+  loadAdminTasks();
+  loadTalentWaitlist();
+}
+
+async function loadStats() {
+  const res  = await fetch(`${SERVER_URL}/admin/stats`, { headers: adminHeaders() });
+  const data = await res.json();
+  if (!data.ok) return;
+  const s = data.stats;
+  document.getElementById('s-users').textContent      = s.totalUsers || 0;
+  document.getElementById('s-online').textContent     = s.onlineCount || 0;
+  document.getElementById('s-reports').textContent    = s.totalReports || 0;
+  document.getElementById('s-new-reports').textContent = s.newReports || 0;
+  document.getElementById('s-banned').textContent     = s.bannedUsers || 0;
+}
+
+async function loadSuspicious() {
+  const res  = await fetch(`${SERVER_URL}/admin/suspicious`, { headers: adminHeaders() });
+  const data = await res.json();
+  const list = document.getElementById('suspicious-list');
+  if (!data.suspicious?.length) {
+    list.innerHTML = '<div class="empty-admin">✅ لا يوجد مستخدمون مشبوهون حالياً</div>';
+    return;
+  }
+  list.innerHTML = data.suspicious.map(u => `
+    <div class="suspicious-card">
+      <div class="suspicious-header">
+        <div class="suspicious-user">
+          <div class="suspicious-avatar">
+            ${u.user?.avatar_url ? `<img src="${_esc(u.user.avatar_url)}"/>` : '😊'}
+          </div>
+          <div>
+            <div class="suspicious-name">${_esc(u.user?.username) || 'مستخدم محذوف'}</div>
+            <div class="suspicious-email">${_esc(u.user?.email) || '—'}</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="report-count">🚩 ${_esc(u.count)} بلاغ</span>
+     ${u.is_banned
+  ? `<button class="btn-sm" onclick="unbanUser('${_esc(u.id)}')">فك الحظر</button>`
+  : `<button class="btn-sm danger" onclick="banUser('${_esc(u.id)}')">حظر</button>`}
+<button class="btn-sm danger" style="margin-right:6px" onclick="deleteUser('${_esc(u.id)}')">حذف</button>
+          <button class="btn-sm" onclick="toggleReportDetails('${_esc(u.id)}')">التفاصيل ▼</button>
+        </div>
+      </div>
+      <div class="report-details" id="details-${_esc(u.id)}">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;">جاري التحميل...</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function toggleReportDetails(userId) {
+  const details = document.getElementById('details-' + userId);
+  details.classList.toggle('open');
+  if (details.classList.contains('open') && details.innerHTML.includes('جاري التحميل')) {
+    const res  = await fetch(`${SERVER_URL}/admin/user-reports/${userId}`, { headers: adminHeaders() });
+    const data = await res.json();
+    if (!data.reports?.length) {
+      details.innerHTML = '<div style="font-size:12px;color:var(--text3);">لا توجد تفاصيل</div>';
+      return;
+    }
+    details.innerHTML = data.reports.map(r => `
+      <div class="report-item">
+        <span>🚩 ${_esc(r.reason)}</span>
+        <span style="color:var(--text3);">بواسطة: ${_esc(r.reporter?.username) || 'مجهول'} — ${new Date(r.created_at).toLocaleDateString('ar-QA')}</span>
+      </div>
+    `).join('');
+  }
+}
+
+async function loadReports() {
+  const res  = await fetch(`${SERVER_URL}/admin/reports`, { headers: adminHeaders() });
+  const data = await res.json();
+  const tbody = document.getElementById('reports-tbody');
+  if (!data.reports?.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text3);">لا توجد بلاغات</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.reports.map(r => `
+    <tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="user-avatar-sm">😊</div>
+          <div>
+            <div style="font-weight:600;">${_esc(r.reporter?.username) || 'مجهول'}</div>
+            <div style="font-size:11px;color:var(--text3);">${_esc(r.reporter?.email) || ''}</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="user-avatar-sm">😊</div>
+          <div>
+            <div style="font-weight:600;">${_esc(r.reported?.username) || 'مجهول'}</div>
+            <div style="font-size:11px;color:var(--text3);">${_esc(r.reported?.email) || ''}</div>
+          </div>
+        </div>
+      </td>
+      <td>${_esc(r.reason)}</td>
+      <td style="color:var(--text3);font-size:12px;">${new Date(r.created_at).toLocaleDateString('ar-QA', { year:'numeric', month:'long', day:'numeric' })}</td>
+      <td>${r.reviewed ? '<span class="badge-reviewed">تمت المراجعة</span>' : '<span class="badge-new">جديد</span>'}</td>
+      <td>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          ${!r.reviewed ? `<button class="btn-sm" onclick="reviewReport('${_esc(r.id)}')">تجاهل</button>` : ''}
+          ${r.reported && !r.reported.is_banned
+            ? `<button class="btn-sm danger" onclick="banUser('${_esc(r.reported_id)}')">حظر</button>`
+            : r.reported?.is_banned ? `<button class="btn-sm" onclick="unbanUser('${_esc(r.reported_id)}')">فك حظر</button>` : ''}
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+async function loadUsers() {
+  const res  = await fetch(`${SERVER_URL}/admin/users`, { headers: adminHeaders() });
+  const data = await res.json();
+  allUsers = data.users || [];
+  renderUsers(allUsers);
+}
+
+function renderUsers(users) {
+  const tbody = document.getElementById('users-tbody');
+  if (!users.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text3);">لا يوجد مستخدمون</td></tr>';
+    return;
+  }
+  tbody.innerHTML = users.map(u => `
+    <tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="user-avatar-sm">
+            ${u.avatar_url ? `<img src="${_esc(u.avatar_url)}"/>` : '😊'}
+          </div>
+          <div>
+            <div style="font-weight:600;">${_esc(u.username)}</div>
+            <a href="/profile?id=${_esc(u.id)}" target="_blank" style="font-size:11px;color:var(--accent);">عرض البروفايل</a>
+          </div>
+        </div>
+      </td>
+      <td style="font-size:12px;color:var(--text2);">${_esc(u.email)}</td>
+      <td style="font-size:12px;color:var(--text3);">${new Date(u.created_at).toLocaleDateString('ar-QA', { year:'numeric', month:'long', day:'numeric' })}</td>
+      <td style="text-align:center;">${u.total_chats || 0}</td>
+      <td>${u.is_banned ? '<span class="badge-banned">محظور</span>' : '<span class="badge-active">نشط</span>'}</td>
+      <td>
+      ${u.is_banned
+  ? `<button class="btn-sm" onclick="unbanUser('${_esc(u.id)}')">فك الحظر</button>`
+  : `<button class="btn-sm danger" onclick="banUser('${_esc(u.id)}')">حظر</button>`}
+<button class="btn-sm danger" style="margin-right:6px" onclick="deleteUser('${_esc(u.id)}')">حذف</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function filterUsers() {
+  const q = document.getElementById('user-search').value.trim().toLowerCase();
+  if (!q) return renderUsers(allUsers);
+  renderUsers(allUsers.filter(u =>
+    u.username.toLowerCase().includes(q) || u.email.toLowerCase().includes(q)
+  ));
+}
+
+async function banUser(userId) {
+  if (!confirm('تأكيد حظر هذا المستخدم؟')) return;
+  await fetch(`${SERVER_URL}/admin/ban`, {
+    method: 'POST', headers: adminHeaders(),
+    body: JSON.stringify({ userId })
+  });
+  showToast('✅ تم حظر المستخدم');
+  loadAll();
+}
+
+async function unbanUser(userId) {
+  if (!confirm('تأكيد فك حظر هذا المستخدم؟')) return;
+  await fetch(`${SERVER_URL}/admin/unban`, {
+    method: 'POST', headers: adminHeaders(),
+    body: JSON.stringify({ userId })
+  });
+  showToast('✅ تم فك الحظر');
+  loadAll();
+}
+
+async function reviewReport(reportId) {
+  await fetch(`${SERVER_URL}/admin/review-report`, {
+    method: 'POST', headers: adminHeaders(),
+    body: JSON.stringify({ reportId })
+  });
+  showToast('✅ تم تجاهل البلاغ');
+  loadReports();
+  loadStats();
+}
+
+function switchAdminTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+  
+async function deleteUser(userId) {
+  if (!confirm('تأكيد حذف هذا الحساب نهائياً؟ لا يمكن التراجع!')) return;
+  await fetch(`${SERVER_URL}/admin/delete-user`, {
+    method: 'POST', headers: adminHeaders(),
+    body: JSON.stringify({ userId })
+  });
+  showToast('✅ تم حذف الحساب');
+  loadAll();
+}
+// ══ STAFF ══
+async function loadStaff() {
+  const res  = await fetch(`${SERVER_URL}/admin/staff`, { headers: adminHeaders() });
+  const data = await res.json();
+  const tbody = document.getElementById('staff-tbody');
+  const select = document.getElementById('task-staff');
+  select.innerHTML = '<option value="">— اختر موظف —</option>';
+  if (!data.staff?.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:32px;color:var(--text3);">لا يوجد موظفون</td></tr>';
+    return;
+  }
+  data.staff.forEach(s => {
+    select.innerHTML += `<option value="${_esc(s.id)}">${_esc(s.name)} (@${_esc(s.username)})</option>`;
+  });
+  tbody.innerHTML = data.staff.map(s => `
+    <tr>
+      <td><div style="font-weight:600;">${_esc(s.name)}</div></td>
+      <td style="color:var(--text2);font-size:13px;" dir="ltr">@${_esc(s.username)}</td>
+      <td style="color:var(--text3);font-size:12px;">${new Date(s.created_at).toLocaleDateString('ar-QA', { year:'numeric', month:'long', day:'numeric' })}</td>
+      <td><button class="btn-sm danger" onclick="deleteStaff('${_esc(s.id)}')">حذف</button></td>
+    </tr>
+  `).join('');
+}
+
+async function createStaff() {
+  const name     = document.getElementById('staff-name').value.trim();
+  const username = document.getElementById('staff-username').value.trim();
+  const password = document.getElementById('staff-password').value.trim();
+  if (!name || !username || !password) return showToast('⚠️ أكمل جميع الحقول');
+  const res  = await fetch(`${SERVER_URL}/admin/staff/create`, {
+    method: 'POST', headers: adminHeaders(),
+    body: JSON.stringify({ name, username, password })
+  });
+  const data = await res.json();
+  if (data.ok) {
+    showToast('✅ تم إنشاء حساب الموظف');
+    document.getElementById('staff-name').value     = '';
+    document.getElementById('staff-username').value = '';
+    document.getElementById('staff-password').value = '';
+    loadStaff();
+  } else showToast('⚠️ ' + (data.message || 'فشل الإنشاء'));
+}
+
+async function deleteStaff(staffId) {
+  if (!confirm('تأكيد حذف هذا الموظف؟')) return;
+  await fetch(`${SERVER_URL}/admin/staff/delete`, {
+    method: 'POST', headers: adminHeaders(),
+    body: JSON.stringify({ staffId })
+  });
+  showToast('✅ تم حذف الموظف');
+  loadStaff();
+}
+
+// ══ TASKS (ADMIN) ══
+let allAdminTasks = [];
+let adminTaskFilter = 'all';
+
+async function loadAdminTasks() {
+  const res  = await fetch(`${SERVER_URL}/admin/tasks`, { headers: adminHeaders() });
+  const data = await res.json();
+  allAdminTasks = data.tasks || [];
+  renderAdminTasks();
+}
+
+function filterAdminTasks(status, btn) {
+  adminTaskFilter = status;
+  document.querySelectorAll('#tab-tasks .refresh-btn').forEach(b => {
+    b.style.borderColor = '';
+    b.style.color = '';
+  });
+  btn.style.borderColor = 'var(--accent)';
+  btn.style.color = 'var(--accent)';
+  renderAdminTasks();
+}
+
+function renderAdminTasks() {
+  const filtered = adminTaskFilter === 'all' ? allAdminTasks : allAdminTasks.filter(t => t.status === adminTaskFilter);
+  const list = document.getElementById('admin-tasks-list');
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty-admin">لا توجد مهام</div>';
+    return;
+  }
+  const statusColor = { 'pending':'#F59E0B', 'in-progress':'#3B82F6', 'completed':'#10B981', 'failed':'#EF4444' };
+  const statusLabel = { 'pending':'⏳ معلقة', 'in-progress':'🔄 جاري', 'completed':'✅ منجزة', 'failed':'❌ فشلت' };
+
+  list.innerHTML = filtered.map(task => {
+const deadline = task.deadline
+  ? new Date(task.deadline).toLocaleString('ar-QA', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit', timeZone: 'Asia/Qatar' })
+  : '—';
+    const color = statusColor[task.status] || '#888';
+    const label = statusLabel[task.status] || task.status;
+    const isOverdue = task.deadline && new Date(task.deadline) < new Date() && task.status !== 'completed';
+    const assignedName = task.assigned_staff_user?.name || task.assigned_user?.username || 'غير معين';
+
+    return `
+      <div style="background:var(--bg2);border:1px solid ${isOverdue ? '#EF4444' : 'var(--border2)'};border-radius:14px;padding:20px;margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:10px;">
+          <div style="font-size:15px;font-weight:700;">${_esc(task.title)} ${isOverdue ? '🔴' : ''}</div>
+          <span style="font-size:12px;padding:3px 10px;border-radius:20px;color:${color};background:${color}22;white-space:nowrap;">${label}</span>
+        </div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;display:flex;gap:16px;flex-wrap:wrap;">
+          <span>👤 ${_esc(assignedName)}</span>
+          <span>📅 ${_esc(deadline)}</span>
+        </div>
+        ${task.description ? `<div style="font-size:13px;color:var(--text2);margin-bottom:8px;">${_esc(task.description)}</div>` : ''}
+        ${task.notes ? `
+          <div style="background:var(--surface);border-radius:8px;padding:10px;margin-bottom:10px;border:1px solid var(--border);">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">ملاحظات الموظف:</div>
+            <div style="font-size:13px;color:var(--text2);">${_esc(task.notes)}</div>
+          </div>` : ''}
+<div style="display:flex;justify-content:flex-end;gap:8px;">
+  <button class="btn-sm" onclick="editTask('${_esc(task.id)}', '${_esc(task.title)}', '${_esc(task.description || '')}', '${_esc(task.deadline || '')}')">✏️ تعديل</button>
+  <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px;">
+  <div id="comments-${task.id}" style="margin-bottom:8px;"></div>
+  <div style="display:flex;gap:8px;">
+    <input id="comment-input-${task.id}" type="text" placeholder="رد على الموظف..." 
+      style="flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:13px;outline:none;"/>
+    <button class="btn-sm" onclick="addAdminComment('${task.id}')">إرسال</button>
+  </div>
+</div>
+  <button class="btn-sm danger" onclick="deleteTask('${task.id}')">🗑️ حذف</button>
+</div>
+      </div>`;
+  }).join('');
+setTimeout(() => {
+  allAdminTasks.forEach(task => loadTaskComments(task.id));
+}, 100);
+}
+
+async function createTask() {
+  const title      = document.getElementById('task-title').value.trim();
+  const desc       = document.getElementById('task-desc').value.trim();
+  const staffId    = document.getElementById('task-staff').value;
+  const deadline   = document.getElementById('task-deadline').value;
+  if (!title) return showToast('⚠️ أدخل عنوان المهمة');
+  const res  = await fetch(`${SERVER_URL}/admin/tasks/create`, {
+    method: 'POST', headers: adminHeaders(),
+    body: JSON.stringify({ title, description: desc, assignedStaff: staffId || null, deadline: deadline || null })
+  });
+  const data = await res.json();
+  if (data.ok) {
+    showToast('✅ تم إنشاء المهمة');
+    document.getElementById('task-title').value    = '';
+    document.getElementById('task-desc').value     = '';
+    document.getElementById('task-deadline').value = '';
+    document.getElementById('task-staff').value    = '';
+    loadAdminTasks();
+  } else showToast('⚠️ فشل إنشاء المهمة');
+}
+async function loadTaskComments(taskId) {
+  const res  = await fetch(`${SERVER_URL}/tasks/${taskId}/comments`, { headers: adminHeaders() });
+  const data = await res.json();
+  const div  = document.getElementById(`comments-${taskId}`);
+  if (!div) return;
+  if (!data.comments?.length) { div.innerHTML = ''; return; }
+  div.innerHTML = data.comments.map(c => `
+    <div style="background:${c.author === 'admin' ? 'rgba(139,92,246,.1)' : 'var(--surface)'};border:1px solid ${c.author === 'admin' ? 'rgba(139,92,246,.3)' : 'var(--border)'};border-radius:8px;padding:8px 12px;margin-bottom:6px;">
+      <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">${c.author === 'admin' ? '🛡️ أدمن' : '👷 موظف'} — ${new Date(c.created_at).toLocaleString('ar-QA', { hour:'2-digit', minute:'2-digit', day:'numeric', month:'short', timeZone:'Asia/Qatar' })}</div>
+      <div style="font-size:13px;">${_esc(c.content)}</div>
+    </div>
+  `).join('');
+}
+
+async function addAdminComment(taskId) {
+  const input   = document.getElementById(`comment-input-${taskId}`);
+  const content = input.value.trim();
+  if (!content) return;
+  const res  = await fetch(`${SERVER_URL}/admin/tasks/${taskId}/comments`, {
+    method: 'POST', headers: adminHeaders(),
+    body: JSON.stringify({ content })
+  });
+  const data = await res.json();
+  if (data.ok) { input.value = ''; loadTaskComments(taskId); }
+  else showToast('⚠️ فشل الإرسال');
+}
+async function deleteTask(taskId) {
+  if (!confirm('تأكيد حذف المهمة؟')) return;
+  await fetch(`${SERVER_URL}/admin/tasks/delete`, {
+    method: 'POST', headers: adminHeaders(),
+    body: JSON.stringify({ taskId })
+  });
+  showToast('✅ تم حذف المهمة');
+  loadAdminTasks();
+}
+  function editTask(taskId, title, desc, deadline) {
+  const newTitle    = prompt('العنوان:', title);
+  if (!newTitle) return;
+  const newDesc     = prompt('الوصف:', desc);
+  const newDeadline = prompt('Deadline (YYYY-MM-DDTHH:MM):', deadline);
+  
+  fetch(`${SERVER_URL}/admin/tasks/edit`, {
+    method: 'POST', headers: adminHeaders(),
+    body: JSON.stringify({ taskId, title: newTitle, description: newDesc, deadline: newDeadline || null })
+  }).then(r => r.json()).then(d => {
+    if (d.ok) { showToast('✅ تم تعديل المهمة'); loadAdminTasks(); }
+    else showToast('⚠️ فشل التعديل');
+  });
+}
+// ══ TALENT WAITLIST ══
+const TALENT_LABEL = {
+  singing:'غناء / Singing', dancing:'رقص / Dancing', music:'موسيقى / Music',
+  comedy:'كوميديا / Comedy', art:'رسم / Art', acting:'تمثيل / Acting',
+  sports:'رياضة / Sports', other:'أخرى / Other'
+};
+
+async function loadTalentWaitlist() {
+  const tbody = document.getElementById('talent-tbody');
+  const countEl = document.getElementById('talent-count');
+  tbody.innerHTML = '<tr><td colspan="4" class="empty-admin">جاري التحميل...</td></tr>';
+  const res  = await fetch(`${SERVER_URL}/admin/talent-waitlist`, { headers: adminHeaders() });
+  const data = await res.json();
+  if (!data.ok) { tbody.innerHTML = '<tr><td colspan="4" class="empty-admin">فشل التحميل</td></tr>'; return; }
+  const signups = data.signups || [];
+  countEl.textContent = signups.length;
+  if (!signups.length) {
+    tbody.innerHTML = '<tr><td colspan="4" class="empty-admin">لا يوجد تسجيلات بعد</td></tr>';
+    return;
+  }
+  tbody.innerHTML = signups.map(s => `
+    <tr>
+      <td>${_esc(s.name)}</td>
+      <td dir="ltr" style="text-align:left;">${_esc(s.email)}</td>
+      <td>${_esc(TALENT_LABEL[s.talent] || s.talent)}</td>
+      <td style="font-size:12px;color:var(--text3);">${new Date(s.created_at).toLocaleString('ar-QA', { year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' })}</td>
+    </tr>
+  `).join('');
+}
+
+// Auto login if a valid token was saved
+window.addEventListener('load', () => {
+  const saved = sessionStorage.getItem('admin_token');
+  if (saved) {
+    adminToken = saved;
+    // Verify the token is still valid by calling a lightweight admin endpoint
+    fetch(`${SERVER_URL}/admin/stats`, { headers: adminHeaders() })
+      .then(r => r.json())
+      .then(data => {
+        if (data.ok) {
+          document.getElementById('admin-login').style.display = 'none';
+          document.getElementById('admin-dash').style.display  = 'flex';
+          loadAll();
+        } else {
+          sessionStorage.removeItem('admin_token');
+          adminToken = '';
+        }
+      })
+      .catch(() => { sessionStorage.removeItem('admin_token'); adminToken = ''; });
+  }
+});
+</script>
+</body>
+</html>

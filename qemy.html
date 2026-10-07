@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4271411908599611"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Qemy 🃏</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<script src="translations.js"></script>
+<style>
+:root {
+  --bg:#0a0c10; --bg2:#0f1218; --bg3:#161b24;
+  --surface:#1a2030; --surface2:#222a3a;
+  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.12);
+  --accent:#8B5CF6; --accent2:#7C3AED; --accent-glow:rgba(139,92,246,0.25);
+  --brand:#8D1B3D; --brand2:#AE2147;
+  --text:#e8eaf0; --text2:#8892a4; --text3:#4a5568;
+  --green:#10B981; --red:#EF4444;
+  --grad:linear-gradient(135deg,#7c3aed,#c026d3);
+  --orange:#f4a261;
+  --radius:16px; --radius-sm:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 600px 400px at 20% 10%,rgba(139,92,246,0.08),transparent 70%),
+             radial-gradient(ellipse 500px 300px at 80% 80%,rgba(141,27,61,0.1),transparent 70%);}
+
+/* ── Global site nav ── */
+.g-nav{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:46px;
+  background:rgba(10,11,16,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;z-index:999;
+  font-family:'Tajawal',sans-serif;width:100%;box-sizing:border-box;}
+.g-nav-logo{font-size:15px;font-weight:700;color:#c4b5fd;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;}
+.g-nav-links{display:flex;align-items:center;gap:2px;}
+.g-nav-link{font-size:13px;color:#64748b;text-decoration:none;padding:6px 11px;border-radius:8px;transition:color .15s,background .15s;white-space:nowrap;}
+.g-nav-link:hover{color:#e2e8f0;background:rgba(255,255,255,0.06);}
+.g-nav-link.active{color:#c4b5fd;background:rgba(139,92,246,0.12);}
+.g-nav-av{width:28px;height:28px;border-radius:50%;overflow:hidden;border:2px solid rgba(139,92,246,.35);
+  background:#1a2030;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-right:4px;}
+.g-nav-av img{width:100%;height:100%;object-fit:cover;}
+@media(max-width:768px){
+  .g-nav-logo{display:none;}
+  .g-nav{justify-content:center;padding:0 4px;}
+}
+@media(max-width:520px){
+  .g-nav-link{padding:8px 9px;font-size:17px;}
+  .g-nav-text{display:none;}
+}
+@media(min-width:521px) and (max-width:768px){
+  .g-nav-link{padding:6px 8px;font-size:12px;}
+}
+
+/* ── Main ── */
+.qmain{max-width:700px;margin:0 auto;padding:28px 20px;}
+
+/* ── Section card ── */
+.qsection{background:var(--bg2);border:1px solid var(--border);border-radius:20px;
+  padding:24px;margin-bottom:20px;animation:fadeUp .4s ease both;}
+.qsection-title{font-size:15px;font-weight:700;margin-bottom:18px;
+  display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+
+/* ── Friends room cards ── */
+.qfriend-room{display:flex;align-items:center;gap:14px;padding:12px 0;
+  border-bottom:1px solid var(--border);}
+.qfriend-room:last-child{border-bottom:none;}
+.qfr-avatar{width:40px;height:40px;border-radius:50%;background:var(--surface);
+  border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;overflow:hidden;}
+.qfr-avatar img{width:100%;height:100%;object-fit:cover;}
+.qfr-info{flex:1;}
+.qfr-name{font-size:14px;font-weight:600;}
+.qfr-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.qjoin-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;
+  padding:8px 18px;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all .2s;white-space:nowrap;}
+.qjoin-btn:hover{background:var(--accent2);}
+
+/* ── Invite cards ── */
+.qinvite-card{background:var(--surface);border:1px solid var(--border2);border-radius:14px;
+  padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;}
+.qinvite-card:last-child{margin-bottom:0;}
+.qinvite-info{flex:1;}
+.qinvite-name{font-size:14px;font-weight:700;}
+.qinvite-code{font-size:11px;color:var(--text3);margin-top:3px;letter-spacing:2px;}
+.qinvite-btns{display:flex;gap:8px;}
+.qaccept-btn{background:linear-gradient(135deg,var(--brand),var(--accent2));color:#fff;
+  border:none;border-radius:8px;padding:8px 18px;font-family:'Tajawal',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.qdecline-btn{background:transparent;border:1px solid var(--border2);border-radius:8px;
+  padding:8px 14px;color:var(--text2);font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;}
+.qdecline-btn:hover{border-color:var(--red);color:#fca5a5;}
+
+/* ── Create room ── */
+.qplayer-selector{display:flex;gap:10px;margin-bottom:20px;}
+.qplayer-opt{flex:1;padding:12px 8px;border-radius:10px;border:1px solid var(--border2);
+  background:transparent;color:var(--text2);font-family:'Tajawal',sans-serif;font-size:14px;
+  cursor:pointer;transition:all .15s;text-align:center;}
+.qplayer-opt.active{border-color:var(--orange);background:rgba(244,162,97,0.12);color:var(--orange);}
+.qplayer-opt:hover:not(.active){border-color:rgba(255,255,255,0.25);color:var(--text);}
+
+.qfriend-selector{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;max-height:200px;overflow-y:auto;}
+.qfriend-check{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
+  background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:border-color .2s;}
+.qfriend-check:hover{border-color:var(--accent);}
+.qfriend-check.selected{border-color:var(--accent);background:rgba(139,92,246,.1);}
+.qfc-avatar{width:32px;height:32px;border-radius:50%;background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;overflow:hidden;}
+.qfc-avatar img{width:100%;height:100%;object-fit:cover;}
+.qfc-name{flex:1;font-size:13px;font-weight:600;}
+.qfc-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
+.qfriend-check.selected .qfc-check{background:var(--accent);border-color:var(--accent);color:#fff;}
+.qfc-check::before{content:'✓';opacity:0;}
+.qfriend-check.selected .qfc-check::before{opacity:1;}
+
+.qcreate-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--brand),var(--accent2));
+  border:none;border-radius:var(--radius-sm);color:#fff;font-family:'Tajawal',sans-serif;
+  font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;
+  box-shadow:0 4px 20px rgba(141,27,61,0.3);}
+.qcreate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(141,27,61,0.4);}
+.qcreate-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+/* ── Room created state ── */
+.qroom-created{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.3);
+  border-radius:14px;padding:20px;text-align:center;}
+.qroom-created-code{font-size:28px;font-weight:700;letter-spacing:4px;color:var(--orange);margin:10px 0;}
+.qroom-created-btns{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
+
+/* ── Join by code ── */
+.qjoin-row{display:flex;gap:10px;}
+.qcode-input{flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);
+  padding:12px 14px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:15px;
+  outline:none;text-transform:uppercase;letter-spacing:3px;text-align:center;transition:border-color .2s;}
+.qcode-input:focus{border-color:var(--accent);}
+.qcode-input::placeholder{color:var(--text3);letter-spacing:1px;text-transform:none;}
+.qgo-btn{background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);
+  padding:12px 24px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:600;cursor:pointer;
+  white-space:nowrap;transition:background .2s;}
+.qgo-btn:hover{background:var(--accent2);}
+
+/* ── Empty state ── */
+.qempty{text-align:center;padding:28px;color:var(--text3);font-size:13px;}
+
+/* ── Toast ── */
+#qtoast{position:fixed;top:72px;left:50%;transform:translateX(-50%);
+  background:var(--surface2);border:1px solid var(--border2);border-radius:20px;
+  padding:8px 18px;font-size:13px;color:var(--text2);z-index:100;opacity:0;transition:opacity .3s;pointer-events:none;}
+#qtoast.show{opacity:1;}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Responsive ── */
+@media(max-width:600px){
+  .qmain{padding:16px;}
+  .qjoin-row{flex-direction:column;}
+  .qinvite-btns{flex-direction:column;}
+  .qnav{padding:12px 16px;}
+}
+html[dir="ltr"] .qnav{flex-direction:row-reverse;}
+html[dir="ltr"] .qfr-info,.qinvite-info{text-align:left;}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="g-nav">
+  <a class="g-nav-logo" href="/">Qemistry</a>
+  <div class="g-nav-links">
+    <a href="/" class="g-nav-link" data-path="/">🏠 <span class="g-nav-text" data-t="nav-home">الرئيسية</span></a>
+    <a href="/qemy" class="g-nav-link active" data-path="/qemy">🃏 <span class="g-nav-text">Qemy</span></a>
+    <a href="/imposter" class="g-nav-link" data-path="/imposter">🕵️ <span class="g-nav-text" data-t="nav-imposter">برا السالفة</span></a>
+    <a href="/leaderboard" class="g-nav-link" data-path="/leaderboard">🏆 <span class="g-nav-text" data-t="nav-leaderboard">الترتيب</span></a>
+    <a href="/discover" class="g-nav-link" data-path="/discover">🔍 <span class="g-nav-text" data-t="nav-discover">اكتشف</span></a>
+    <a href="/talent-show" class="g-nav-link" data-path="/talent-show">🎤 <span class="g-nav-text">Talent Show</span></a>
+    <button class="g-nav-bell" id="g-nav-bell" aria-label="الإشعارات">🔔<span class="g-nav-bell-badge" id="g-nav-bell-badge" style="display:none"></span></button>
+    <a href="/#dashboard" class="g-nav-link" id="g-nav-profile">👤 <span id="qnavName" class="g-nav-text"></span></a>
+    <div class="g-nav-av" id="qnavAvatar">😊</div>
+    <button class="g-nav-lang" id="g-nav-lang-btn" onclick="togglePageLang()">EN</button>
+  </div>
+</nav>
+
+<div class="qmain">
+
+  <!-- Friends Playing Now -->
+  <div class="qsection">
+    <div class="qsection-title" id="qFriendsTitle">🟢 أصدقاء يلعبون الآن</div>
+    <div id="qFriendRooms"><div class="qempty" id="qFriendsEmpty">لا أحد يلعب الآن</div></div>
+  </div>
+
+  <!-- Pending Invites -->
+  <div class="qsection" id="qPendingSection">
+    <div class="qsection-title" id="qInvitesTitle">📬 دعوات معلقة</div>
+    <div id="qPendingInvites"><div class="qempty" id="qInvitesEmpty">لا دعوات جديدة</div></div>
+  </div>
+
+  <!-- Create Room -->
+  <div class="qsection">
+    <div class="qsection-title" id="qCreateTitle">🎮 إنشاء غرفة</div>
+
+    <div id="qCreatePanel">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:10px;" id="qPlayerCountLabel">عدد اللاعبين</div>
+      <div class="qplayer-selector">
+        <div class="qplayer-opt active" data-count="2">2</div>
+        <div class="qplayer-opt"       data-count="3">3</div>
+        <div class="qplayer-opt"       data-count="4">4</div>
+      </div>
+
+      <div style="font-size:13px;color:var(--text2);margin-bottom:10px;" id="qInviteLabel">ادعُ أصدقاءك</div>
+      <div class="qfriend-selector" id="qFriendSelector">
+        <div class="qempty">جاري التحميل...</div>
+      </div>
+
+      <button class="qcreate-btn" id="qCreateBtn" onclick="createRoom()">إنشاء غرفة →</button>
+    </div>
+
+    <div id="qCreatedPanel" style="display:none;">
+      <div class="qroom-created">
+        <div style="font-size:14px;color:var(--text2);" id="qCreatedMsg">تم إنشاء الغرفة! شارك الرمز مع أصدقائك</div>
+        <div class="qroom-created-code" id="qCreatedCode">——</div>
+        <div class="qroom-created-btns">
+          <button class="qjoin-btn" onclick="copyCreatedCode()" id="qCopyCreatedBtn">نسخ الرمز</button>
+          <button class="qjoin-btn" onclick="openCreatedRoom()" style="background:linear-gradient(135deg,var(--brand),var(--accent2));" id="qOpenBoardBtn">افتح اللوحة →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Join by Code -->
+  <div class="qsection">
+    <div class="qsection-title" id="qJoinTitle">🔑 انضم برمز</div>
+    <div class="qjoin-row">
+      <input class="qcode-input" id="qCodeInput" placeholder="أدخل رمز الغرفة" maxlength="8"
+        onkeydown="if(event.key==='Enter')joinByCode()"/>
+      <button class="qgo-btn" id="qJoinBtn" onclick="joinByCode()">انضم</button>
+    </div>
+  </div>
+
+</div>
+
+<div id="qtoast"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const SERVER_URL = window.location.origin;
+const currentUser = JSON.parse(localStorage.getItem('qc_currentUser') || 'null');
+const authToken   = localStorage.getItem('qc_token');
+
+// Auth guard
+if (!currentUser || !authToken) { window.location.href = '/'; }
+
+const lang = localStorage.getItem('qc_lang') || 'ar';
+const isAr = lang === 'ar';
+
+document.documentElement.lang = lang;
+document.documentElement.dir  = isAr ? 'rtl' : 'ltr';
+
+// Apply bilingual labels
+if (!isAr) {
+  document.getElementById('qFriendsTitle').textContent = '🟢 Friends Playing Now';
+  document.getElementById('qFriendsEmpty').textContent = 'Nobody is playing right now';
+  document.getElementById('qInvitesTitle').textContent = '📬 Pending Invites';
+  document.getElementById('qInvitesEmpty').textContent = 'No new invites';
+  document.getElementById('qCreateTitle').textContent  = '🎮 Create Room';
+  document.getElementById('qPlayerCountLabel').textContent = 'Players';
+  document.getElementById('qInviteLabel').textContent  = 'Invite Friends';
+  document.getElementById('qCreateBtn').textContent    = 'Create Room →';
+  document.getElementById('qCreatedMsg').textContent   = 'Room created! Share the code with friends';
+  document.getElementById('qCopyCreatedBtn').textContent = 'Copy Code';
+  document.getElementById('qOpenBoardBtn').textContent = 'Open Board →';
+  document.getElementById('qJoinTitle').textContent    = '🔑 Join by Code';
+  document.getElementById('qCodeInput').placeholder    = 'Enter room code';
+  document.getElementById('qJoinBtn').textContent      = 'Join';
+}
+
+// Lang toggle
+(function() {
+  const btn = document.getElementById('g-nav-lang-btn');
+  if (btn) btn.textContent = lang === 'ar' ? 'EN' : 'ع';
+  if (typeof applyTranslations === 'function') applyTranslations();
+})();
+window.togglePageLang = function() {
+  const next = (localStorage.getItem('qc_lang') || 'ar') === 'ar' ? 'en' : 'ar';
+  localStorage.setItem('qc_lang', next);
+  document.documentElement.lang = next;
+  document.documentElement.dir  = next === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('g-nav-lang-btn').textContent = next === 'ar' ? 'EN' : 'ع';
+  if (typeof applyTranslations === 'function') applyTranslations();
+  location.reload();
+};
+
+// Nav setup
+document.getElementById('qnavName').textContent = currentUser.username;
+if (currentUser.avatar_url) {
+  document.getElementById('qnavAvatar').innerHTML =
+    `<img src="${currentUser.avatar_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"/>`;
+}
+// ── Player count selector ──
+let selectedCount = 2;
+document.querySelectorAll('.qplayer-opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.qplayer-opt').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedCount = parseInt(btn.dataset.count);
+  });
+});
+
+// ── Load page data ──
+let myFriends       = [];
+let selectedFriends = new Set();
+let createdRoomCode = null;
+
+async function loadPage() {
+  await Promise.all([loadFriendRooms(), loadPendingInvites(), loadFriendSelector()]);
+}
+
+async function loadFriendRooms() {
+  try {
+    const res  = await fetch(`${SERVER_URL}/game/friends-rooms`, { headers: { authorization: `Bearer ${authToken}` } });
+    const data = await res.json();
+    const el   = document.getElementById('qFriendRooms');
+    if (!data.ok || !data.rooms?.length) {
+      el.innerHTML = `<div class="qempty">${isAr ? 'لا أحد يلعب الآن' : 'Nobody is playing right now'}</div>`;
+      return;
+    }
+    el.innerHTML = data.rooms.map(r => `
+      <div class="qfriend-room">
+        <div class="qfr-avatar">
+          ${r.hostAvatar ? `<img src="${_esc(r.hostAvatar)}"/>` : '😊'}
+        </div>
+        <div class="qfr-info">
+          <div class="qfr-name">${_esc(r.hostUsername)}</div>
+          <div class="qfr-sub">${r.playerCount}/${r.maxPlayers} ${isAr ? 'لاعبين' : 'players'}</div>
+        </div>
+        <button class="qjoin-btn" onclick="joinRoom('${_esc(r.roomCode)}')">
+          ${isAr ? 'انضم' : 'Join'}
+        </button>
+      </div>`).join('');
+  } catch(e) {}
+}
+
+async function loadPendingInvites() {
+  try {
+    const res  = await fetch(`${SERVER_URL}/game/my-invites/${currentUser.id}`, { headers: { authorization: `Bearer ${authToken}` } });
+    const data = await res.json();
+    const el   = document.getElementById('qPendingInvites');
+    if (!data.ok || !data.invites?.length) {
+      el.innerHTML = `<div class="qempty">${isAr ? 'لا دعوات جديدة' : 'No new invites'}</div>`;
+      return;
+    }
+    el.innerHTML = data.invites.map(inv => `
+      <div class="qinvite-card" id="qinv-${_esc(inv.id)}">
+        <div class="qfr-avatar">
+          ${inv.fromAvatar ? `<img src="${_esc(inv.fromAvatar)}"/>` : '😊'}
+        </div>
+        <div class="qinvite-info">
+          <div class="qinvite-name">${_esc(inv.fromUsername)} ${isAr ? 'دعاك للعب!' : 'challenged you!'}</div>
+          <div class="qinvite-code">${_esc(inv.room_code)}</div>
+        </div>
+        <div class="qinvite-btns">
+          <button class="qaccept-btn" onclick="acceptInvite('${_esc(inv.room_code)}','${_esc(inv.from_user_id)}','${_esc(inv.id)}')">
+            ${isAr ? 'العب 🎮' : 'Play 🎮'}
+          </button>
+          <button class="qdecline-btn" onclick="declineInvite('${_esc(inv.room_code)}','${_esc(inv.from_user_id)}','${_esc(inv.id)}')">
+            ${isAr ? 'لاحقاً' : 'Later'}
+          </button>
+        </div>
+      </div>`).join('');
+  } catch(e) {}
+}
+
+async function loadFriendSelector() {
+  const el = document.getElementById('qFriendSelector');
+  try {
+    const res  = await fetch(`${SERVER_URL}/friends/me`, {
+      headers: { authorization: `Bearer ${authToken}` }
+    });
+    if (!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    myFriends  = (data.friends || []).filter(f => f.status === 'accepted');
+    if (!myFriends.length) {
+      el.innerHTML = `<div class="qempty">${isAr ? 'لا أصدقاء بعد' : 'No friends yet'}</div>`;
+      return;
+    }
+    el.innerHTML = myFriends.map(f => {
+      const otherId = f.friend_id === currentUser.id ? f.user_id : f.friend_id;
+      return `
+        <div class="qfriend-check" id="qfc-${_esc(otherId)}" onclick="toggleFriendSelect('${_esc(otherId)}')">
+          <div class="qfc-avatar">
+            ${f.avatar_url ? `<img src="${_esc(f.avatar_url)}"/>` : '😊'}
+          </div>
+          <span class="qfc-name">${_esc(f.username)}</span>
+          <div class="qfc-check"></div>
+        </div>`;
+    }).join('');
+  } catch(e) {
+    el.innerHTML = `<div class="qempty">${isAr ? 'لا أصدقاء بعد' : 'No friends yet'}</div>`;
+  }
+}
+
+function toggleFriendSelect(id) {
+  const el = document.getElementById(`qfc-${id}`);
+  if (selectedFriends.has(id)) { selectedFriends.delete(id); el?.classList.remove('selected'); }
+  else { selectedFriends.add(id); el?.classList.add('selected'); }
+}
+
+// ── Create Room ──
+async function createRoom() {
+  const btn = document.getElementById('qCreateBtn');
+  btn.disabled = true;
+  btn.textContent = isAr ? '⏳ جاري الإنشاء...' : '⏳ Creating...';
+  try {
+    const res  = await fetch(`${SERVER_URL}/game/create-room`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', authorization: `Bearer ${authToken}` },
+      body: JSON.stringify({ maxPlayers: selectedCount })
+    });
+    const data = await res.json();
+    if (!data.ok) { showToast(isAr ? '⚠️ فشل إنشاء الغرفة' : '⚠️ Failed to create room'); btn.disabled = false; btn.textContent = isAr ? 'إنشاء غرفة →' : 'Create Room →'; return; }
+
+    createdRoomCode = data.roomCode;
+
+    // Send invites to selected friends via socket
+    if (selectedFriends.size > 0 && notifSocket) {
+      selectedFriends.forEach(toUserId => {
+        notifSocket.emit('send-game-invite', { toUserId, roomCode: createdRoomCode });
+      });
+      // Small delay so socket can flush the invite before the page unloads
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+
+    // Navigate directly into the room — window.open is blocked on mobile from async context
+    window.location.href = `/qemy-board?room=${createdRoomCode}`;
+  } catch(e) {
+    showToast(isAr ? '⚠️ خطأ في الاتصال' : '⚠️ Connection error');
+    btn.disabled = false;
+    btn.textContent = isAr ? 'إنشاء غرفة →' : 'Create Room →';
+  }
+}
+
+function copyCreatedCode() {
+  if (!createdRoomCode) return;
+  navigator.clipboard.writeText(createdRoomCode).then(() => {
+    showToast(isAr ? '✅ تم النسخ' : '✅ Copied!');
+  });
+}
+
+function openCreatedRoom() {
+  if (createdRoomCode) window.open(`/qemy-board?room=${createdRoomCode}`, '_blank');
+}
+
+// ── Join ──
+function joinRoom(code) {
+  window.open(`/qemy-board?room=${code}`, '_blank');
+}
+
+function joinByCode() {
+  const code = document.getElementById('qCodeInput').value.trim().toUpperCase();
+  if (!code || code.length < 4) { showToast(isAr ? '⚠️ أدخل رمز صحيح' : '⚠️ Enter a valid code'); return; }
+  window.open(`/qemy-board?room=${code}`, '_blank');
+}
+
+// ── Accept / decline invite ──
+function acceptInvite(roomCode, fromUserId, inviteId) {
+  if (notifSocket) notifSocket.emit('respond-game-invite', { roomCode, accepted: true, fromUserId });
+  document.getElementById(`qinv-${inviteId}`)?.remove();
+  window.open(`/qemy-board?room=${roomCode}`, '_blank');
+}
+
+function declineInvite(roomCode, fromUserId, inviteId) {
+  if (notifSocket) notifSocket.emit('respond-game-invite', { roomCode, accepted: false, fromUserId });
+  document.getElementById(`qinv-${inviteId}`)?.remove();
+}
+
+// ── Real-time socket ──
+let notifSocket = null;
+function initSocket() {
+  notifSocket = io(SERVER_URL, { transports: ['websocket'] });
+  notifSocket.on('connect', () => {
+    notifSocket.emit('join', { username: currentUser.username, interests: [], qatarOnly: false, token: localStorage.getItem('qc_token') || null });
+  });
+  notifSocket.on('game-invite-received', ({ fromUsername, roomCode }) => {
+    showToast(`🎮 ${fromUsername} ${isAr ? 'دعاك للعب!' : 'challenged you!'}`);
+    loadPendingInvites();
+  });
+  notifSocket.on('game-invite-cancelled', () => { loadPendingInvites(); });
+  notifSocket.on('game-invite-accepted', ({ byUsername }) => {
+    showToast(`🎮 ${byUsername} ${isAr ? 'قبل الدعوة!' : 'accepted!'}`);
+  });
+  notifSocket.on('game-invite-declined', ({ byUsername }) => {
+    showToast(`${byUsername} ${isAr ? 'رفض الدعوة' : 'declined'}`);
+  });
+}
+
+// XSS-safe HTML escaping helper
+function _esc(str) {
+  const d = document.createElement('div');
+  d.textContent = String(str || '');
+  return d.innerHTML;
+}
+
+// ── Toast ──
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('qtoast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── Init ──
+loadPage();
+initSocket();
+
+// Auto-refresh friends rooms every 15s
+setInterval(loadFriendRooms, 15000);
+</script>
+<script src="/notif.js" defer></script>
+</body>
+</html>

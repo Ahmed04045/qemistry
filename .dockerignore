@@ -1,0 +1,19 @@
+node_modules
+.git
+.claude
+.obsidian
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Python doc generation scripts (not needed at runtime)
+generate_docs.py
+generate_docs_en.py
+qemy-updates-(uno).md
+readmeforclaude.md
+
+# OS / editor artifacts
+.DS_Store
+*.log
+npm-debug.log*

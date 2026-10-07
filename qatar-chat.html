@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <meta name="google-site-verification" content="MeQH-4kJBozJ7dsXNYXa_w84SnZCGBRAU34tRuatokI" />
+  <meta name="google-adsense-account" content="ca-pub-2479599981955427">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Qemistry — تواصل مع أشخاص جدد</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <script src="translations.js"></script>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.explore-section{width:100%;max-width:700px;margin-top:40px;}
+.explore-title{font-size:18px;font-weight:700;text-align:center;margin-bottom:16px;color:var(--text);}
+.feat-btn{width:100%;margin-top:12px;padding:8px;border-radius:8px;font-size:12px;font-weight:600;font-family:'Tajawal',sans-serif;cursor:pointer;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.35);color:#c4b5fd;transition:background .15s;}
+.feat-btn:hover{background:rgba(139,92,246,.3);}
+</style>
+</head>
+<body>
+
+<!-- ── Global nav (hidden on landing/auth/verify, shown by showPage()) ── -->
+<nav class="g-nav" style="display:none">
+  <a class="g-nav-logo" href="/">Qemistry</a>
+  <div class="g-nav-links">
+    <a href="/" class="g-nav-link active" data-path="/">🏠 <span class="g-nav-text" data-t="nav-home">الرئيسية</span></a>
+    <a href="/qemy" class="g-nav-link" data-path="/qemy">🃏 <span class="g-nav-text">Qemy</span></a>
+    <a href="/imposter" class="g-nav-link" data-path="/imposter">🕵️ <span class="g-nav-text" data-t="nav-imposter">برا السالفة</span></a>
+    <a href="/leaderboard" class="g-nav-link" data-path="/leaderboard">🏆 <span class="g-nav-text" data-t="nav-leaderboard">الترتيب</span></a>
+    <a href="/discover" class="g-nav-link" data-path="/discover">🔍 <span class="g-nav-text" data-t="nav-discover">اكتشف</span></a>
+    <a href="/talent-show" class="g-nav-link" data-path="/talent-show" onclick="event.preventDefault();openTalentModal()">🎤 <span class="g-nav-text">Talent Show</span></a>
+    <button class="g-nav-bell" id="g-nav-bell" aria-label="الإشعارات">🔔<span class="g-nav-bell-badge" id="g-nav-bell-badge" style="display:none"></span></button>
+    <a href="#" class="g-nav-link" id="g-nav-profile" onclick="showPage('dashboard');return false;">👤 <span class="g-nav-text" data-t="nav-profile">حسابي</span></a>
+    <button class="g-nav-lang" id="g-nav-lang-btn" onclick="setLang(getCurrentLang()==='ar'?'en':'ar')">EN</button>
+  </div>
+</nav>
+
+<!-- LANDING -->
+<div id="page-landing" class="page active">
+  <div style="position:fixed;top:16px;left:16px;z-index:100;">
+    <button onclick="setLang(getCurrentLang()==='ar'?'en':'ar')"
+      style="background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:6px 14px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;">
+      🌐 <span id="lang-btn-text">EN</span>
+    </button>
+  </div>
+  <div class="logo">
+<div class="logo-mark">
+  <svg viewBox="0 0 100 100" width="58" height="58" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+    <defs>
+      <radialGradient id="ng" cx="38%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#d8b4fe"/>
+        <stop offset="100%" stop-color="#7c3aed"/>
+      </radialGradient>
+    </defs>
+    <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="44" ry="17" transform="rotate(-18,50,50)"/>
+    <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="40" ry="15" transform="rotate(55,50,50)"/>
+    <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="46" ry="16" transform="rotate(-80,50,50)"/>
+    <circle cx="50" cy="50" r="15" fill="url(#ng)"/>
+    <path d="M 43 44.5 Q 45 43.3 47 44.5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M 53 44.5 Q 55 43.3 57 44.5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="0.9" stroke-linecap="round"/>
+    <circle cx="45" cy="48" r="4.2" fill="white" opacity=".93"/>
+    <circle id="m-pL" cx="45" cy="48" r="2.5" fill="#2e1065"/>
+    <circle cx="55" cy="48" r="4.2" fill="white" opacity=".93"/>
+    <circle id="m-pR" cx="55" cy="48" r="2.5" fill="#2e1065"/>
+    <path id="m-mouth" d="M 45.5 57 Q 50 61 54.5 57" fill="none" stroke="white" stroke-width="1.25" stroke-linecap="round"/>
+    <circle id="m-ed1" cx="94" cy="50" r="4" fill="#e879f9" style="filter:drop-shadow(0 0 4px #e879f9)"/>
+    <circle id="m-ed2" cx="16" cy="24" r="3.4" fill="#c084fc" style="filter:drop-shadow(0 0 3px #c084fc)"/>
+    <circle id="m-ed3" cx="28" cy="82" r="2.9" fill="#a855f7" style="filter:drop-shadow(0 0 3px #a855f7)"/>
+  </svg>
+</div>
+    <div class="logo-text"><span>Qemistry</span></div>
+  </div>
+  <div class="hero-badge" data-t="hero-badge">🟢 !!!إطلاق النسخة التجريبية</div>
+  <h1><span class="gradient" data-t="hero-title">تحدث مع شخص<br/>جديد</span></h1>
+  <p class="hero-sub" data-t="hero-sub">تواصل عشوائي بالفيديو مع أشخاص حقيقيين — فلتر اهتمامات، حسابات مسجلة، بيئة آمنة.</p>
+
+  <div class="hero-actions" id="landing-actions">
+    <button class="btn-primary" onclick="showPage('auth')" data-t="btn-start">ابدأ الحين — مجاناً</button>
+    <button class="btn-secondary" onclick="guestLogin()" data-t="btn-guest">تجربة كضيف</button>
+  </div>
+
+  <div id="landing-loggedin" style="display:none;flex-direction:column;align-items:center;gap:14px;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div id="landing-avatar" class="avatar-btn" onclick="showPage('dashboard')" style="width:48px;height:48px;font-size:22px;cursor:pointer;">😊</div>
+      <span style="font-size:15px;color:var(--text2);" id="landing-welcome">أهلاً!</span>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+      <button class="btn-primary" onclick="showPage('interests')" data-t="btn-start-chat">ابدأ المحادثة →</button>
+      <button class="btn-secondary" onclick="window.open('/qemy','_blank')" data-t="game-play-btn">🃏 العب Qemy</button>
+      <button class="btn-secondary" onclick="window.open('/imposter','_blank')" style="border-color:rgba(34,197,94,0.3);color:#4ade80;" data-t="btn-imposter-landing">🕵️ برا السالفة</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feat"><div class="feat-icon">🎯</div><div class="feat-title" data-t="feat-1-title">فلتر الاهتمامات</div><div class="feat-desc" data-t="feat-1-desc">تتحدث مع أشخاص يشاركونك نفس الاهتمامات</div></div>
+    <div class="feat"><div class="feat-icon">🛡️</div><div class="feat-title" data-t="feat-2-title">بيئة آمنة</div><div class="feat-desc" data-t="feat-2-desc">نظام إبلاغ قوي وحماية من المحتوى المسيء</div></div>
+    <div class="feat"><div class="feat-icon">👤</div><div class="feat-title" data-t="feat-4-title">حساب خاص بك</div><div class="feat-desc" data-t="feat-4-desc">مش أنونيموس — حساب حقيقي وهوية موثقة</div></div>
+  </div>
+  <!-- Explore section -->
+  <div class="explore-section">
+    <div class="explore-title" data-t="explore-title">استكشف Qemistry</div>
+    <div class="features">
+      <div class="feat">
+        <div class="feat-icon">🏆</div>
+        <div class="feat-title" data-t="explore-lb-title">الترتيب</div>
+        <div class="feat-desc" data-t="explore-lb-desc">شوف مين الأقوى</div>
+        <button class="feat-btn" data-t="explore-lb-btn" onclick="window.location.href='/leaderboard'">افتح الترتيب</button>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🔍</div>
+        <div class="feat-title" data-t="explore-disc-title">اكتشف</div>
+        <div class="feat-desc" data-t="explore-disc-desc">تعرف على ناس تشاركك نفس الاهتمامات</div>
+        <button class="feat-btn" data-t="explore-disc-btn" onclick="window.location.href='/discover'">اكتشف الآن</button>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🎯</div>
+        <div class="feat-title" data-t="explore-tasks-title">المهام</div>
+        <div class="feat-desc" data-t="explore-tasks-desc">أكمل مهامك الأسبوعية واكسب نقاط</div>
+        <button class="feat-btn" data-t="explore-tasks-btn" onclick="showPage('dashboard');setTimeout(()=>{const el=document.getElementById('weekly-tasks-section');if(el)el.scrollIntoView({behavior:'smooth'});},300)">شوف مهامك</button>
+      </div>
+      <div class="feat" style="border-color:rgba(233,121,249,0.3);background:rgba(233,121,249,0.04);">
+        <div class="feat-icon">🎤</div>
+        <div class="feat-title" data-t="explore-talent-title">Talent Show</div>
+        <div class="feat-desc" data-t="explore-talent-desc">سجّل موهبتك وكن جزء من الحدث</div>
+        <button class="feat-btn" data-t="explore-talent-btn" style="background:rgba(233,121,249,.15);border-color:rgba(233,121,249,.35);color:#f0abfc;" onclick="openTalentModal()">سجّل الحين</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="stat-online">0</div><div class="stat-label" data-t="stat-online">متصل الحين</div></div>
+    <div class="stat"><div class="stat-num">P2P</div><div class="stat-label" data-t="stat-p2p">فيديو مشفر</div></div>
+  </div>
+</div>
+
+<!-- TALENT SHOW MODAL -->
+<div id="talent-modal" onclick="if(event.target===this)closeTalentModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:999;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--bg2);border:1px solid rgba(233,121,249,0.3);border-radius:20px;padding:36px 28px;width:100%;max-width:420px;position:relative;animation:fadeUp .3s ease both;text-align:center;">
+    <button onclick="closeTalentModal()" style="position:absolute;top:14px;left:14px;background:var(--surface);border:1px solid var(--border2);border-radius:50%;width:32px;height:32px;color:var(--text2);font-size:16px;cursor:pointer;line-height:1;">✕</button>
+    <div style="font-size:52px;margin-bottom:12px;">🎤</div>
+    <div style="display:inline-block;background:rgba(233,121,249,.12);border:1px solid rgba(233,121,249,.3);border-radius:20px;padding:5px 16px;font-size:12px;color:#f0abfc;margin-bottom:14px;" id="talent-modal-badge">Qemistry Talent Show</div>
+    <h2 style="font-size:clamp(20px,5vw,26px);font-weight:900;margin-bottom:10px;background:linear-gradient(135deg,#fff 0%,#f0abfc 70%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;" id="talent-modal-title"></h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:24px;" id="talent-modal-sub"></p>
+    <button onclick="window.location.href='/talent-show'" style="width:100%;padding:15px;border:none;border-radius:10px;background:linear-gradient(135deg,#9d4edd,#e879f9);color:#fff;font-family:'Tajawal',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'" id="talent-modal-btn"></button>
+    <button onclick="closeTalentModal()" style="margin-top:12px;background:none;border:none;color:var(--text3);font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;width:100%;" id="talent-modal-dismiss"></button>
+  </div>
+</div>
+<script>
+const TALENT_MODAL_COPY = {
+  ar: {
+    title:   'سجّل موهبتك الحين',
+    sub:     'Qemistry Talent Show قادم — كن أول من يسجل ويحجز مكانه في الحدث.',
+    btn:     'سجّل الحين 🚀',
+    dismiss: 'مو هلأ',
+  },
+  en: {
+    title:   'Register Your Talent Now',
+    sub:     'Qemistry Talent Show is coming — be the first to register and secure your spot.',
+    btn:     'Sign Me Up 🚀',
+    dismiss: 'Maybe later',
+  }
+};
+function openTalentModal() {
+  applyTalentModalLang();
+  document.getElementById('talent-modal').style.display = 'flex';
+}
+function applyTalentModalLang() {
+  const lang = localStorage.getItem('qc_lang') || 'ar';
+  const c = TALENT_MODAL_COPY[lang] || TALENT_MODAL_COPY.ar;
+  document.getElementById('talent-modal-title').textContent   = c.title;
+  document.getElementById('talent-modal-sub').textContent     = c.sub;
+  document.getElementById('talent-modal-btn').textContent     = c.btn;
+  document.getElementById('talent-modal-dismiss').textContent = c.dismiss;
+}
+function closeTalentModal() {
+  document.getElementById('talent-modal').style.display = 'none';
+  localStorage.setItem('talent_modal_seen', '1');
+}
+if (!localStorage.getItem('talent_modal_seen')) {
+  setTimeout(openTalentModal, 1500);
+}
+</script>
+
+<!-- ABOUT US MODAL -->
+<div id="about-modal" onclick="if(event.target===this)closeAbout()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);z-index:999;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:36px 32px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;position:relative;animation:fadeUp .3s ease both;text-align:center;">
+
+    <button onclick="closeAbout()" style="position:absolute;top:16px;left:16px;background:var(--surface);border:1px solid var(--border2);border-radius:50%;width:32px;height:32px;color:var(--text2);font-size:16px;cursor:pointer;line-height:1;">✕</button>
+
+    <div style="display:inline-block;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.3);border-radius:20px;padding:5px 16px;font-size:12px;color:#c4b5fd;margin-bottom:16px;" data-t="about-badge">من نحن</div>
+
+    <h2 style="font-size:clamp(20px,4vw,28px);font-weight:700;line-height:1.3;margin-bottom:14px;background:linear-gradient(135deg,#fff 0%,var(--accent) 60%,var(--brand2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;" data-t="about-hook">مو شركة. مجرد شباب تعبوا من السكرول.</h2>
+
+    <p style="font-size:14px;color:var(--text2);line-height:1.9;margin-bottom:28px;" data-t="about-story">Qemistry بدأت في أوائل 2026 من ملاحظة بسيطة — الناس صارت أقرب لهواتفها من بعضها البعض. شفنا أناس ما يقدرون يحافظون على محادثة بدون شاشة يختبون وراها، وأحسسنا بنفس الشي. فبدل ما نشتكي، بنينا شي. مكان تقدر فيه تكلم شخص جديد وجهاً لوجه، بدون ضغط.</p>
+
+    <!-- Vision + Mission -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;text-align:right;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:6px;" data-t="about-vision-label">رؤيتنا</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7;" data-t="about-vision">عالم ما يكون فيه التعرف على شخص جديد شي مخيف.</p>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--brand-light);margin-bottom:6px;" data-t="about-mission-label">مهمتنا</div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.7;" data-t="about-mission">نخلي التواصل الحقيقي سهل، ممتع، وآمن.</p>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div style="font-size:11px;color:var(--text3);margin-bottom:14px;letter-spacing:0.08em;text-transform:uppercase;" data-t="about-team-label">الفريق</div>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:28px;">
+      <div style="background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px 20px;font-weight:600;font-size:14px;">Yaman Khadra</div>
+      <div style="background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px 20px;font-weight:600;font-size:14px;">Muhammad Abdulhalim</div>
+      <div style="background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:12px 20px;font-weight:600;font-size:14px;">Muhammad Ali</div>
+    </div>
+
+    <!-- CTA -->
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;" data-t="about-cta-text">لسا نكبر، لسا نتعلم، ولسا نبني — ويسعدنا تكون جزء من هذا.</p>
+    <button class="btn-primary" onclick="closeAbout();showPage('auth')" data-t="about-cta-btn" style="font-size:14px;">تعال قول هلا — مجاناً</button>
+  </div>
+</div>
+<script>
+function openAbout(){ const m=document.getElementById('about-modal'); m.style.display='flex'; }
+function closeAbout(){ document.getElementById('about-modal').style.display='none'; }
+</script>
+
+<!-- AUTH -->
+<div id="page-auth" class="page">
+  <div class="auth-card">
+    
+    <div class="auth-logo" style="display:flex;align-items:center;justify-content:center;gap:10px;">
+      <div class="logo-mark" style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#1a0a3a,#2d1060);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(139,92,246,0.25);">
+        <svg viewBox="0 0 100 100" width="30" height="30" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          <defs>
+            <radialGradient id="ng2" cx="38%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#d8b4fe"/>
+              <stop offset="100%" stop-color="#7c3aed"/>
+            </radialGradient>
+          </defs>
+          <ellipse fill="none" stroke="#c084fc" stroke-width="1.5" opacity=".65" cx="50" cy="50" rx="44" ry="17" transform="rotate(-18,50,50)"/>
+          <ellipse fill="none" stroke="#c084fc" stroke-width="1.5" opacity=".65" cx="50" cy="50" rx="40" ry="15" transform="rotate(55,50,50)"/>
+          <ellipse fill="none" stroke="#c084fc" stroke-width="1.5" opacity=".65" cx="50" cy="50" rx="46" ry="16" transform="rotate(-80,50,50)"/>
+          <circle cx="50" cy="50" r="15" fill="url(#ng2)"/>
+          <circle cx="45" cy="48" r="4.2" fill="white" opacity=".93"/>
+          <circle cx="45" cy="48" r="2.5" fill="#2e1065"/>
+          <circle cx="55" cy="48" r="4.2" fill="white" opacity=".93"/>
+          <circle cx="55" cy="48" r="2.5" fill="#2e1065"/>
+          <path d="M 45.5 57 Q 50 61 54.5 57" fill="none" stroke="white" stroke-width="1.25" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="logo-text" style="font-size:22px;"><span>Qemistry</span></div>
+    </div>
+
+    <div id="g_id_onload"
+         data-client_id="760898067968-58svatgtsn8nd54n6p2rea46s2orqnek.apps.googleusercontent.com"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleGoogleLogin"
+         data-auto_prompt="false">
+    </div>
+
+    <div class="g_id_signin"
+         data-type="standard"
+         data-shape="rectangular"
+         data-theme="outline"
+         data-text="continue_with"
+         data-size="large"
+         data-logo_alignment="center"
+         style="display: flex; justify-content: center; margin-bottom: 16px;">
+    </div>
+
+    <div style="text-align: center; color: var(--text3); font-size: 12px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+      <hr style="flex: 1; border: none; border-top: 1px solid var(--border2);">
+      <span data-t="or-login-with">أو بالبريد الإلكتروني</span>
+      <hr style="flex: 1; border: none; border-top: 1px solid var(--border2);">
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab(event,'login')" data-t="tab-login">تسجيل دخول</button>
+      <button class="auth-tab" onclick="switchTab(event,'register')" data-t="tab-register">حساب جديد</button>
+    </div>
+
+    <div id="form-login">
+      <div class="field"><label data-t="label-email">البريد الإلكتروني</label><input id="login-email" type="email" placeholder="example@gmail.com" dir="ltr"/></div>
+      <div class="field"><label data-t="label-password">كلمة المرور</label><input id="login-password" type="password" placeholder="••••••••" dir="ltr"/></div>
+      <button id="btn-login" class="btn-primary btn-full" onclick="doLogin()" data-t="btn-login">دخول</button>
+      
+      <div style="text-align:center;margin-top:12px;">
+        <a onclick="document.getElementById('forgot-form').style.display='block'"
+           style="font-size:13px;color:var(--accent);cursor:pointer;" data-t="forgot-password">نسيت كلمة المرور؟</a>
+      </div>
+      
+      <div id="forgot-form" style="display:none;margin-top:16px;border-top:1px solid var(--border);padding-top:16px;">
+        <div class="field">
+          <label data-t="label-email">البريد الإلكتروني</label>
+          <input id="forgot-email" type="email" placeholder="example@gmail.com" dir="ltr"/>
+        </div>
+        <button class="btn-primary btn-full" onclick="forgotPassword()" data-t="btn-send-reset">إرسال رابط التعيين</button>
+      </div>
+    </div>
+
+    <div id="form-register" style="display:none">
+      <div class="field"><label data-t="label-username">اسم المستخدم</label><input id="reg-username" type="text" data-t="label-username-placeholder" placeholder="اسمك في المنصة"/></div>
+      <div class="field"><label data-t="label-email">البريد الإلكتروني</label><input id="reg-email" type="email" placeholder="example@gmail.com" dir="ltr"/></div>
+      <div class="field"><label data-t="label-password">كلمة المرور</label><input id="reg-password" type="password" data-t="label-password-placeholder" placeholder="8 أحرف على الأقل" dir="ltr"/></div>
+      
+      <div style="margin-bottom: 16px;">
+        <label style="color: var(--text2); font-size: 13px; display: flex; align-items: center; gap: 8px;">
+          <input type="checkbox" id="reg-terms">
+          <span>أوافق على <a href="/terms-conditions" target="_blank" style="color: var(--accent);">الشروط والأحكام</a> و <a href="/policy" target="_blank" style="color: var(--accent);">سياسة الخصوصية</a></span>
+        </label>
+      </div>
+      
+      <button id="btn-register" class="btn-primary btn-full" onclick="doRegister()" data-t="btn-register">إنشاء الحساب</button>
+    </div>
+    
+    <div class="back-link"><a onclick="showPage('landing')" data-t="back-home">← الرجوع للرئيسية</a></div>
+  </div>
+</div>
+
+<!-- VERIFY -->
+<div id="page-verify" class="page" style="align-items:center;justify-content:center;">
+  <div class="auth-card" style="text-align:center;">
+    <div style="display:flex;justify-content:center;margin-bottom:16px;">
+      <svg viewBox="0 0 100 100" width="90" height="90" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+        <defs>
+          <radialGradient id="ng-verify" cx="38%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#d8b4fe"/>
+            <stop offset="100%" stop-color="#7c3aed"/>
+          </radialGradient>
+        </defs>
+        <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="44" ry="17" transform="rotate(-18,50,50)"/>
+        <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="40" ry="15" transform="rotate(55,50,50)"/>
+        <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="46" ry="16" transform="rotate(-80,50,50)"/>
+        <circle cx="50" cy="50" r="15" fill="url(#ng-verify)"/>
+        <path d="M 43 44.5 Q 45 43.3 47 44.5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="0.9" stroke-linecap="round"/>
+        <path d="M 53 44.5 Q 55 43.3 57 44.5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="0.9" stroke-linecap="round"/>
+        <circle cx="45" cy="48" r="4.2" fill="white" opacity=".93"/>
+        <circle id="v-pL" cx="45" cy="48" r="2.5" fill="#2e1065"/>
+        <circle cx="55" cy="48" r="4.2" fill="white" opacity=".93"/>
+        <circle id="v-pR" cx="55" cy="48" r="2.5" fill="#2e1065"/>
+        <path id="v-mouth" d="M 45.5 57 Q 50 61 54.5 57" fill="none" stroke="white" stroke-width="1.25" stroke-linecap="round"/>
+        <circle id="v-ed1" cx="94" cy="50" r="4" fill="#e879f9" style="filter:drop-shadow(0 0 4px #e879f9)"/>
+        <circle id="v-ed2" cx="16" cy="24" r="3.4" fill="#c084fc" style="filter:drop-shadow(0 0 3px #c084fc)"/>
+        <circle id="v-ed3" cx="28" cy="82" r="2.9" fill="#a855f7" style="filter:drop-shadow(0 0 3px #a855f7)"/>
+      </svg>
+    </div>
+    <h2 style="font-size:20px;font-weight:700;margin-bottom:8px;" data-t="verify-title">تأكيد البريد الإلكتروني</h2>
+    <p style="font-size:14px;color:var(--text2);margin-bottom:24px;">
+      <span data-t="verify-msg">أرسلنا رابط تأكيد إلى بريدك الإلكتروني</span><br/>
+      <strong id="verify-email-display"></strong>
+    </p>
+    <div style="background:var(--surface);border-radius:12px;padding:16px;margin-bottom:20px;">
+      <div class="online-dot" style="display:inline-block;margin-left:6px;"></div>
+      <span style="font-size:13px;color:var(--text2);" data-t="verify-waiting">في انتظار التأكيد...</span>
+    </div>
+    <button class="btn-secondary btn-full" onclick="resendVerification()" style="margin-bottom:12px;" data-t="btn-resend">إعادة إرسال الإيميل</button>
+    <button class="btn-sm danger" style="width:100%;padding:12px;" onclick="logout()" data-t="btn-logout">تسجيل الخروج</button>
+  </div>
+</div>
+
+<!-- INTERESTS -->
+<div id="page-interests" class="page">
+  <div class="interests-card">
+    <div class="page-header">
+      <h2 data-t="interests-title">⚡ اختار اهتماماتك</h2>
+      <p data-t="interests-sub">نربطك مع أشخاص يشاركونك نفس الشغف</p>
+    </div>
+    <div class="interests-grid">
+<div class="interest-chip" data-interest="رياضة" onclick="toggleChip(this)"><div class="chip-icon">⚽</div><div class="chip-label" data-t="chip-رياضة">رياضة</div></div>
+<div class="interest-chip" data-interest="ألعاب" onclick="toggleChip(this)"><div class="chip-icon">🎮</div><div class="chip-label" data-t="chip-ألعاب">ألعاب</div></div>
+<div class="interest-chip" data-interest="تقنية" onclick="toggleChip(this)"><div class="chip-icon">💻</div><div class="chip-label" data-t="chip-تقنية">تقنية</div></div>
+<div class="interest-chip" data-interest="موسيقى" onclick="toggleChip(this)"><div class="chip-icon">🎵</div><div class="chip-label" data-t="chip-موسيقى">موسيقى</div></div>
+<div class="interest-chip" data-interest="دراسة" onclick="toggleChip(this)"><div class="chip-icon">📚</div><div class="chip-label" data-t="chip-دراسة">دراسة</div></div>
+<div class="interest-chip" data-interest="إبداع" onclick="toggleChip(this)"><div class="chip-icon">🎨</div><div class="chip-label" data-t="chip-إبداع">إبداع</div></div>
+<div class="interest-chip" data-interest="مطاعم" onclick="toggleChip(this)"><div class="chip-icon">🍔</div><div class="chip-label" data-t="chip-مطاعم">مطاعم</div></div>
+<div class="interest-chip" data-interest="سفر" onclick="toggleChip(this)"><div class="chip-icon">✈️</div><div class="chip-label" data-t="chip-سفر">سفر</div></div>
+<div class="interest-chip" data-interest="أعمال" onclick="toggleChip(this)"><div class="chip-icon">💼</div><div class="chip-label" data-t="chip-أعمال">أعمال</div></div>
+    </div>
+    <div class="filter-row" style="margin-bottom:24px">
+      <div class="filter-label"><span>🎯</span> <span data-t="filter-interests">مطابقة الاهتمامات</span></div>
+      <label class="toggle"><input type="checkbox" id="filter-interests" checked/><span class="toggle-slider"></span></label>
+    </div>
+    <button class="btn-primary btn-full" onclick="startChat()" data-t="btn-start-chat-2">ابدأ المحادثة →</button>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div id="page-chat" class="page">
+  <div class="chat-header">
+    <div class="chat-logo" onclick="leaveChat()">
+<div class="logo-mark" style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#1a0a3a,#2d1060);display:flex;align-items:center;justify-content:center;">
+  <svg viewBox="0 0 100 100" width="20" height="20" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+    <defs>
+      <radialGradient id="ng2" cx="38%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#d8b4fe"/>
+        <stop offset="100%" stop-color="#7c3aed"/>
+      </radialGradient>
+    </defs>
+    <ellipse fill="none" stroke="#c084fc" stroke-width="1.5" opacity=".65" cx="50" cy="50" rx="44" ry="17" transform="rotate(-18,50,50)"/>
+    <ellipse fill="none" stroke="#c084fc" stroke-width="1.5" opacity=".65" cx="50" cy="50" rx="40" ry="15" transform="rotate(55,50,50)"/>
+    <ellipse fill="none" stroke="#c084fc" stroke-width="1.5" opacity=".65" cx="50" cy="50" rx="46" ry="16" transform="rotate(-80,50,50)"/>
+    <circle cx="50" cy="50" r="15" fill="url(#ng2)"/>
+    <circle cx="45" cy="48" r="4.2" fill="white" opacity=".93"/>
+    <circle cx="45" cy="48" r="2.5" fill="#2e1065"/>
+    <circle cx="55" cy="48" r="4.2" fill="white" opacity=".93"/>
+    <circle cx="55" cy="48" r="2.5" fill="#2e1065"/>
+    <path d="M 45.5 57 Q 50 61 54.5 57" fill="none" stroke="white" stroke-width="1.25" stroke-linecap="round"/>
+  </svg>
+</div>      <span>Qemistry</span>
+    </div>
+    <div class="online-count"><div class="online-dot"></div><span id="online-num">0</span> <span data-t="stat-online">متصل</span></div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <div class="avatar-btn" onclick="showPage('dashboard')" id="chat-avatar-btn" title="Dashboard">
+        <span id="chat-avatar-icon">😊</span>
+      </div>
+      <button class="ctrl-btn" onclick="showPage('interests')" style="width:36px;height:36px;font-size:15px;">🎯</button>
+      <button class="ctrl-btn danger" onclick="leaveChat()" style="width:36px;height:36px;font-size:15px;">✕</button>
+    </div>
+  </div>
+  <div class="chat-body">
+    <div class="chat-sidebar">
+      <div class="sidebar-header" data-t="chat-sidebar-title">دردشة نصية</div>
+      <div class="messages" id="messages"></div>
+      <div class="msg-input-row">
+        <input class="msg-input" id="msgInput" data-t="chat-placeholder" placeholder="اكتب رسالة..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+        <button class="send-btn" onclick="sendMsg()">↑</button>
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;">
+      <div class="video-area">
+        <div class="video-box">
+<div id="stranger-placeholder" class="video-placeholder">
+  <svg id="waiting-logo" viewBox="0 0 100 100" width="130" height="130"
+       xmlns="http://www.w3.org/2000/svg" overflow="visible">
+    <defs>
+      <radialGradient id="ng-wait" cx="38%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#d8b4fe"/>
+        <stop offset="100%" stop-color="#7c3aed"/>
+      </radialGradient>
+    </defs>
+    <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="44" ry="17" transform="rotate(-18,50,50)"/>
+    <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="40" ry="15" transform="rotate(55,50,50)"/>
+    <ellipse fill="none" stroke="#c084fc" stroke-width="1.2" opacity=".65" cx="50" cy="50" rx="46" ry="16" transform="rotate(-80,50,50)"/>
+    <circle cx="50" cy="50" r="15" fill="url(#ng-wait)"/>
+    <path d="M 43 44.5 Q 45 43.3 47 44.5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M 53 44.5 Q 55 43.3 57 44.5" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="0.9" stroke-linecap="round"/>
+    <circle cx="45" cy="48" r="4.2" fill="white" opacity=".93"/>
+    <circle id="w-pL" cx="45" cy="48" r="2.5" fill="#2e1065"/>
+    <circle cx="55" cy="48" r="4.2" fill="white" opacity=".93"/>
+    <circle id="w-pR" cx="55" cy="48" r="2.5" fill="#2e1065"/>
+    <path id="w-mouth" d="M 45.5 57 Q 50 61 54.5 57" fill="none" stroke="white" stroke-width="1.25" stroke-linecap="round"/>
+    <circle id="w-ed1" cx="94" cy="50" r="4" fill="#e879f9" style="filter:drop-shadow(0 0 4px #e879f9)"/>
+    <circle id="w-ed2" cx="16" cy="24" r="3.4" fill="#c084fc" style="filter:drop-shadow(0 0 3px #c084fc)"/>
+    <circle id="w-ed3" cx="28" cy="82" r="2.9" fill="#a855f7" style="filter:drop-shadow(0 0 3px #a855f7)"/>
+  </svg>
+  <div class="video-status" id="stranger-status" data-t="searching">جاري البحث...</div>
+</div>
+          <video id="remoteVideo" autoplay playsinline style="display:none;width:100%;height:100%;object-fit:cover;"></video>
+          <div class="video-label" id="peer-label" data-t="label-stranger">الغريب</div>
+        </div>
+        <div class="video-box">
+          <div id="local-placeholder" class="video-placeholder">
+            <div class="avatar-circle">😊</div>
+          </div>
+          <video id="localVideo" autoplay playsinline muted style="display:none;width:100%;height:100%;object-fit:cover;"></video>
+          <div class="video-label" data-t="label-you">أنت</div>
+        </div>
+      </div>
+      <div class="controls-bar">
+        <div id="guest-timer" style="display:none;font-size:12px;color:var(--text2);"></div>
+        <button class="ctrl-btn" id="micBtn" onclick="toggleMic()">🎤</button>
+        <button class="ctrl-btn" id="camBtn" onclick="toggleCam()">📷</button>
+        <button class="next-btn" onclick="nextStranger()" data-t="btn-next">التالي ⟩</button>
+        <button class="ctrl-btn danger" onclick="openReport()">🚩</button>
+        <button class="ctrl-btn danger" onclick="leaveChat()">⏹</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page">
+  <!-- Hidden elements kept for app.js compatibility (dash-nav-username, dash-corner-avatar) -->
+  <span id="dash-nav-username" style="display:none">—</span>
+  <div id="dash-corner-avatar" style="display:none" onclick="document.getElementById('avatar-input').click()">
+    <span id="dash-corner-icon">😊</span>
+  </div>
+  <div class="dash-body">
+    <div id="dash-quiz-nudge" style="display:none;background:#13132a;border:1px solid rgba(157,78,237,.35);border-right:4px solid #9d4edd;border-radius:14px;padding:14px 16px;display:none;align-items:center;gap:14px;margin-bottom:16px;cursor:pointer;" onclick="window.location.href='/quiz'">
+      <div style="width:44px;height:44px;border-radius:12px;background:rgba(157,78,237,.15);border:1px solid rgba(157,78,237,.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🎭</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:14px;font-weight:700;color:#c4b5fd;margin-bottom:2px;" data-t="quiz-nudge-title">اكتشف شخصيتك!</div>
+        <div style="font-size:12px;color:#64748b;" data-t="quiz-nudge-desc">عمل الاختبار وانضم لفريقك بلوحة الصدارة</div>
+      </div>
+      <span style="font-size:12px;font-weight:700;color:#9d4edd;white-space:nowrap;" data-t="quiz-nudge-btn">ابدأ الاختبار ←</span>
+      <button onclick="event.stopPropagation();document.getElementById('dash-quiz-nudge').style.display='none';" style="background:none;border:none;color:#475569;font-size:18px;cursor:pointer;padding:4px 6px;line-height:1;flex-shrink:0;">×</button>
+    </div>
+    <div class="profile-card">
+      <div class="profile-avatar-wrap">
+        <div class="profile-avatar" id="profile-avatar-display" data-frame="default">
+          <span id="profile-avatar-icon">😊</span>
+        </div>
+        <div class="avatar-edit-btn" onclick="document.getElementById('avatar-input').click()" title="Change Photo" style="left:auto;right:0;">✏️</div>
+        <div class="avatar-edit-btn" onclick="deleteAvatar()" style="left:0;background:var(--red);" title="Delete Photo">🗑️</div>
+        <input type="file" id="avatar-input" accept="image/*" onchange="handleAvatarChange(event)"/>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name" id="profile-display-name">—</div>
+        <div class="profile-email" id="profile-display-email">—</div>
+        <div class="profile-badges">
+          <span class="badge" id="streak-badge"></span>
+          <span class="badge green">🟢 Active</span>
+          <span class="badge purple">✅ Verified</span>
+          <span class="badge" id="profile-join-badge">—</span>
+        </div>
+        <div id="dash-earned-badges" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;"></div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-card-num" id="dash-stat-hours">0</div><div class="stat-card-label" data-t="stat-hours">وقت المحادثة</div></div>
+      <div class="stat-card"><div class="stat-card-num" id="dash-stat-chats">0</div><div class="stat-card-label" data-t="stat-chats">محادثات أجريتها</div></div>
+      <div class="stat-card"><div class="stat-card-num" id="dash-stat-friends">0</div><div class="stat-card-label" data-t="stat-friends">أصدقاء</div></div>
+      <div class="stat-card" style="cursor:pointer;" onclick="window.location.href='/leaderboard'"><div class="stat-card-num" id="dash-stat-points">0</div><div class="stat-card-label" data-t="stat-points">⭐ النقاط 🏆</div></div>
+    </div>
+
+    <!-- Weekly Tasks -->
+    <div class="dash-section" id="weekly-tasks-section">
+      <div class="dash-section-title" data-t="dash-weekly-tasks">🎯 مهام الأسبوع</div>
+      <div id="weekly-tasks-list"><div class="empty-state">جاري التحميل...</div></div>
+    </div>
+
+    <!-- Qemy banner -->
+    <a class="qemy-banner" href='/qemy' target="_blank">
+      <div class="qemy-banner-icon">🃏</div>
+      <div class="qemy-banner-body">
+        <div class="qemy-banner-title" data-t="game-section-title">العب Qemy مع أصدقائك</div>
+        <div class="qemy-banner-sub" data-t="game-play-btn">لعبة ورق ممتعة — ادعُ أصدقاءك وابدأ الآن</div>
+      </div>
+      <div class="qemy-banner-arrow" id="qemyBannerArrow">←</div>
+    </a>
+    <a class="qemy-banner" href='/imposter' target="_blank" style="border-color:rgba(34,197,94,0.25);background:rgba(34,197,94,0.04);">
+      <div class="qemy-banner-icon">🕵️</div>
+      <div class="qemy-banner-body">
+        <div class="qemy-banner-title" data-t="imposter-title">العب برا السالفة</div>
+        <div class="qemy-banner-sub" data-t="imposter-sub">لعبة الإمبوستر — كل شخص عنده كلمة إلا واحد!</div>
+      </div>
+      <div class="qemy-banner-arrow">←</div>
+    </a>
+    <!-- Frames & Badges -->
+    <div class="dash-section">
+      <div class="dash-section-title" data-t="dash-frames">🖼️ الإطارات والشارات</div>
+      <div class="frames-grid" id="frames-grid"><div class="empty-state">جاري التحميل...</div></div>
+      <div id="earned-badges-section" style="margin-top:16px;display:none;">
+        <div style="font-size:12px;color:var(--text3);margin-bottom:8px;" data-t="dash-badges-earned">الشارات المكتسبة</div>
+        <div id="earned-badges-list" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+      </div>
+    </div>
+
+    <div class="dash-section">
+      <div class="dash-section-title" data-t="dash-profile">الملف الشخصي العام</div>
+      <div class="setting-row">
+        <span class="setting-label" data-t="dash-bio">نبذة عني</span>
+        <div class="inline-edit">
+          <textarea class="inline-input" id="edit-bio" data-t="dash-bio-placeholder" placeholder="اكتب نبذة قصيرة..." maxlength="150" rows="3" style="width:280px;resize:none;height:auto;"></textarea>
+          <button class="btn-sm" onclick="saveProfileInfo()" data-t="btn-save">حفظ</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <span class="setting-label" data-t="dash-birthdate">تاريخ الميلاد</span>
+        <div class="inline-edit">
+          <input class="inline-input" id="edit-birthdate" type="date" dir="ltr"/>
+        </div>
+      </div>
+      <div class="setting-row" style="flex-direction:column;align-items:flex-start;gap:12px;">
+        <span class="setting-label" data-t="dash-hobbies">الهوايات (اختر 3 كحد أقصى)</span>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;" id="hobby-chips">
+<div class="interest-chip" data-hobby="رياضة" onclick="toggleHobby(this)"><div class="chip-icon">⚽</div><div class="chip-label" data-t="chip-رياضة">رياضة</div></div>
+<div class="interest-chip" data-hobby="ألعاب" onclick="toggleHobby(this)"><div class="chip-icon">🎮</div><div class="chip-label" data-t="chip-ألعاب">ألعاب</div></div>
+<div class="interest-chip" data-hobby="تقنية" onclick="toggleHobby(this)"><div class="chip-icon">💻</div><div class="chip-label" data-t="chip-تقنية">تقنية</div></div>
+<div class="interest-chip" data-hobby="موسيقى" onclick="toggleHobby(this)"><div class="chip-icon">🎵</div><div class="chip-label" data-t="chip-موسيقى">موسيقى</div></div>
+<div class="interest-chip" data-hobby="دراسة" onclick="toggleHobby(this)"><div class="chip-icon">📚</div><div class="chip-label" data-t="chip-دراسة">دراسة</div></div>
+<div class="interest-chip" data-hobby="إبداع" onclick="toggleHobby(this)"><div class="chip-icon">🎨</div><div class="chip-label" data-t="chip-إبداع">إبداع</div></div>
+<div class="interest-chip" data-hobby="مطاعم" onclick="toggleHobby(this)"><div class="chip-icon">🍔</div><div class="chip-label" data-t="chip-مطاعم">مطاعم</div></div>
+<div class="interest-chip" data-hobby="سفر" onclick="toggleHobby(this)"><div class="chip-icon">✈️</div><div class="chip-label" data-t="chip-سفر">سفر</div></div>
+<div class="interest-chip" data-hobby="أعمال" onclick="toggleHobby(this)"><div class="chip-icon">💼</div><div class="chip-label" data-t="chip-أعمال">أعمال</div></div>
+        </div>
+      </div>
+      <div class="setting-row" style="border-bottom:none;padding-top:16px;">
+        <span></span>
+        <button class="btn-sm" onclick="saveProfileInfo()" data-t="dash-save-profile">حفظ الملف الشخصي</button>
+      </div>
+    </div>
+    <div class="dash-section">
+      <div class="dash-section-title" data-t="dash-account">إعدادات الحساب</div>
+      <div class="setting-row">
+        <span class="setting-label" data-t="dash-username">اسم المستخدم</span>
+        <div class="inline-edit">
+          <input class="inline-input" id="edit-username" placeholder="اسم جديد"/>
+          <button class="btn-sm" onclick="saveUsername()" data-t="btn-save">حفظ</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <span class="setting-label" data-t="dash-email">البريد الإلكتروني</span>
+        <span class="setting-value" id="edit-email-display">—</span>
+      </div>
+      <div class="setting-row">
+        <span class="setting-label" data-t="dash-password">كلمة المرور</span>
+        <div class="inline-edit">
+          <input class="inline-input" id="edit-password" type="password" data-t="dash-new-password" placeholder="كلمة مرور جديدة" dir="ltr"/>
+          <button class="btn-sm" onclick="savePassword()" data-t="btn-change">تغيير</button>
+        </div>
+      </div>
+      <div class="setting-row" style="border-bottom:none;">
+        <span class="setting-label" style="font-size:12px;color:var(--text3);">تسجيل الخروج من جميع الأجهزة</span>
+        <button class="btn-sm danger" onclick="logoutAllDevices()">🔐 تسجيل الخروج</button>
+      </div>
+    </div>
+    <div class="dash-section">
+      <div class="dash-section-title" data-t="dash-requests">طلبات الصداقة</div>
+      <div id="friend-requests-list"><div class="empty-state" data-t="dash-no-requests">لا توجد طلبات صداقة جديدة</div></div>
+    </div>
+    <div class="dash-section">
+      <div class="dash-section-title" data-t="dash-history">سجل المحادثات</div>
+      <div id="chat-history-list">
+        <div class="empty-state" data-t="dash-no-history">لا توجد محادثات بعد</div>
+      </div>
+    </div>
+    <div class="dash-section">
+      <div class="dash-section-title" data-t="dash-friends">أصدقائي</div>
+      <div id="friends-list"><div class="empty-state" data-t="dash-no-friends">لم تضف أصدقاء بعد</div></div>
+    </div>
+
+    <div class="dash-section">
+      <div class="dash-section-title"><span data-t="game-history-title">سجل الألعاب</span></div>
+      <div id="game-history-list"><div class="empty-state" data-t="game-history-empty">لا توجد ألعاب سابقة</div></div>
+    </div>
+
+    <button class="btn-logout" onclick="logout()" data-t="btn-logout">🚪 تسجيل الخروج</button>
+  </div>
+</div>
+
+<!-- Report -->
+<div class="report-overlay" id="reportOverlay">
+  <div class="report-card">
+    <h3 data-t="report-title">🚩 الإبلاغ عن المستخدم</h3>
+    <p data-t="report-desc">اختر سبب الإبلاغ وسيتم مراجعته فوراً</p>
+    <div class="report-options">
+      <button class="report-option" onclick="submitReport('محتوى مسيء')" data-t="report-1">محتوى مسيء أو غير لائق</button>
+      <button class="report-option" onclick="submitReport('تحرش')" data-t="report-2">تحرش أو تنمر</button>
+      <button class="report-option" onclick="submitReport('محتوى إباحي')" data-t="report-3">محتوى إباحي</button>
+      <button class="report-option" onclick="submitReport('سلوك مشبوه')" data-t="report-4">سلوك مريب أو مشبوه</button>
+      <button class="report-option" onclick="submitReport('سبب آخر')" data-t="report-5">سبب آخر</button>
+    </div>
+    <button class="report-cancel" onclick="closeReport()" data-t="btn-cancel">إلغاء</button>
+  </div>
+</div>
+<div class="report-overlay" id="tcOverlay" style="z-index:9999;">
+  <div class="report-card" style="max-width:600px;width:90%;max-height:85vh;display:flex;flex-direction:column;text-align:left;" dir="ltr">
+    <h3 style="margin-bottom:12px;font-size:20px;">Terms & Privacy Policy</h3>
+    <div style="overflow-y:auto;padding-right:10px;font-size:13px;line-height:1.6;color:var(--text2);flex:1;" id="tcContent">
+      <p><strong>Last Updated: April 12, 2026</strong><br>Welcome to the Qemistry Beta. By accessing or using our website, you agree to be bound by these Terms & Conditions and our <a href="/policy" target="_blank" style="color: var(--accent);">Privacy Policy</a>. If you do not agree, do not use the site.</p>
+      <br>
+      <p><strong>1. Eligibility (18+ Only)</strong><br>You must be at least 18 years old to use Qemistry. By creating an account or using the service, you legally warrant that you are 18 or older. If we discover you are under 18, your account will be immediately terminated.</p>
+      <br>
+      <p><strong>2. The "Common Sense" Rules of Conduct</strong><br>We maintain a strict zero-tolerance policy for terrible behavior. You agree NOT to use Qemistry to:
+        <ul style="margin-left:20px;margin-top:4px;margin-bottom:4px;">
+          <li>Transmit or display hate speech, racism, sexism, or severe harassment.</li>
+          <li>Broadcast, share, or promote any illegal content.</li>
+          <li>Spam other users or attempt to distribute malicious software.</li>
+        </ul>
+        We reserve the right to define what violates these rules.
+      </p>
+      <br>
+      <p><strong>3. Beta Status and "As-Is" Service</strong><br>Qemistry is currently in a beta testing phase. The service is provided "AS IS" and "AS AVAILABLE" without warranties of any kind. We do not guarantee that the site will be bug-free, secure, or online at all times.</p>
+      <br>
+      <p><strong>4. Data Collection, Camera, & Privacy</strong><br>To make Qemistry function, we collect specific data. Some is saved to maintain your account, while other data is strictly temporary:
+        <ul style="margin-left:20px;margin-top:4px;margin-bottom:4px;">
+          <li><strong>Account Data:</strong> Username, email, date of birth (optional), friend lists, and user reports are saved on our servers.</li>
+          <li><strong>Profile Content:</strong> Profile pictures and bios/interests are saved so others can see them.</li>
+          <li><strong>Ephemeral Chat Logs:</strong> Your text chats are temporary. They are automatically and permanently deleted from our databases 24 hours after they are sent.</li>
+          <li><strong>Connection Data:</strong> Your IP address is collected as it is essential for connecting to our video servers.</li>
+          <li><strong>Camera & Microphone:</strong> We only access your camera and microphone while you are actively using the website for broadcasting and for our moderation purposes. We do not record or store your live video feeds.</li>
+        </ul>
+      </p>
+      <br>
+      <p><strong>5. User-Generated Content</strong><br>You retain ownership of the content you submit. However, by using Qemistry, you grant us a worldwide, royalty-free license to host, store, display, and transmit this content to operate the service.</p>
+      <br>
+      <p><strong>6. Third-Party Ads</strong><br>Qemistry may display advertisements provided by third parties (such as Adsterra). Clicking on these ads will take you outside of our platform. We do not control, endorse, and are not responsible for the content, security, or privacy practices of these third-party websites.</p>
+      <br>
+      <p><strong>7. Termination & Bans</strong><br>We reserve the absolute right to suspend, ban, or terminate any user account, and block any IP address, at any time, for any reason, without notice or liability.</p>
+      <br>
+      <p><strong>8. Limitation of Liability ($50 Cap)</strong><br>To the maximum extent permitted by law, Qemistry and its creators shall not be liable for any indirect, incidental, or consequential damages arising from your use of the site. In no event shall our total aggregate liability for any claims related to the service exceed fifty U.S. dollars ($50.00 USD). You use this platform entirely at your own risk.</p>
+      <br>
+      <p><strong>9. Governing Law</strong><br>These Terms shall be governed by and construed in accordance with the laws of the State of Delaware, USA, without regard to its conflict of law provisions.</p>
+      <br>
+      <p><strong>10. Changes to These Terms</strong><br>As we add features (like subscriptions) and move out of beta, we will update these terms. We reserve the right to modify this agreement at any time. Continued use of Qemistry means you accept those changes.</p>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;">
+      <button class="btn-primary" onclick="acceptTerms()" style="width:100%;font-size:16px;padding:14px;">I Agree (موافق)</button>
+    </div>
+  </div>
+</div>
+<div class="status-toast" id="toast"></div>
+
+<!-- Game invite toast (shown when a game invite arrives) -->
+<div class="game-invite-toast" id="gameInviteToast">
+  <div class="game-invite-toast-header">
+    <div class="game-invite-toast-icon">🃏</div>
+    <div class="game-invite-toast-body">
+      <div class="game-invite-toast-title" id="gameInviteToastTitle" data-t="game-invite-title">دعوة لعب Qemy!</div>
+      <div class="game-invite-toast-sub"   id="gameInviteToastSub"></div>
+    </div>
+  </div>
+  <div class="game-invite-toast-actions">
+    <button class="game-invite-accept"  id="gameInviteAcceptBtn"  data-t="game-invite-accept"  onclick="respondGameInvite(true)">قبول</button>
+    <button class="game-invite-decline" id="gameInviteDeclineBtn" data-t="game-invite-decline" onclick="respondGameInvite(false)">رفض</button>
+  </div>
+</div>
+
+<script src="/avatars.js"></script>
+<script src="app.js"></script>
+<script src="chat.js"></script>
+<script>
+setTimeout(function(){
+  function animateLogo(prefix, speed) {
+    const orbDefs=[
+      {cx:50,cy:50,rx:44,ry:17,tilt:-18*Math.PI/180},
+      {cx:50,cy:50,rx:40,ry:15,tilt:55*Math.PI/180},
+      {cx:50,cy:50,rx:46,ry:16,tilt:-80*Math.PI/180},
+    ];
+    const eDef=[{orb:0,off:0},{orb:1,off:Math.PI*.7},{orb:2,off:Math.PI*1.4}];
+    const eds=[prefix+'ed1',prefix+'ed2',prefix+'ed3'].map(id=>document.getElementById(id));
+    const pL=document.getElementById(prefix+'pL');
+    const pR=document.getElementById(prefix+'pR');
+    const mouth=document.getElementById(prefix+'mouth');
+    if(!eds[0])return;
+    const TWO_PI=Math.PI*2;
+    let eyeAng=-Math.PI/2,eyeDir=1,eyeTurns=0,t=0,mClock=0;
+    function ePos(o,a){
+      const lx=o.rx*Math.cos(a),ly=o.ry*Math.sin(a);
+      return{x:o.cx+lx*Math.cos(o.tilt)-ly*Math.sin(o.tilt),
+             y:o.cy+lx*Math.sin(o.tilt)+ly*Math.cos(o.tilt)};
+    }
+    function frame(){
+      t+=speed;mClock+=speed;
+      eDef.forEach((e,i)=>{
+        const p=ePos(orbDefs[e.orb],t+e.off);
+        if(eds[i]){eds[i].setAttribute('cx',p.x);eds[i].setAttribute('cy',p.y);}
+      });
+      eyeAng+=0.028*eyeDir;eyeTurns+=0.028;
+      if(eyeTurns>=TWO_PI){eyeTurns=0;eyeDir*=-1;}
+      if(pL){pL.setAttribute('cx',45+Math.cos(eyeAng)*1.7);pL.setAttribute('cy',48+Math.sin(eyeAng)*1.7);}
+      if(pR){pR.setAttribute('cx',55+Math.cos(eyeAng)*1.7);pR.setAttribute('cy',48+Math.sin(eyeAng)*1.7);}
+      const v=(Math.sin(mClock*0.38)+1)/2;
+      const ctrlY=58.5+v*2.2,wx=4.5+v*1.5,baseY=56.8;
+      if(mouth)mouth.setAttribute('d',`M ${50-wx} ${baseY} Q 50 ${ctrlY} ${50+wx} ${baseY}`);
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  animateLogo('m-', 0.016);  // main logo - slow
+  animateLogo('w-', 0.085);  // waiting logo - fast (loading)
+  animateLogo('v-', 0.040);  // verify page logo - medium
+},300);
+
+(function pollOnline() {
+  fetch('/api/online-count')
+    .then(r => r.json())
+    .then(({ count }) => {
+      const n = count || 0;
+      const el1 = document.getElementById('stat-online');
+      const el2 = document.getElementById('online-num');
+      if (el1) el1.textContent = n;
+      if (el2) el2.textContent = n;
+    })
+    .catch(() => {})
+    .finally(() => setTimeout(pollOnline, 30000));
+})();
+</script>
+<button class="chat-toggle-btn" id="chat-toggle-btn" onclick="toggleMobileChat()" style="display:none;">💬</button>
+<div class="chat-mobile-overlay" id="chat-mobile-overlay" onclick="toggleMobileChat()">
+  <div class="chat-mobile-panel" onclick="event.stopPropagation()">
+    <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:14px;font-weight:600;">💬 دردشة</span>
+      <button onclick="toggleMobileChat()" style="background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;">✕</button>
+    </div>
+    <div class="messages" id="messages-mobile"></div>
+    <div class="msg-input-row">
+      <input class="msg-input" id="msgInput-mobile" placeholder="اكتب رسالة..." onkeydown="if(event.key==='Enter')sendMsgMobile()"/>
+      <button class="send-btn" onclick="sendMsgMobile()">↑</button>
+    </div>
+  </div>
+</div>
+  <!-- Friends Chat -->
+<div class="friends-chat-overlay" id="friends-chat-overlay">
+  <div class="friends-chat-panel">
+    <div class="friends-chat-header">
+      <div id="friends-chat-title" style="font-size:15px;font-weight:700;">💬 المحادثات</div>
+      <button onclick="closeFriendsChat()" style="background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;">✕</button>
+    </div>
+    <div id="friends-chat-body">
+      <!-- قائمة الأصدقاء أو المحادثة -->
+    </div>
+  </div>
+</div>
+
+<button class="friends-chat-btn" id="friends-chat-btn" onclick="openFriendsChat()">💬</button>
+<script src="/notif.js" defer></script>
+</body>
+<footer style="margin-top: 60px; padding: 24px; text-align: center; border-top: 1px solid var(--border); color: var(--text2); font-size: 13px; padding-bottom: 40px;">
+  <div style="margin-bottom: 8px;">
+    &copy; 2026 Qemistry. All rights reserved.
+  </div>
+  <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+    <a href="/terms-conditions" target="_blank" style="color: var(--text2); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'" data-t="footer-terms">الشروط والأحكام</a>
+    
+    <span style="opacity: 0.5;">|</span>
+    
+    <a href="/policy" target="_blank" style="color: var(--text2); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'" data-t="footer-policy">سياسة الخصوصية</a>
+    
+    <span style="opacity: 0.5;">|</span>
+    
+    <a href="/about" style="color: var(--text2); text-decoration: none; transition: color 0.2s; cursor:pointer;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'" data-t="about-badge">من نحن / تواصل معنا</a>
+    
+    <span style="opacity: 0.5;">|</span>
+    
+    <span>Support: <a href="mailto:qemistry.live@gmail.com" style="color: var(--text2); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text2)'">qemistry.live@gmail.com</a></span>
+  </div>
+</footer>
+</html>

@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <link rel="icon" type="image/png" href="/icon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>برا السالفة — Qemistry</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--bg4:#22222f;
+  --green:#22c55e;--green-glow:rgba(34,197,94,0.12);
+  --red:#ef4444;--amber:#f59e0b;--blue:#3b82f6;--purple:#a855f7;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --radius:16px;--radius-sm:10px;
+}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 50% -10%,rgba(34,197,94,0.07),transparent 70%),radial-gradient(ellipse 50% 40% at 90% 90%,rgba(168,85,247,0.04),transparent 70%);pointer-events:none;z-index:0;}
+#app{position:relative;z-index:1;width:100%;max-width:860px;padding:16px 20px 40px;}
+.header{display:flex;align-items:center;justify-content:space-between;padding:14px 0 20px;gap:10px;}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:var(--green);letter-spacing:-.5px;white-space:nowrap;}
+.logo span{color:var(--text3);font-weight:400;}
+.header-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.back-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-size:13px;padding:6px 14px;border-radius:var(--radius-sm);cursor:pointer;font-family:'Cairo',sans-serif;transition:all .2s;white-space:nowrap;text-decoration:none;display:inline-block;}
+.back-btn:hover{border-color:var(--green);color:var(--green);}
+.screen{display:none;animation:fadeUp .3s ease;}
+.screen.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.big-title{font-size:clamp(30px,6vw,52px);font-weight:900;line-height:1.1;letter-spacing:-1.5px;margin-bottom:6px;}
+.big-title .green{color:var(--green);}
+.sub{color:var(--text2);font-size:15px;margin-bottom:36px;}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px;}
+.card+.card{margin-top:14px;}
+.card-label{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;}
+input[type=text]{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'Cairo',sans-serif;font-size:15px;padding:12px 16px;outline:none;transition:border-color .2s;}
+input[type=text]:focus{border-color:var(--green);}
+input[type=text]::placeholder{color:var(--text3);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:var(--radius-sm);font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;border:none;transition:all .18s;white-space:nowrap;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--green);color:#000;}
+.btn-primary:hover{background:#4ade80;}
+.btn-primary:disabled{background:var(--bg4);color:var(--text3);cursor:not-allowed;transform:none;}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text2);}
+.btn-outline:hover{border-color:var(--green);color:var(--green);background:var(--green-glow);}
+.btn-red{background:var(--red);color:#fff;}
+.btn-red:hover{background:#f87171;}
+.btn-full{width:100%;}
+.btn-sm{padding:8px 16px;font-size:13px;}
+.avatar-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0;}
+.av-opt{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:26px;background:var(--bg3);border:2px solid transparent;border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;overflow:hidden;}
+.av-opt:hover{border-color:var(--border2);}
+.av-opt.selected{border-color:var(--green);background:var(--green-glow);}
+.player-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);}
+.player-row+.player-row{margin-top:8px;}
+.player-row .av{font-size:22px;width:38px;height:38px;border-radius:50%;overflow:hidden;background:var(--bg4);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.player-row .av img{width:100%;height:100%;object-fit:cover;}
+.player-row .nm{flex:1;font-size:14px;font-weight:700;min-width:0;}
+.tag{font-size:10px;padding:2px 8px;border-radius:999px;font-weight:700;white-space:nowrap;}
+.host-tag{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.3);}
+.you-tag{background:var(--bg4);color:var(--text3);border:1px solid var(--border);}
+.share-box{display:flex;gap:8px;align-items:center;}
+.share-input{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text2);font-family:'Space Grotesk',sans-serif;font-size:13px;padding:10px 14px;outline:none;cursor:pointer;min-width:0;}
+.phase-bar{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px;}
+.pdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;animation:blink 1.5s infinite;}
+.pdot.green{background:var(--green);box-shadow:0 0 8px var(--green);}
+.pdot.amber{background:var(--amber);box-shadow:0 0 8px var(--amber);}
+.pdot.red{background:var(--red);box-shadow:0 0 8px var(--red);}
+.pdot.purple{background:var(--purple);box-shadow:0 0 8px var(--purple);}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.35;}}
+.phase-text{flex:1;min-width:0;}
+.phase-label{font-size:11px;color:var(--text3);font-weight:700;letter-spacing:.8px;text-transform:uppercase;}
+.phase-desc{font-size:15px;color:var(--text);font-weight:600;margin-top:1px;}
+.tring{width:58px;height:58px;position:relative;flex-shrink:0;}
+.tring svg{transform:rotate(-90deg);}
+.tnum{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;font-family:'Space Grotesk',sans-serif;}
+.role-box{background:var(--bg2);border:2px solid var(--border2);border-radius:var(--radius);padding:32px 24px;text-align:center;}
+.role-box.imposter-box{border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.04);}
+.role-box.normal-box{border-color:rgba(34,197,94,.35);background:rgba(34,197,94,.04);}
+.role-emoji{font-size:64px;margin-bottom:16px;animation:pop .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.3);opacity:0;}to{transform:scale(1);opacity:1;}}
+.role-type{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
+.role-category{font-size:13px;color:var(--text3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.role-word{font-size:clamp(22px,5vw,36px);font-weight:900;line-height:1.3;margin-bottom:8px;}
+.role-note{font-size:13px;color:var(--text3);margin-top:10px;line-height:1.7;}
+.role-tip{display:inline-block;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:8px 14px;font-size:12px;color:var(--text2);margin:4px;line-height:1.5;}
+.my-word-bar{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);border-radius:var(--radius-sm);padding:10px 16px;display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.my-word-bar.imposter-bar{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25);}
+.mwb-label{font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap;}
+.mwb-word{font-size:14px;font-weight:700;color:var(--green);}
+.imposter-bar .mwb-word{color:var(--red);}
+.mwb-cat{font-size:11px;color:var(--text3);}
+.pair-stage{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:14px;}
+.pair-vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;margin:16px 0;}
+.pair-person{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.pair-av{width:60px;height:60px;border-radius:50%;background:var(--bg3);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:26px;transition:all .3s;overflow:hidden;}
+.pair-av img{width:100%;height:100%;object-fit:cover;}
+.pair-av.speaking{border-color:var(--green);background:rgba(34,197,94,.08);box-shadow:0 0 0 4px rgba(34,197,94,.15);}
+.pair-name{font-size:13px;font-weight:700;}
+.pair-role-label{font-size:11px;font-weight:700;letter-spacing:.8px;padding:3px 10px;border-radius:999px;}
+.asker-label{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.25);}
+.answerer-label{background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.25);}
+.vs-badge{font-size:13px;font-weight:900;color:var(--text3);font-family:'Space Grotesk',sans-serif;}
+.progress-wrap{height:3px;background:var(--bg4);border-radius:2px;margin-top:14px;}
+.progress-bar{height:100%;background:var(--green);border-radius:2px;transition:width 1s linear;}
+.order-track{display:flex;flex-direction:column;gap:7px;}
+.ot-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .25s;}
+.ot-item.current{border-color:var(--green);background:rgba(34,197,94,.06);}
+.ot-item.done{opacity:.38;}
+.ot-num{width:26px;height:26px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text3);flex-shrink:0;}
+.ot-item.current .ot-num{background:var(--green);color:#000;}
+.ot-names{flex:1;font-size:13px;min-width:0;}
+.ot-names strong{font-weight:700;}
+.ot-names span{color:var(--text3);}
+.ot-check{color:var(--green);font-size:14px;flex-shrink:0;}
+.rpills{display:flex;gap:6px;margin-bottom:14px;}
+.rpill{height:3px;border-radius:2px;flex:1;background:var(--bg4);transition:background .4s;}
+.rpill.done{background:var(--green);}
+.rpill.current{background:var(--amber);}
+.rend-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:28px;text-align:center;}
+.vote-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:18px;}
+.vote-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 12px;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
+.vote-card:hover{border-color:var(--red);background:rgba(239,68,68,.04);}
+.vote-card.selected{border-color:var(--red);background:rgba(239,68,68,.09);box-shadow:0 0 0 1px rgba(239,68,68,.25);}
+.vcount{position:absolute;top:6px;right:6px;background:var(--red);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.res-hero{text-align:center;padding:32px 20px 24px;}
+.res-icon{font-size:68px;margin-bottom:14px;animation:pop .5s cubic-bezier(.34,1.56,.64,1);}
+.res-title{font-size:clamp(24px,5vw,38px);font-weight:900;letter-spacing:-1px;margin-bottom:6px;}
+.res-sub{font-size:15px;color:var(--text2);}
+.reveal-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);}
+.reveal-row:last-child{border-bottom:none;}
+.rbadge{font-size:11px;padding:3px 10px;border-radius:999px;font-weight:700;white-space:nowrap;}
+.rbadge.imp{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25);}
+.rbadge.norm{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2);}
+.tip{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px;}
+.tip strong{color:var(--text);}
+.frow{display:flex;gap:8px;flex-wrap:wrap;}
+.fcol{display:flex;flex-direction:column;gap:8px;}
+.mt2{margin-top:12px;}.mt3{margin-top:20px;}
+.mb2{margin-bottom:12px;}.mb3{margin-bottom:20px;}
+.tc{text-align:center;}.fw7{font-weight:700;}.fw9{font-weight:900;}
+.s12{font-size:12px;}.s13{font-size:13px;}.s14{font-size:14px;}.s16{font-size:16px;}
+.c2{color:var(--text2);}.c3{color:var(--text3);}.cg{color:var(--green);}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:11px 22px;font-size:14px;font-weight:600;z-index:999;transition:transform .3s cubic-bezier(.34,1.3,.64,1);white-space:nowrap;max-width:90vw;}
+#toast.show{transform:translateX(-50%) translateY(0);}
+#toast.success{border-color:rgba(34,197,94,.5);color:var(--green);}
+#toast.error{border-color:rgba(239,68,68,.5);color:var(--red);}
+#toast.info{border-color:rgba(168,85,247,.5);color:var(--purple);}
+@keyframes fall{0%{transform:translateY(-30px) rotate(0);opacity:1;}100%{transform:translateY(100vh) rotate(720deg);opacity:0;}}
+.cp{position:fixed;width:7px;height:7px;top:-10px;border-radius:2px;animation:fall linear forwards;z-index:9999;pointer-events:none;}
+#no-auth-screen{position:fixed;inset:0;background:var(--bg);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;}
+.noauth-card{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:40px;max-width:380px;width:100%;text-align:center;}
+@media(max-width:580px){
+  #app { padding: 16px 14px 90px; } /* Added bottom padding so the mic doesn't cover content */
+  .vote-grid{grid-template-columns:repeat(2,1fr);}
+  .pair-av{width:48px;height:48px;font-size:20px;}
+  /* Stacks the Ask vs Answer vertically for better mobile view */
+  .pair-vs{display:flex;flex-direction:column;gap:10px;margin:24px 0;}
+  .vs-badge{transform:rotate(90deg);margin:0;} 
+  .frow{gap:6px;}
+  /* Moves Mic to bottom right and scales it well */
+  #mic-btn { bottom: 20px !important; left: auto !important; right: 20px !important; width: 50px !important; height: 50px !important; font-size: 20px !important; }
+}
+/* New class for when the mic is forcefully disabled by the game */
+.mic-disabled { opacity: 0.4; transform: scale(0.9); pointer-events: none; }
+/* ── Global site nav ── */
+.g-nav{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:46px;
+  background:rgba(10,10,15,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;z-index:999;
+  font-family:'Cairo',sans-serif;width:100%;box-sizing:border-box;}
+.g-nav-logo{font-size:15px;font-weight:700;color:#c4b5fd;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;}
+.g-nav-links{display:flex;align-items:center;gap:2px;}
+.g-nav-link{font-size:13px;color:#64748b;text-decoration:none;padding:6px 11px;border-radius:8px;transition:color .15s,background .15s;white-space:nowrap;}
+.g-nav-link:hover{color:#e2e8f0;background:rgba(255,255,255,0.06);}
+.g-nav-link.active{color:#c4b5fd;background:rgba(139,92,246,0.12);}
+@media(max-width:768px){.g-nav-logo{display:none;}.g-nav{justify-content:center;padding:0 4px;}}
+@media(max-width:520px){.g-nav-link{padding:8px 9px;font-size:17px;}.g-nav-text{display:none;}}
+@media(min-width:521px) and (max-width:768px){.g-nav-link{padding:6px 8px;font-size:12px;}}
+.g-nav-lang{background:none;border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#64748b;font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;padding:4px 9px;transition:all .15s;flex-shrink:0;}
+.g-nav-lang:hover{border-color:#7c3aed;color:#c4b5fd;}
+.g-nav-bell{background:none;border:none;color:#64748b;font-size:16px;cursor:pointer;padding:6px 8px;border-radius:8px;transition:color .15s,background .15s;position:relative;flex-shrink:0;line-height:1;}
+.g-nav-bell:hover{color:#e2e8f0;background:rgba(255,255,255,0.06);}
+.g-nav-bell-badge{position:absolute;top:3px;right:3px;width:7px;height:7px;background:#ef4444;border-radius:50%;border:1.5px solid rgba(10,10,15,0.95);}
+</style>
+</head>
+<body>
+
+<!-- ── Global nav ── -->
+<nav class="g-nav">
+  <a class="g-nav-logo" href="/">Qemistry</a>
+  <div class="g-nav-links">
+    <a href="/" class="g-nav-link" data-path="/">🏠 <span class="g-nav-text" data-t="nav-home">الرئيسية</span></a>
+    <a href="/qemy" class="g-nav-link" data-path="/qemy">🃏 <span class="g-nav-text">Qemy</span></a>
+    <a href="/imposter" class="g-nav-link active" data-path="/imposter">🕵️ <span class="g-nav-text" data-t="nav-imposter">برا السالفة</span></a>
+    <a href="/leaderboard" class="g-nav-link" data-path="/leaderboard">🏆 <span class="g-nav-text" data-t="nav-leaderboard">الترتيب</span></a>
+    <a href="/discover" class="g-nav-link" data-path="/discover">🔍 <span class="g-nav-text" data-t="nav-discover">اكتشف</span></a>
+    <button class="g-nav-bell" id="g-nav-bell" aria-label="الإشعارات">🔔<span class="g-nav-bell-badge" id="g-nav-bell-badge" style="display:none"></span></button>
+    <a href="/#dashboard" class="g-nav-link" id="g-nav-profile">👤 <span class="g-nav-text" data-t="nav-profile">حسابي</span></a>
+    <button class="g-nav-lang" id="g-nav-lang-btn" onclick="toggleImposterLang()">EN</button>
+  </div>
+</nav>
+
+<div id="no-auth-screen">
+  <div class="noauth-card">
+    <div style="font-size:48px;margin-bottom:16px;">🔐</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:8px;" data-t="imp-auth-title">تحتاج حساب</div>
+    <div style="font-size:14px;color:var(--text2);margin-bottom:24px;line-height:1.7;" data-t="imp-auth-desc">سجّل دخولك في Qemistry أولاً للعب برا السالفة</div>
+    <a href="/" class="btn btn-primary btn-full" style="text-decoration:none;display:flex;" data-t="imp-auth-btn">الذهاب للتسجيل →</a>
+  </div>
+</div>
+
+<div id="app">
+
+  <!-- HOME -->
+  <div class="screen active" id="s-home">
+    <div style="padding:8px 0 24px;">
+      <div class="big-title" data-t="imp-home-title">برا <span class="green">السالفة</span></div>
+      <div class="sub" data-t="imp-home-sub">كل لاعب عنده كلمة من نفس الفئة — إلا الإمبوستر، هو يعرف الفئة بس مو الكلمة!</div>
+    </div>
+    <div class="card mb3">
+      <div class="card-label" data-t="imp-choose-avatar">اختار شخصيتك</div>
+      <div class="avatar-grid" id="avatar-grid"></div>
+    </div>
+    <div class="frow mb3">
+      <button class="btn btn-primary" style="flex:1;" onclick="createRoom()" data-t="imp-create-room">إنشاء غرفة +</button>
+      <button class="btn btn-outline" style="flex:1;" onclick="showJoin()" data-t="imp-join-code">انضم بكود 🔗</button>
+    </div>
+    <div id="join-panel" style="display:none;" class="card mb3">
+      <div class="card-label" data-t="imp-room-code">كود الغرفة</div>
+      <div class="frow">
+        <input type="text" id="code-input" placeholder="مثال: A1B2C3" data-t="imp-code-placeholder" maxlength="6" style="flex:1;text-transform:uppercase;letter-spacing:3px;font-family:'Space Grotesk',sans-serif;">
+        <button class="btn btn-primary" onclick="joinRoom()" data-t="imp-join">انضم</button>
+      </div>
+    </div>
+    <div class="tip" data-t="imp-how-to-play"><strong>كيف تلعب؟</strong> — الكل يحصل على كلمة من نفس الفئة — ما عدا البراني! البراني يعرف الفئة بس مو الكلمة. تتزاوجون وتسألون بعض، والهدف تكشف البراني قبل ما يكشفك.</div>
+  </div>
+
+  <!-- LOBBY -->
+  <div class="screen" id="s-lobby">
+    <div class="card mb3">
+      <div class="card-label" data-t="imp-room-link">رابط الغرفة</div>
+      <div class="share-box">
+        <input class="share-input" id="share-link" readonly onclick="copyRoomLink()">
+        <button class="btn btn-outline btn-sm" onclick="copyRoomLink()" data-t="imp-copy">نسخ 📋</button>
+      </div>
+      <div class="mt2 s12 c3" data-t="imp-share-hint">شارك الرابط مع أصدقائك للانضمام</div>
+    </div>
+    <div class="card mb3">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <div class="card-label" style="margin:0;" data-t="imp-players">اللاعبون</div>
+        <div class="s12 c3" id="lobby-count">0 / 8</div>
+      </div>
+      <div id="lobby-players" class="fcol"></div>
+    </div>
+    <div class="card mb3" id="host-settings" style="display:none;">
+      <div class="card-label" data-t="imp-settings">إعدادات</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span class="s14 c2" data-t="imp-max-rounds">الجولات القصوى</span>
+        <div class="frow" style="align-items:center;">
+          <button class="btn btn-outline btn-sm" onclick="setRounds(-1)" style="padding:6px 12px;">−</button>
+          <span id="rounds-val" style="font-size:18px;font-weight:900;min-width:28px;text-align:center;">2</span>
+          <button class="btn btn-outline btn-sm" onclick="setRounds(1)" style="padding:6px 12px;">+</button>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-full" id="start-btn" style="display:none;font-size:16px;padding:15px;" onclick="startGame()">🎮 ابدأ اللعبة</button>
+    <div id="waiting-msg" class="tc c3 s14" style="padding:12px;">في انتظار المضيف لبدء اللعبة...</div>
+  </div>
+
+  <!-- ROLE REVEAL -->
+  <div class="screen" id="s-role">
+    <div class="phase-bar mb3">
+      <div class="pdot purple"></div>
+      <div class="phase-text"><div class="phase-label" data-t="imp-role-reveal">اكتشاف الدور</div><div class="phase-desc" data-t="imp-role-read-quick">اقرأ دورك بسرعة 🤫</div></div>
+      <div class="tring">
+        <svg width="58" height="58" viewBox="0 0 58 58"><circle cx="29" cy="29" r="23" fill="none" stroke="var(--bg4)" stroke-width="4"/><circle id="role-timer-c" cx="29" cy="29" r="23" fill="none" stroke="var(--purple)" stroke-width="4" stroke-dasharray="144.5" stroke-dashoffset="0" stroke-linecap="round" style="transition:stroke-dashoffset 1s linear;"/></svg>
+        <div class="tnum" id="role-timer-n">15</div>
+      </div>
+    </div>
+    <div class="role-box" id="role-box">
+      <div class="role-emoji" id="role-emoji">🎭</div>
+      <div class="role-type" id="role-type">—</div>
+      <div class="role-category" id="role-category"></div>
+      <div class="role-word" id="role-word">—</div>
+      <div class="role-note" id="role-note"></div>
+      <div class="mt3" id="role-tips"></div>
+    </div>
+  </div>
+
+  <!-- DISCUSSION -->
+  <div class="screen" id="s-discussion">
+    <div class="my-word-bar" id="my-word-bar">
+      <span class="mwb-label" data-t="imp-your-word">كلمتك</span>
+      <div><div class="mwb-word" id="mwb-word">—</div><div class="mwb-cat" id="mwb-cat"></div></div>
+    </div>
+    <div class="phase-bar">
+      <div class="pdot green"></div>
+      <div class="phase-text"><div class="phase-label" id="disc-phase-label">مرحلة الأسئلة</div><div class="phase-desc" id="disc-phase-desc">—</div></div>
+      <div class="tring">
+        <svg width="58" height="58" viewBox="0 0 58 58"><circle cx="29" cy="29" r="23" fill="none" stroke="var(--bg4)" stroke-width="4"/><circle id="disc-timer-c" cx="29" cy="29" r="23" fill="none" stroke="var(--green)" stroke-width="4" stroke-dasharray="144.5" stroke-dashoffset="0" stroke-linecap="round" style="transition:stroke-dashoffset 1s linear;"/></svg>
+        <div class="tnum" id="disc-timer-n">30</div>
+      </div>
+    </div>
+    <div class="rpills" id="rpills"></div>
+    <div class="pair-stage">
+      <div class="s12 c3 fw7" style="text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;" id="pair-num-label">الزوج 1</div>
+      <div class="pair-vs">
+        <div class="pair-person"><div class="pair-av speaking" id="asker-av">?</div><div class="pair-name" id="asker-name">—</div><div class="pair-role-label asker-label">يسأل 🎤</div></div>
+        <div class="vs-badge">←→</div>
+        <div class="pair-person"><div class="pair-av speaking" id="answerer-av">?</div><div class="pair-name" id="answerer-name">—</div><div class="pair-role-label answerer-label">يجاوب 👂</div></div>
+      </div>
+      <div class="s13 c2" id="pair-instruction">تحدثوا عن الموضوع</div>
+      <div class="progress-wrap mt2"><div class="progress-bar" id="disc-progress" style="width:100%;"></div></div>
+    </div>
+    <div class="card mt3"><div class="card-label" data-t="imp-pair-order">ترتيب الأزواج</div><div class="order-track" id="order-track"></div></div>
+    <div id="host-disc-btns" style="display:none;">
+      <div class="frow mt3">
+        <button class="btn btn-outline" style="flex:1;" onclick="skipPair()" data-t="imp-skip">تخطي ⏭</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="advancePair()" data-t="imp-next-pair">الزوج التالي →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROUND END -->
+  <div class="screen" id="s-roundend">
+    <div class="rend-card tc">
+      <div style="font-size:48px;margin-bottom:14px;">🔔</div>
+      <div class="fw9 s16 mb2" id="rend-title">انتهت الجولة!</div>
+      <div class="c2 s14 mb3" id="rend-sub">تناقشوا بحرية الآن 🗣️</div>
+      <div class="frow" style="justify-content:center;gap:10px;" id="rend-btns"></div>
+    </div>
+    <div class="card mt3"><div class="card-label" data-t="imp-pairs-asked">الأزواج اللي اتسألوا</div><div class="order-track" id="rend-order"></div></div>
+  </div>
+
+  <!-- VOTING -->
+  <div class="screen" id="s-voting">
+    <div class="phase-bar mb3">
+      <div class="pdot red"></div>
+      <div class="phase-text"><div class="phase-label" data-t="imp-voting">التصويت</div><div class="phase-desc" data-t="imp-who-is-imposter">من هو الإمبوستر؟ 🕵️</div></div>
+      <div class="tring">
+        <svg width="58" height="58" viewBox="0 0 58 58"><circle cx="29" cy="29" r="23" fill="none" stroke="var(--bg4)" stroke-width="4"/><circle id="vote-timer-c" cx="29" cy="29" r="23" fill="none" stroke="var(--red)" stroke-width="4" stroke-dasharray="144.5" stroke-dashoffset="0" stroke-linecap="round" style="transition:stroke-dashoffset 1s linear;"/></svg>
+        <div class="tnum" id="vote-timer-n" style="color:var(--red);">45</div>
+      </div>
+    </div>
+    <div class="tip mb3" data-t="imp-vote-tip">صوّت على من تعتقد أنه <strong>الإمبوستر</strong>. تذكر: هو يعرف الفئة فقط بدون الكلمة المحددة.</div>
+    <div class="vote-grid" id="vote-grid"></div>
+    <div class="tc s13 c3" id="vote-status"></div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen" id="s-results">
+    <div class="res-hero">
+      <div class="res-icon" id="res-icon">🎭</div>
+      <div class="res-title" id="res-title">النتيجة</div>
+      <div class="res-sub" id="res-sub"></div>
+    </div>
+    <div class="card mb3"><div class="card-label" data-t="imp-full-reveal">الكشف الكامل — كلمة كل لاعب</div><div id="res-reveal"></div></div>
+    <div class="card mb3"><div class="card-label" data-t="imp-vote-results">نتائج التصويت</div><div id="res-votes"></div></div>
+    <div class="frow mt3">
+      <a href="/" class="btn btn-outline" style="flex:1;text-decoration:none;" data-t="imp-exit">خروج 🚪</a>
+      <button class="btn btn-primary" style="flex:1;display:none;" id="play-again-btn" onclick="playAgain()" data-t="imp-play-again">العب ثاني ▶</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="/translations.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  // ── Bilingual Setup ─────────────────────────────────────────────────────────
+let isAr = (localStorage.getItem('qc_lang') || 'ar') === 'ar';
+document.documentElement.lang = isAr ? 'ar' : 'en';
+document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+(function(){
+  const b = document.getElementById('g-nav-lang-btn'); if(b) b.textContent = isAr ? 'EN' : 'ع';
+  if (typeof applyTranslations === 'function') applyTranslations();
+})();
+
+// Helper for dynamic JS strings
+function gt(arStr, enStr) { return isAr ? arStr : enStr; }
+
+function toggleImposterLang() {
+  isAr = !isAr;
+  const next = isAr ? 'ar' : 'en';
+  localStorage.setItem('qc_lang', next);
+  document.documentElement.lang = next;
+  document.documentElement.dir  = isAr ? 'rtl' : 'ltr';
+  const b = document.getElementById('g-nav-lang-btn'); if(b) b.textContent = isAr ? 'EN' : 'ع';
+  if (typeof applyTranslations === 'function') applyTranslations();
+  if (myRoomId && room) { renderPhase(); }
+}
+// ── Auth ──────────────────────────────────────────────────────────────────────
+const currentUser = JSON.parse(localStorage.getItem('qc_currentUser') || 'null');
+const authToken   = localStorage.getItem('qc_token');
+if (!currentUser || !authToken) {
+  document.getElementById('no-auth-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+} else {
+  document.getElementById('no-auth-screen').style.display = 'none';
+}
+// ── Topics ────────────────────────────────────────────────────────────────────
+const AR_TOPICS = [
+  {category:'فواكه',words:['تفاح','برتقال','موز','عنب','مانجا','فراولة','بطيخ','خوخ','كمثرى','أناناس','رمان','توت']},
+  {category:'رياضات',words:['كرة القدم','كرة السلة','سباحة','تنس','ملاكمة','كرة طائرة','جري','ركوب دراجات','جودو','غولف','تنس الطاولة','كرة يد']},
+  {category:'حيوانات',words:['أسد','نمر','فيل','زرافة','دلفين','ببغاء','تمساح','ذئب','قرد','نسر','حصان','ضبع']},
+  {category:'مشروبات',words:['قهوة','شاي','عصير برتقال','لبن','كوكاكولا','ماء','عصير تفاح','شاي أخضر','عصير رمان','كرك','شاي أحمر','ريد بول']},
+  {category:'دول',words:['الإمارات','السعودية','الكويت','مصر','تركيا','فرنسا','اليابان','البرازيل','أستراليا','ألمانيا','إيطاليا','إسبانيا']},
+  {category:'مهن',words:['طبيب','مهندس','معلم','طيار','شرطي','محامي','ممرض','مصور','طاهي','مبرمج','صحفي','معمار']},
+  {category:'أكلات',words:['مجبوس','بريياني','كبسة','شاورما','فلافل','هامبرغر','سشمي','باستا','بيتزا','مشاوي','مندي','ملوخية']},
+  {category:'سيارات',words:['تويوتا','بي إم دبليو','مرسيدس','لاند روفر','بورشه','فيراري','نيسان','فولفو','هوندا','فورد','لكزس','أودي']},
+  {category:'أماكن',words:['سوق واقف','الكورنيش','لوسيل','مطار حمد','فيلا جيريا','كتارا','الزعبل','ام سليم','لاقونا','البرج الخليفة']},
+  {category:'آلات موسيقية',words:['بيانو','جيتار','كمان','طبل','ناي','عود','أكورديون','ترومبيت','ساكسفون','هارب','باس','دف']},
+  {category:'أجهزة إلكترونية',words:['آيفون','بلايستيشن','لابتوب','تلفزيون','ساعة ذكية','سماعات','تابلت','كاميرا','سبيكر','إكس بوكس']},
+  {category:'حيوانات بحرية',words:['دلفين','أخطبوط','سمكة قرش','حصان البحر','سلحفاة','حبار','نجم البحر','قنديل البحر','تونة','أنقليس']}
+];
+const EN_TOPICS = [
+  {category:'Fruits', words:['Apple','Orange','Banana','Grapes','Mango','Strawberry','Watermelon','Peach','Pear','Pineapple','Pomegranate','Berries']},
+  {category:'Sports', words:['Football','Basketball','Swimming','Tennis','Boxing','Volleyball','Running','Cycling','Judo','Golf','Table Tennis','Handball']},
+  {category:'Animals', words:['Lion','Tiger','Elephant','Giraffe','Dolphin','Parrot','Crocodile','Wolf','Monkey','Eagle','Horse','Hyena']},
+  {category:'Drinks', words:['Coffee','Tea','Orange Juice','Milk','Cola','Water','Apple Juice','Green Tea','Pomegranate Juice','Karak','Black Tea','Energy Drink']},
+  {category:'Countries', words:['UAE','Saudi Arabia','Kuwait','Egypt','Turkey','France','Japan','Brazil','Australia','Germany','Italy','Spain']},
+  {category:'Professions', words:['Doctor','Engineer','Teacher','Pilot','Police','Lawyer','Nurse','Photographer','Chef','Programmer','Journalist','Architect']},
+  {category:'Food', words:['Machboos','Biryani','Kabsa','Shawarma','Falafel','Burger','Sushi','Pasta','Pizza','BBQ','Mandi','Molokhia']},
+  {category:'Cars', words:['Toyota','BMW','Mercedes','Land Rover','Porsche','Ferrari','Nissan','Volvo','Honda','Ford','Lexus','Audi']},
+  {category:'Places', words:['Souq Waqif','Corniche','Lusail','Hamad Airport','Villaggio','Katara','Al Zubarah','Umm Salal','Lagoona','Burj Khalifa']},
+  {category:'Instruments', words:['Piano','Guitar','Violin','Drums','Flute','Oud','Accordion','Trumpet','Saxophone','Harp','Bass','Tambourine']},
+  {category:'Electronics', words:['iPhone','PlayStation','Laptop','TV','Smartwatch','Headphones','Tablet','Camera','Speaker','Xbox']},
+  {category:'Marine Life', words:['Dolphin','Octopus','Shark','Seahorse','Turtle','Squid','Starfish','Jellyfish','Tuna','Eel']}
+];
+const TOPICS = isAr ? AR_TOPICS : EN_TOPICS;
+// Build AR→EN lookup maps so server-sent Arabic strings can be localized on the client
+const _catMap = {}, _wordMap = {};
+AR_TOPICS.forEach((t,i) => {
+  _catMap[t.category] = EN_TOPICS[i].category;
+  t.words.forEach((w,j) => { _wordMap[w] = EN_TOPICS[i].words[j]; });
+});
+function localizeCategory(cat) { return (!cat || isAr) ? cat : (_catMap[cat] || cat); }
+function localizeWord(word) { return (!word || isAr) ? word : (_wordMap[word] || word); }
+  //hi there! if you're looking at this, maybe contact me! 
+  
+// ── State ─────────────────────────────────────────────────────────────────────
+const AVATARS = ['🦁','🐯','🦊','🐺','🦝','🐸','🦄','🐲','🦅','🦋'];
+let me = { name: currentUser?.username||'ضيف', avatar: AVATARS[0], userId: currentUser?.id||null };
+let room = null, myRoomId = null;
+let selfRole = null, selfWord = null, selfCategory = null;
+let hasVoted = false;
+let discTimerInterval = null, roleTimerInterval = null, voteTimerInterval = null;
+
+// ── Avatar grid ───────────────────────────────────────────────────────────────
+function buildAvatarGrid() {
+  const g = document.getElementById('avatar-grid');
+  const rows = AVATARS.map((a,i) => `<div class="av-opt${i===0?' selected':''}" onclick="selectAvatar('${a}',this)">${a}</div>`).join('');
+  if (currentUser?.avatar_url) {
+    g.innerHTML = `<div class="av-opt selected" id="my-real-av"><img src="${currentUser.avatar_url}" style="width:100%;height:100%;object-fit:cover;"/></div>` + rows;
+    me.avatar = '😊'; // FIX: Removed 'img:' hack. The server natively uses avatar_url now.
+  } else { g.innerHTML = rows; }
+}
+buildAvatarGrid();
+function selectAvatar(av, el) {
+  me.avatar = av;
+  document.querySelectorAll('.av-opt').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ── Socket ────────────────────────────────────────────────────────────────────
+const socket = io('/', { transports:['websocket'] });
+socket.on('connect', () => {
+  if (currentUser) socket.emit('join',{ username:currentUser.username,interests:[],qatarOnly:false,token:localStorage.getItem('qc_token')||null });
+  if (myRoomId) socket.emit('imposter:join',{ roomId:myRoomId, name:me.name, avatar:me.avatar, userId:me.userId, avatarUrl:currentUser?.avatar_url||null });
+});
+socket.on('imposter:created',       ({roomId})         => { myRoomId=roomId; showScreen('s-lobby'); });
+socket.on('imposter:joined',        ({roomId})         => { myRoomId=roomId; showScreen('s-lobby'); });
+socket.on('imposter:update', (data) => { 
+  room = data; 
+  window.currentRoom = data;
+  if (typeof connectToPeers === 'function') connectToPeers(room.players);
+  renderPhase(); 
+  
+  // FIX: Force the mic rules to apply every time the game phase/pair changes
+  enforceMicRules(); 
+});
+socket.on('imposter:role', ({role,word,category}) => { 
+  selfRole=role; 
+  selfWord=word; 
+  selfCategory=category; 
+  // FIX: Force the screen to re-render AFTER we receive the word!
+  renderPhase(); 
+});
+socket.on('imposter:error',         ({msg})            => toast(msg,'error'));
+socket.on('imposter:pair_timer',    ({seconds})        => startDiscTimer(seconds));
+socket.on('imposter:vote_timer',    ({seconds})        => startVoteTimer(seconds));
+socket.on('imposter:vote_progress', ({votedCount,total}) => {
+  const el = document.getElementById('vote-status');
+  if (el) el.textContent = gt(`صوّت ${votedCount} من ${total} لاعبين`,`${votedCount} of ${total} players voted`);
+});
+socket.on('toast', ({msg,type}) => toast(msg, type||'info'));
+  // ── GROUP VOICE CHAT (MESH WEBRTC) ──────────────────────────────────────────
+let localAudioStream = null;
+let peerConnections = {}; // Stores connections: socketId -> RTCPeerConnection
+let isMicOn = false;
+let voiceEnabled = false;
+
+let iceConfig = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+const _iceConfigReady = fetch('/api/ice-config')
+  .then(r => r.json()).then(cfg => { iceConfig = cfg; }).catch(() => {});
+
+// Unlock iOS audio — must be called from a user gesture before any audio plays
+let _audioCtx = null;
+function _unlockAudio() {
+  try {
+    if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (_audioCtx.state === 'suspended') _audioCtx.resume();
+  } catch (_) {}
+}
+const pendingCandidates = {}; // socketId → RTCIceCandidate[]
+
+async function toggleVoiceChat() {
+  const btn = document.getElementById('mic-btn');
+  
+  // First time clicking: Ask for permissions and connect
+  if (!voiceEnabled) {
+    _unlockAudio(); // unlock iOS audio on this user gesture before getUserMedia
+    await _iceConfigReady; // ensure TURN credentials are loaded before connecting
+    try {
+      localAudioStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+        .catch(() => navigator.mediaDevices.getUserMedia({ audio: true }));
+      voiceEnabled = true;
+      isMicOn = true;
+      toast(isAr ? "تم تفعيل المايك ✓" : "Mic activated ✓", "success");
+
+      Object.values(peerConnections).forEach(pc => pc.close());
+      peerConnections = {};
+      Object.keys(pendingCandidates).forEach(k => delete pendingCandidates[k]);
+
+      if (window.currentRoom && window.currentRoom.players) {
+        connectToPeers(window.currentRoom.players);
+      }
+      
+      // Auto-enforce rules immediately after joining voice
+      setTimeout(() => { if (room) enforceMicRules(); }, 300);
+    } catch (err) {
+      toast(isAr ? "يرجى السماح بالمايكروفون" : "Please allow mic access", "error");
+    }
+    return;
+  }
+
+  // Prevent manual overriding if it is NOT their turn to speak!
+  if (room && room.phase === 'role_reveal') {
+    toast(isAr ? "الكل صامت خلال كشف الأدوار 🤫" : "Everyone is silent during role reveal 🤫", "info");
+    return;
+  }
+  if (room && room.phase === 'discussion') {
+    const idx = room.currentPairIndex, pair = room.pairSequence?.[idx];
+    if (pair) {
+      const amA = pair.asker === socket.id;
+      const amR = pair.answerer === socket.id;
+      if (!amA && !amR) {
+        toast(isAr ? "لا يمكنك التحدث الآن، استمع فقط 🤫" : "You can only listen right now 🤫", "info");
+        return;
+      }
+    }
+  }
+
+  // Subsequent clicks: Just toggle mute/unmute manually (if allowed)
+  isMicOn = !isMicOn;
+  localAudioStream.getAudioTracks()[0].enabled = isMicOn;
+  btn.textContent = isMicOn ? '🎤' : '🔇';
+  btn.style.color = isMicOn ? 'var(--green)' : 'var(--text2)';
+  btn.style.borderColor = isMicOn ? 'var(--green)' : 'var(--border2)';
+}
+
+// FIX: New function to automatically mute/unmute based on the game phase
+function enforceMicRules() {
+  if (!voiceEnabled || !localAudioStream) return;
+  const btn = document.getElementById('mic-btn');
+  let shouldBeOn = true; // Default to ON for Lobby, Voting, Results, etc.
+
+  // Mute EVERYONE during role reveal — players are reading secret words privately
+  if (room && room.phase === 'role_reveal') {
+    shouldBeOn = false;
+  // If in the Discussion phase, ONLY the Asker and Answerer get the mic
+  } else if (room && room.phase === 'discussion') {
+    const idx = room.currentPairIndex, pair = room.pairSequence?.[idx];
+    if (pair) {
+      const amA = pair.asker === socket.id;
+      const amR = pair.answerer === socket.id;
+      shouldBeOn = (amA || amR);
+    }
+  }
+
+  isMicOn = shouldBeOn;
+  localAudioStream.getAudioTracks()[0].enabled = isMicOn;
+  btn.textContent = isMicOn ? '🎤' : '🔇';
+  btn.style.color = isMicOn ? 'var(--green)' : 'var(--text2)';
+  btn.style.borderColor = isMicOn ? 'var(--green)' : 'var(--border2)';
+
+  // Visually grey-out the button if they are not allowed to speak
+  if (room && (room.phase === 'role_reveal' || (room.phase === 'discussion' && !shouldBeOn))) {
+    btn.classList.add('mic-disabled');
+  } else {
+    btn.classList.remove('mic-disabled');
+  }
+}
+
+// Create a direct connection to another player
+function createPeerConnection(peerId, isInitiator) {
+  if (peerConnections[peerId]) return peerConnections[peerId];
+  
+  const pc = new RTCPeerConnection(iceConfig);
+  peerConnections[peerId] = pc;
+
+  // Add our mic to the connection
+  if (localAudioStream) {
+    localAudioStream.getTracks().forEach(track => pc.addTrack(track, localAudioStream));
+  }
+
+  // Send routing data to the other player
+  pc.onicecandidate = (event) => {
+    if (event.candidate) {
+      socket.emit('imposter:signal', { targetId: peerId, type: 'ice', data: event.candidate });
+    }
+  };
+
+  // Play their audio when we receive it
+  // Play their audio when we receive it
+  pc.ontrack = (event) => {
+    let audioEl = document.getElementById('audio-' + peerId);
+    if (!audioEl) {
+      // Use <video> not <audio>: iOS routes <audio> to earpiece, <video> to speaker
+      audioEl = document.createElement('video');
+      audioEl.id = 'audio-' + peerId;
+      audioEl.autoplay = true;
+      audioEl.setAttribute('playsinline', '');
+      audioEl.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;';
+      document.getElementById('audio-container').appendChild(audioEl);
+    }
+    const stream = (event.streams && event.streams[0])
+      ? event.streams[0]
+      : (() => { const s = new MediaStream(); s.addTrack(event.track); return s; })();
+    audioEl.srcObject = stream;
+    audioEl.play().catch(() => {
+      // Fallback: pipe through unlocked AudioContext
+      try { if (_audioCtx) _audioCtx.createMediaStreamSource(stream).connect(_audioCtx.destination); } catch (_) {}
+    });
+  };
+  // Cleanup if they leave
+  pc.oniceconnectionstatechange = () => {
+    if (pc.iceConnectionState === 'disconnected' || pc.iceConnectionState === 'failed') {
+      const el = document.getElementById('audio-' + peerId);
+      if (el) el.remove();
+      delete peerConnections[peerId];
+    }
+  };
+
+  // If we are initiating, create the offer
+  if (isInitiator) {
+    pc.createOffer()
+      .then(offer => pc.setLocalDescription(offer))
+      .then(() => {
+        socket.emit('imposter:signal', { targetId: peerId, type: 'offer', data: pc.localDescription });
+      });
+  }
+
+  return pc;
+}
+
+// Receive signals from the server
+// Receive signals from the server
+socket.on('imposter:signal', async ({ senderId, type, data }) => {
+  if (!voiceEnabled) return; // Ignore signals if we haven't joined voice
+
+  let pc = peerConnections[senderId];
+  if (!pc) pc = createPeerConnection(senderId, false);
+
+  try {
+    if (type === 'offer') {
+      await pc.setRemoteDescription(new RTCSessionDescription(data));
+      for (const c of (pendingCandidates[senderId] || [])) {
+        await pc.addIceCandidate(c).catch(() => {});
+      }
+      delete pendingCandidates[senderId];
+      const answer = await pc.createAnswer();
+      await pc.setLocalDescription(answer);
+      socket.emit('imposter:signal', { targetId: senderId, type: 'answer', data: pc.localDescription });
+      
+    } else if (type === 'answer') {
+      // FIX: The Bouncer! Only process the answer if we are actually waiting for one.
+      if (pc.signalingState === 'have-local-offer') {
+        await pc.setRemoteDescription(new RTCSessionDescription(data));
+        for (const c of (pendingCandidates[senderId] || [])) {
+          await pc.addIceCandidate(c).catch(() => {});
+        }
+        delete pendingCandidates[senderId];
+      } else {
+        console.log(`Ignored stray answer from ${senderId}`);
+      }
+      
+    } else if (type === 'ice') {
+      if (pc.remoteDescription && pc.remoteDescription.type) {
+        await pc.addIceCandidate(new RTCIceCandidate(data)).catch(() => {});
+      } else {
+        if (!pendingCandidates[senderId]) pendingCandidates[senderId] = [];
+        pendingCandidates[senderId].push(new RTCIceCandidate(data));
+      }
+    }
+  } catch (err) {
+    console.warn("WebRTC Signal Error:", err);
+  }
+});
+
+// A helper to connect to new players.
+// IMPORTANT: You must call this function inside your socket.on('update') event!
+function connectToPeers(playersArray) {
+  if (!voiceEnabled || !playersArray) return;
+  
+  playersArray.forEach(p => {
+    // Don't connect to ourselves, and don't connect if we already have a connection
+    if (p.id !== socket.id && !peerConnections[p.id]) {
+      // Trick to prevent collisions: The player with the alphabetically lower ID always initiates
+      const isInitiator = socket.id < p.id;
+      createPeerConnection(p.id, isInitiator);
+    }
+  });
+}
+// ────────────────────────────────────────────────────────────────────────────
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function _esc(str) { const d=document.createElement('div'); d.textContent=String(str||''); return d.innerHTML; }
+function copyRoomLink() {
+  if (!myRoomId) return;
+  navigator.clipboard.writeText(`${location.origin}/imposter?room=${myRoomId}`).then(()=>toast(gt('تم نسخ الرابط! 📋','Link copied! 📋'),'success')).catch(()=>{});
+}
+function showScreen(id) { document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id)?.classList.add('active'); }
+function _avHTML(p) {
+  if (p?.avatarUrl) return `<img src="${p.avatarUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"/>`;
+  return p?.avatar||'😊';
+}
+
+// ── Phase render ──────────────────────────────────────────────────────────────
+function renderPhase() {
+  if (!room) return;
+  switch(room.phase) {
+    case 'lobby':       renderLobby();      break;
+    case 'role_reveal': renderRoleReveal(); break;
+    case 'discussion':  renderDiscussion(); break;
+    case 'round_end':   renderRoundEnd();   break;
+    case 'voting':      renderVoting();     break;
+    case 'results':     renderResults();    break;
+  }
+}
+
+function renderLobby() {
+  showScreen('s-lobby');
+  document.getElementById('share-link').value = `${location.origin}/imposter?room=${room.roomId}`;
+  document.getElementById('lobby-count').textContent = `${room.players.length} / 8`;
+  document.getElementById('lobby-players').innerHTML = room.players.map(p=>`
+    <div class="player-row">
+      <div class="av">${_avHTML(p)}</div>
+      <div class="nm">${_esc(p.name)}</div>
+      ${p.id===room.hostId?`<div class="tag host-tag">${gt('مضيف','Host')}</div>`:''}
+      ${p.id===socket.id?`<div class="tag you-tag">${gt('أنت','You')}</div>`:''}
+    </div>`).join('');
+  const isHost = room.hostId===socket.id;
+  document.getElementById('host-settings').style.display = isHost?'block':'none';
+  document.getElementById('rounds-val').textContent = room.maxRounds;
+  const sb = document.getElementById('start-btn'), wm = document.getElementById('waiting-msg');
+  if (isHost) {
+    sb.style.display='block'; wm.style.display='none';
+    sb.disabled = room.players.length < 3;
+    sb.textContent = room.players.length<3 ? gt(`⏳ تحتاج ${3-room.players.length} لاعبين إضافيين`,`⏳ Need ${3-room.players.length} more players`) : gt('🎮 ابدأ اللعبة','🎮 Start Game');
+  } else { sb.style.display='none'; wm.style.display='block'; }
+}
+
+function renderRoleReveal() {
+  showScreen('s-role');
+  const isImp = selfRole==='imposter';
+  document.getElementById('role-box').className = `role-box ${isImp?'imposter-box':'normal-box'}`;
+  document.getElementById('role-emoji').textContent  = isImp?'🕵️':'😊';
+  
+  // FIX: Dynamic Translations added here
+  document.getElementById('role-type').textContent   = isImp ? gt('⚠️ أنت الإمبوستر!','⚠️ You are the Imposter!') : gt('✅ أنت لاعب عادي','✅ You are a Crewmate');
+  document.getElementById('role-type').style.color   = isImp?'var(--red)':'var(--green)';
+  document.getElementById('role-category').textContent = gt('الفئة: ','Category: ') + (localizeCategory(room.topicCategory || selfCategory) || '—');
+
+  if (isImp) {
+    document.getElementById('role-word').innerHTML = `<span style="color:var(--red);">${gt('كلمتك غير معروفة!','Word Unknown!')}</span>`;
+    document.getElementById('role-note').textContent = gt('أنت تعرف الفئة فقط — حاول تتوقع الكلمة من الحوارات وتخفي نفسك 😈', 'You only know the category — try to guess the word and hide yourself 😈');
+    document.getElementById('role-tips').innerHTML = `<div class="role-tip">${gt('🔍 راقب ردود الفعل','🔍 Watch reactions')}</div><div class="role-tip">${gt('💬 كن غامضاً','💬 Be vague')}</div><div class="role-tip">${gt('🎭 تصرف مثل الكل','🎭 Act normal')}</div>`;
+  } else {
+    document.getElementById('role-word').textContent = localizeWord(selfWord)||'—';
+    document.getElementById('role-note').textContent = gt('تذكر كلمتك. عند السؤال جاوب عنها بدون قولها مباشرة. حاول تكشف الإمبوستر الذي يجهل الكلمة 🔍', 'Remember your word. Answer without saying it directly. Find the Imposter! 🔍');
+    document.getElementById('role-tips').innerHTML = `<div class="role-tip">${gt('🚫 لا تقل الكلمة مباشرة','🚫 Don\'t say the word directly')}</div><div class="role-tip">${gt('🤔 انتبه للمشبوهين','🤔 Watch for suspects')}</div>`;
+  }
+  startRoleTimer(15);
+}
+
+function renderDiscussion() {
+  showScreen('s-discussion');
+  const bar = document.getElementById('my-word-bar');
+  
+  // Suggest turning on the mic if they haven't yet!
+  if (!voiceEnabled && room.hostId !== socket.id) toast(gt('اضغط على المايك لتفعيل الصوت!','Click the Mic icon to enable voice!'), 'info');
+
+  if (selfRole==='imposter') {
+    bar.className='my-word-bar imposter-bar';
+    document.getElementById('mwb-word').textContent= gt('الإمبوستر 🕵️','Imposter 🕵️');
+    document.getElementById('mwb-cat').textContent= gt('الفئة: ','Category: ') + localizeCategory(selfCategory);
+  } else {
+    bar.className='my-word-bar';
+    document.getElementById('mwb-word').textContent=localizeWord(selfWord)||'—';
+    document.getElementById('mwb-cat').textContent= gt('الفئة: ','Category: ') + localizeCategory(selfCategory);
+  }
+  document.getElementById('rpills').innerHTML = Array.from({length:room.maxRounds},(_,i)=>{
+    const cls=i<room.roundsDone?'done':i===room.currentRound-1?'current':'';
+    return `<div class="rpill ${cls}"></div>`;
+  }).join('');
+  const idx=room.currentPairIndex, pair=room.pairSequence?.[idx];
+  if (!pair) return;
+  const asker=room.players.find(p=>p.id===pair.asker), answerer=room.players.find(p=>p.id===pair.answerer);
+  
+  // FIX: Dynamic Translations added here
+  document.getElementById('pair-num-label').textContent= gt(`الزوج ${idx+1} من ${room.pairSequence.length}`, `Pair ${idx+1} of ${room.pairSequence.length}`);
+  document.querySelector('.asker-label').innerHTML = gt('يسأل 🎤', 'Asks 🎤');
+  document.querySelector('.answerer-label').innerHTML = gt('يجاوب 👂', 'Answers 👂');
+  
+  document.getElementById('asker-av').innerHTML   = _avHTML(asker);
+  document.getElementById('answerer-av').innerHTML= _avHTML(answerer);
+  document.getElementById('asker-name').textContent   = asker?.name||'—';
+  document.getElementById('answerer-name').textContent= answerer?.name||'—';
+  
+  const amA=pair.asker===socket.id, amR=pair.answerer===socket.id;
+  document.getElementById('pair-instruction').innerHTML = amA
+    ? `<span style="color:var(--green);font-weight:700;">${gt('🎤 دورك تسأل','🎤 Your turn to ask')}</span> — ${gt('اسأل','Ask')} ${answerer?.name} ${gt('عن كلمته بطريقة غير مباشرة','about their word indirectly')}`
+    : amR ? `<span style="color:var(--blue);font-weight:700;">${gt('👂 دورك تجاوب','👂 Your turn to answer')}</span> — ${gt('جاوب','Answer')} ${asker?.name} ${gt('دون ذكر كلمتك مباشرة','without saying your word')}`
+    : gt('استمع وراقب — هل تلاحظ أحداً مشبوهاً؟ 👁️','Listen and watch — notice anyone suspicious? 👁️');
+    
+  renderOrderTrack('order-track', room.pairSequence, idx);
+  document.getElementById('host-disc-btns').style.display = room.hostId===socket.id?'block':'none';
+  document.getElementById('disc-phase-label').textContent= gt(`جولة ${room.currentRound} / ${room.maxRounds}`, `Round ${room.currentRound} / ${room.maxRounds}`);
+  document.getElementById('disc-phase-desc').textContent= `${asker?.name||'?'} ${gt('يسأل','asks')} ${answerer?.name||'?'}`;
+}
+
+function renderOrderTrack(cid, pairs, curIdx) {
+  const c=document.getElementById(cid); if(!c||!room) return;
+  c.innerHTML = pairs.map((pair,i)=>{
+    const a=room.players.find(p=>p.id===pair.asker), r=room.players.find(p=>p.id===pair.answerer);
+    const curr=i===curIdx, done=i<curIdx;
+    const aAv = `<span style="display:inline-block;width:18px;height:18px;border-radius:50%;overflow:hidden;vertical-align:middle;background:var(--bg4);">${_avHTML(a)}</span>`;
+    const rAv = `<span style="display:inline-block;width:18px;height:18px;border-radius:50%;overflow:hidden;vertical-align:middle;background:var(--bg4);">${_avHTML(r)}</span>`;
+    return `<div class="ot-item${curr?' current':done?' done':''}">
+      <div class="ot-num">${i+1}</div>
+      <div class="ot-names"><strong>${aAv} ${_esc(a?.name||'—')}</strong><span> ${gt('يسأل','asks')} </span><strong>${rAv} ${_esc(r?.name||'—')}</strong></div>
+      ${done?'<div class="ot-check">✓</div>':''}
+      ${curr?`<div style="color:var(--green);font-size:11px;font-weight:700;">${gt('جاري 🟢','Active 🟢')}</div>`:''}
+    </div>`;
+  }).join('');
+}
+function renderRoundEnd() {
+  showScreen('s-roundend'); clearAllTimers();
+  const isHost=room.hostId===socket.id, canMore=room.roundsDone<room.maxRounds;
+  document.getElementById('rend-title').textContent=gt(`انتهت الجولة ${room.currentRound}! 🔔`,`Round ${room.currentRound} Ended! 🔔`);
+  document.getElementById('rend-sub').textContent=canMore?gt('هل تريدون جولة أخرى؟','Another round?'):gt('وصلتم الحد الأقصى.','Max rounds reached.');
+  document.getElementById('rend-btns').innerHTML = isHost
+    ? `${canMore?`<button class="btn btn-outline" onclick="requestAnotherRound()">${gt('جولة أخرى 🔄','Another Round 🔄')}</button>`:''}<button class="btn btn-red" onclick="requestVote()">${gt('صوّتوا الآن 🗳️','Vote Now 🗳️')}</button>`
+    : `<div class="c3 s13">${gt('في انتظار المضيف...','Waiting for host...')}</div>`;
+  renderOrderTrack('rend-order', room.pairSequence, room.pairSequence.length);
+}
+
+function renderVoting() {
+  showScreen('s-voting'); if(hasVoted) return;
+  document.getElementById('vote-grid').innerHTML = room.players.map(p=>{
+    const self=p.id===socket.id;
+    return `<div class="vote-card" id="vc-${p.id}" ${self?'':'onclick="castVote(\''+p.id+'\')"'}>
+      <div style="width:44px;height:44px;border-radius:50%;overflow:hidden;margin:0 auto 8px;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:${p.avatarUrl?'0':'26'}px;">
+        ${p.avatarUrl?`<img src="${p.avatarUrl}" style="width:44px;height:44px;object-fit:cover;"/>` : (p.avatar||'😊')}
+      </div>
+      <div style="font-size:13px;font-weight:700;">${_esc(p.name)}</div>
+      ${self?`<div style="font-size:10px;color:var(--text3);margin-top:4px;">${gt('أنت','You')}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function renderResults() {
+  showScreen('s-results'); clearAllTimers(); hasVoted=false;
+  if (!room.topicCategory) return;
+  let maxV=0, elimId=null;
+  Object.entries(room.votes||{}).forEach(([id,cnt])=>{ if(cnt>maxV){maxV=cnt;elimId=id;} });
+  const caught=elimId===room.imposterId, imp=room.players.find(p=>p.id===room.imposterId);
+  document.getElementById('res-icon').textContent  = caught?'🎉':'😈';
+  document.getElementById('res-title').textContent = caught?gt('اتمسك الإمبوستر!','Imposter Caught!'):gt('الإمبوستر نجا!','Imposter Escaped!');
+  document.getElementById('res-sub').textContent   = caught
+    ? `${imp?.name||'?'} ${gt('كان الإمبوستر — الفريق فاز! 🏆','was the Imposter — team wins! 🏆')}`
+    : `${imp?.name||'?'} ${gt('خدع الجميع وفاز! 😱','fooled everyone and won! 😱')}`;
+  if(caught) launchConfetti();
+  document.getElementById('res-reveal').innerHTML = room.players.map(p=>{
+    const isImp=p.id===room.imposterId;
+    const word=isImp?gt(`🕵️ لم يعرف الكلمة (الفئة: ${room.topicCategory})`,`🕵️ Didn't know the word (Category: ${localizeCategory(room.topicCategory)})`):(localizeWord(room.playerWords?.[p.id])||'—');
+    return `<div class="reveal-row">
+      <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
+        ${p.avatarUrl?`<img src="${p.avatarUrl}" style="width:100%;height:100%;object-fit:cover;"/>`:(p.avatar||'😊')}
+      </div>
+      <div style="flex:1;min-width:0;"><div class="s14 fw7">${_esc(p.name)}</div><div class="s12 c3">${_esc(word)}</div></div>
+      <div class="rbadge ${isImp?'imp':'norm'}">${isImp?gt('🕵️ إمبوستر','🕵️ Imposter'):gt('😊 عادي','😊 Crewmate')}</div>
+    </div>`;
+  }).join('');
+  const sorted=room.players.map(p=>({p,v:(room.votes||{})[p.id]||0})).sort((a,b)=>b.v-a.v);
+  document.getElementById('res-votes').innerHTML = sorted.map(({p,v})=>`
+    <div class="reveal-row">
+      <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
+        ${p.avatarUrl?`<img src="${p.avatarUrl}" style="width:100%;height:100%;object-fit:cover;"/>`: (p.avatar||'😊')}
+      </div>
+      <div style="flex:1;font-size:14px;font-weight:700;">${_esc(p.name)}</div>
+      <div style="display:flex;gap:4px;align-items:center;">
+        ${Array.from({length:v},()=>'<div style="width:7px;height:7px;border-radius:50%;background:var(--red);"></div>').join('')}
+        <span class="s12 c3" style="margin-right:6px;">${v} ${gt('أصوات','votes')}</span>
+      </div>
+    </div>`).join('');
+  if(room.hostId===socket.id) document.getElementById('play-again-btn').style.display='flex';
+}
+
+// ── Actions ───────────────────────────────────────────────────────────────────
+function createRoom() {
+  if(!currentUser) return toast(gt('سجّل دخولك أولاً','Sign in first'),'error');
+  socket.emit('imposter:create',{ name:me.name, avatar:me.avatar, userId:me.userId, avatarUrl:currentUser?.avatar_url||null });
+}
+function showJoin() { const p=document.getElementById('join-panel'); p.style.display=p.style.display==='none'?'block':'none'; }
+function joinRoom() {
+  if(!currentUser) return toast(gt('سجّل دخولك أولاً','Sign in first'),'error');
+  const code=document.getElementById('code-input').value.trim().toUpperCase();
+  if(code.length!==6) return toast(gt('الكود يجب أن يكون 6 أحرف','Code must be 6 characters'),'error');
+  socket.emit('imposter:join',{ roomId:code, name:me.name, avatar:me.avatar, userId:me.userId, avatarUrl:currentUser?.avatar_url||null });
+}
+function setRounds(d) { if(myRoomId) socket.emit('imposter:set_rounds',{roomId:myRoomId,maxRounds:(room?.maxRounds||2)+d}); }
+function startGame()           { socket.emit('imposter:start',        {roomId:myRoomId}); }
+function advancePair()         { socket.emit('imposter:pair_done',    {roomId:myRoomId}); }
+function skipPair()            { socket.emit('imposter:pair_done',    {roomId:myRoomId}); toast(gt('تم التخطي ⏭','Skipped ⏭'),'info'); }
+function requestAnotherRound() { socket.emit('imposter:another_round',{roomId:myRoomId}); }
+function requestVote()         { socket.emit('imposter:vote',         {roomId:myRoomId}); }
+function playAgain()           { hasVoted=false; socket.emit('imposter:start',{roomId:myRoomId}); }
+function castVote(id) {
+  if(hasVoted) return toast(gt('صوّتت بالفعل','Already voted'),'info');
+  hasVoted=true;
+  document.getElementById(`vc-${id}`)?.classList.add('selected');
+  socket.emit('imposter:cast_vote',{roomId:myRoomId,votedForId:id});
+  toast(gt('تم تسجيل صوتك ✓','Vote recorded ✓'),'success');
+}
+
+// ── Timers ────────────────────────────────────────────────────────────────────
+function clearAllTimers() { clearInterval(discTimerInterval); clearInterval(roleTimerInterval); clearInterval(voteTimerInterval); }
+function startRoleTimer(sec) {
+  clearInterval(roleTimerInterval); let s=sec; const C=144.5;
+  const upd=()=>{ const c=document.getElementById('role-timer-c'),n=document.getElementById('role-timer-n'); if(!c||!n)return; n.textContent=s; c.style.strokeDashoffset=C*(1-s/sec); if(s<=3){c.style.stroke='var(--red)';n.style.color='var(--red)';} };
+  upd(); roleTimerInterval=setInterval(()=>{ s--; upd(); if(s<=0)clearInterval(roleTimerInterval); },1000);
+}
+function startDiscTimer(sec) {
+  clearInterval(discTimerInterval); let s=sec; const C=144.5;
+  const upd=()=>{ const c=document.getElementById('disc-timer-c'),n=document.getElementById('disc-timer-n'),pb=document.getElementById('disc-progress'); if(!c||!n)return; n.textContent=s; c.style.strokeDashoffset=C*(1-s/sec); if(pb)pb.style.width=(s/sec*100)+'%'; if(s<=10){c.style.stroke='var(--red)';n.style.color='var(--red)';} };
+  upd(); discTimerInterval=setInterval(()=>{ s--; upd(); if(s<=0)clearInterval(discTimerInterval); },1000);
+}
+function startVoteTimer(sec) {
+  clearInterval(voteTimerInterval); let s=sec; const C=144.5;
+  const upd=()=>{ const c=document.getElementById('vote-timer-c'),n=document.getElementById('vote-timer-n'); if(!c||!n)return; n.textContent=s; c.style.strokeDashoffset=C*(1-s/sec); if(s<=10)n.style.color='var(--red)'; };
+  upd(); voteTimerInterval=setInterval(()=>{ s--; upd(); if(s<=0)clearInterval(voteTimerInterval); },1000);
+}
+function toast(msg,type='info') {
+  const el=document.getElementById('toast'); el.textContent=msg; el.className=`show ${type}`;
+  clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),3200);
+}
+function launchConfetti() {
+  const cols=['#22c55e','#3b82f6','#f59e0b','#a855f7','#ef4444','#06b6d4'];
+  for(let i=0;i<70;i++){
+    const el=document.createElement('div'); el.className='cp';
+    el.style.cssText=`left:${Math.random()*100}vw;background:${cols[i%cols.length]};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.6}s;border-radius:${Math.random()>.5?'50%':'2px'};`;
+    document.body.appendChild(el); setTimeout(()=>el.remove(),4000);
+  }
+}
+// URL auto-fill
+const urlRoom = new URLSearchParams(location.search).get('room')||'';
+if(urlRoom.length===6){ document.getElementById('code-input').value=urlRoom; document.getElementById('join-panel').style.display='block'; }
+document.addEventListener('keydown',e=>{ if(e.key!=='Enter')return; const a=document.querySelector('.screen.active'); if(a?.id==='s-home'){ const jp=document.getElementById('join-panel'); jp.style.display!=='none'?joinRoom():createRoom(); } });
+</script>
+  <button id="mic-btn" onclick="toggleVoiceChat()" style="position:fixed; bottom:24px; left:24px; z-index:999; background:var(--bg3); border:2px solid var(--border2); color:var(--text2); border-radius:50%; width:56px; height:56px; font-size:24px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,0.4); transition:all 0.2s;">
+  🔇
+</button>
+<div id="audio-container" style="position:absolute;width:0;height:0;overflow:hidden;"></div>
+<script src="/notif.js" defer></script>
+</body>
+</html>

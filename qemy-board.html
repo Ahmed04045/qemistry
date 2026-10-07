@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4271411908599611"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Qemy 🃏</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="qemy-game.css"/>
+<script src="translations.js"></script>
+<style>
+.g-nav{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:46px;
+  background:rgba(10,11,16,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;z-index:999;
+  font-family:'Tajawal',sans-serif;width:100%;box-sizing:border-box;}
+.g-nav-logo{font-size:15px;font-weight:700;color:#c4b5fd;text-decoration:none;letter-spacing:-.3px;white-space:nowrap;}
+.g-nav-links{display:flex;align-items:center;gap:2px;}
+.g-nav-link{font-size:13px;color:#64748b;text-decoration:none;padding:6px 11px;border-radius:8px;transition:color .15s,background .15s;white-space:nowrap;}
+.g-nav-link:hover{color:#e2e8f0;background:rgba(255,255,255,0.06);}
+.g-nav-link.active{color:#c4b5fd;background:rgba(139,92,246,0.12);}
+@media(max-width:768px){.g-nav-logo{display:none;}.g-nav{justify-content:center;padding:0 4px;}}
+@media(max-width:520px){.g-nav-link{padding:8px 9px;font-size:17px;}.g-nav-text{display:none;}}
+@media(min-width:521px) and (max-width:768px){.g-nav-link{padding:6px 8px;font-size:12px;}}
+/* Account for nav height in fullscreen screens — use dvh so iOS doesn't cut off bottom */
+.qscreen{height:calc(100dvh - 46px)!important;}
+</style>
+</head>
+<body>
+
+<!-- ── Global nav ── -->
+<nav class="g-nav">
+  <a class="g-nav-logo" href="/">Qemistry</a>
+  <div class="g-nav-links">
+    <a href="/" class="g-nav-link" data-path="/">🏠 <span class="g-nav-text" data-t="nav-home">الرئيسية</span></a>
+    <a href="/qemy" class="g-nav-link active" data-path="/qemy">🃏 <span class="g-nav-text">Qemy</span></a>
+    <a href="/imposter" class="g-nav-link" data-path="/imposter">🕵️ <span class="g-nav-text" data-t="nav-imposter">برا السالفة</span></a>
+    <a href="/leaderboard" class="g-nav-link" data-path="/leaderboard">🏆 <span class="g-nav-text" data-t="nav-leaderboard">الترتيب</span></a>
+    <a href="/discover" class="g-nav-link" data-path="/discover">🔍 <span class="g-nav-text" data-t="nav-discover">اكتشف</span></a>
+    <a href="/talent-show" class="g-nav-link" data-path="/talent-show">🎤 <span class="g-nav-text">Talent Show</span></a>
+    <button class="g-nav-bell" id="g-nav-bell" aria-label="الإشعارات">🔔<span class="g-nav-bell-badge" id="g-nav-bell-badge" style="display:none"></span></button>
+    <a href="/#dashboard" class="g-nav-link" id="g-nav-profile">👤 <span class="g-nav-text" data-t="nav-profile">حسابي</span></a>
+    <button class="g-nav-lang" id="g-nav-lang-btn" onclick="togglePageLang()">EN</button>
+  </div>
+</nav>
+
+<!-- ── Lobby waiting screen ── -->
+<div id="qlobbyScreen" class="qscreen">
+  <div class="qblob qblob-1"></div>
+  <div class="qblob qblob-2"></div>
+  <div class="qlobby-center">
+    <div class="qlogo">QEMY</div>
+    <div class="qroom-tag" id="qroomCode">——</div>
+
+    <div class="qwaiting-players" id="qwaitingPlayers"></div>
+    <div class="qwaiting-msg" id="qwaitingMsg" data-t="game-waiting">في انتظار اللاعبين...</div>
+
+    <button class="qstart-btn" id="qstartBtn" onclick="hostStartEarly()" style="display:none" data-t="game-start-btn">
+      ابدأ اللعبة
+    </button>
+
+    <div class="qshare-box">
+      <span class="qshare-label" data-t="room-code-label">رمز الغرفة</span>
+      <span class="qshare-code"  id="qroomCodeDisplay"></span>
+      <button class="qcopy-btn"  id="qcopyBtn" onclick="copyRoomCode()" data-t="game-copy-code">نسخ الرمز</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Game board ── -->
+<div id="qgameScreen" class="qscreen qhidden">
+
+  <!-- Opponent zones -->
+  <div id="qtopZone"   class="qzone qtop-zone"></div>
+  <div id="qleftZone"  class="qzone qleft-zone  qhidden"></div>
+  <div id="qrightZone" class="qzone qright-zone qhidden"></div>
+
+  <!-- Center board -->
+  <div id="qcenterBoard" class="qcenter-board">
+    <div id="qdeckPile" class="qdeck-pile" onclick="onDrawCard()">
+      <div class="qdeck-back">
+        <span class="qdeck-label">QEMY</span>
+      </div>
+    </div>
+    <div class="qboard-card">
+      <div class="qcard-inner" id="qboardCardInner"></div>
+    </div>
+    <div id="qcolorDot" class="qcolor-dot qhidden"></div>
+  </div>
+
+  <!-- Reaction button -->
+  <div id="qreactionBtn" class="qreaction-btn qhidden" onclick="fireReaction()">
+    <span class="qflask">⚗️</span>
+    <span id="qreactionLabel" data-t="game-reaction-btn">التفاعل الكيميائي</span>
+  </div>
+
+  <!-- My zone -->
+  <div class="qzone qbottom-zone">
+    <div class="qplayer-label" id="qmyLabel"></div>
+    <div class="qhand-container" id="qmyHand"></div>
+  </div>
+
+  <!-- Turn banner -->
+  <div id="qturnBanner" class="qturn-banner"></div>
+
+  <!-- Toasts -->
+  <div id="qtoastWrap" class="qtoast-wrap"></div>
+
+  <!-- Mic button -->
+  <button id="qmicBtn" class="qchat-toggle" style="bottom:148px;" onclick="toggleVoiceChat()" title="Voice Chat">🎙️</button>
+  <div id="qaudio-container" style="position:absolute;width:0;height:0;overflow:hidden;"></div>
+
+  <!-- Chat toggle button -->
+  <button id="qchatToggle" class="qchat-toggle" onclick="toggleChat()">
+    💬
+    <span id="qchatBadge" class="qchat-badge qhidden">0</span>
+  </button>
+
+  <!-- Chat panel -->
+  <div id="qchatPanel" class="qchat-panel qhidden">
+    <div class="qchat-header">
+      <span class="qchat-title" id="qchatTitle" data-t="chat-title">المحادثة</span>
+      <button class="qchat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="qchat-messages" id="qchatMessages"></div>
+    <div class="qchat-input-row">
+      <input class="qchat-input" id="qchatInput" placeholder="اكتب رسالة..." maxlength="200" data-t="chat-placeholder"
+             onkeydown="if(event.key==='Enter')sendChatMsg()"/>
+      <button class="qchat-send" onclick="sendChatMsg()">↑</button>
+    </div>
+  </div>
+
+  <!-- Color chooser overlay -->
+  <div id="qcolorChooser" class="qcolor-chooser qhidden">
+    <div class="qchooser-title" id="qchooserTitle" data-t="game-choose-color">اختر لوناً</div>
+    <div class="qchooser-opts">
+      <button class="qcolor-opt qopt-red"    onclick="pickColor('red')"    data-t="game-color-red">أحمر</button>
+      <button class="qcolor-opt qopt-yellow" onclick="pickColor('yellow')" data-t="game-color-yellow">أصفر</button>
+      <button class="qcolor-opt qopt-green"  onclick="pickColor('green')"  data-t="game-color-green">أخضر</button>
+      <button class="qcolor-opt qopt-blue"   onclick="pickColor('blue')"   data-t="game-color-blue">أزرق</button>
+    </div>
+  </div>
+
+  <!-- Game over overlay -->
+  <div id="qgameOverlay" class="qgame-overlay qhidden">
+    <div class="qgame-over-card">
+      <div class="qgo-emoji" id="qgoEmoji">🏆</div>
+      <div class="qgo-title" id="qgoTitle" data-t="game-you-win">فزت!</div>
+      <div class="qgo-name"  id="qgoName"></div>
+      <div class="qgo-badge" id="qgoBadge" style="display:none"></div>
+      <div class="qgo-btns">
+        <button class="qgo-btn" onclick="goBack()" data-t="game-back-lobby">العودة</button>
+        <button class="qgo-rematch-btn" id="qgoRematchBtn" style="display:none" onclick="requestRematch()" data-t="game-rematch-btn">لعبة جديدة ↩</button>
+        <button class="qgo-rematch-btn" id="qgoAcceptBtn" style="display:none;background:rgba(34,197,94,.2);border-color:rgba(34,197,94,.4);color:#4ade80;" onclick="acceptRematch()">✓ <span id="qgoAcceptLabel">موافق</span></button>
+        <button class="qgo-btn" id="qgoDeclineBtn" style="display:none;" onclick="declineRematch()">✕ <span id="qgoDeclineLabel">رفض</span></button>
+      </div>
+      <div id="qgoWaiting" style="display:none;font-size:13px;color:var(--text2);margin-top:8px;text-align:center;"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Socket.io from the main server -->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  // Expose server URL for the client
+  window.SERVER_URL = '';
+
+  window.togglePageLang = function() {
+    const next = (localStorage.getItem('qc_lang') || 'ar') === 'ar' ? 'en' : 'ar';
+    localStorage.setItem('qc_lang', next);
+    document.documentElement.lang = next;
+    document.documentElement.dir  = next === 'ar' ? 'rtl' : 'ltr';
+    const btn = document.getElementById('g-nav-lang-btn');
+    if (btn) btn.textContent = next === 'ar' ? 'EN' : 'ع';
+    if (typeof applyTranslations === 'function') applyTranslations();
+    location.reload();
+  };
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // Apply language
+    const lang = localStorage.getItem('qc_lang') || 'ar';
+    document.documentElement.lang = lang;
+    document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+    const btn = document.getElementById('g-nav-lang-btn');
+    if (btn) btn.textContent = lang === 'ar' ? 'EN' : 'ع';
+    if (typeof applyTranslations === 'function') applyTranslations();
+
+    // Sync room code display to the share box
+    const roomCode = new URLSearchParams(window.location.search).get('room') || '';
+    const display  = document.getElementById('qroomCodeDisplay');
+    if (display) display.textContent = roomCode;
+  });
+</script>
+<script src="qemy-client.js"></script>
+<script src="/notif.js" defer></script>
+</body>
+</html>

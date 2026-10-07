@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>اكتشف شخصيتك — Qemistry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+  <script src="translations.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0d0d1a;--bg2:#13132a;--bg3:#1a1a35;
+      --accent:#9d4edd;--accent2:#c77dff;
+      --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
+      --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+      --radius:16px;--radius-sm:10px;
+    }
+    body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 50% -10%,rgba(157,78,237,.1),transparent 70%);pointer-events:none;}
+
+    /* ── Header ── */
+    .quiz-header{width:100%;max-width:480px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+    .quiz-logo{font-size:17px;font-weight:700;color:var(--accent2);}
+    .quiz-header-actions{display:flex;align-items:center;gap:8px;}
+    .quiz-lang{background:none;border:1px solid var(--border2);color:var(--text3);font-family:'Tajawal',sans-serif;font-size:12px;cursor:pointer;padding:4px 10px;border-radius:8px;transition:all .15s;}
+    .quiz-lang:hover{border-color:var(--accent);color:var(--accent);}
+    .quiz-skip{background:none;border:none;color:var(--text3);font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;padding:6px 8px;border-radius:8px;transition:color .15s;}
+    .quiz-skip:hover{color:var(--text);}
+
+    /* ── Progress ── */
+    .quiz-progress-wrap{width:100%;max-width:480px;margin-bottom:6px;}
+    .quiz-progress-bar{height:4px;border-radius:2px;background:var(--bg3);overflow:hidden;margin-bottom:8px;}
+    .quiz-progress-fill{height:100%;border-radius:2px;background:var(--accent);width:0%;transition:width .4s ease;}
+    .quiz-progress-label{font-size:12px;color:var(--text3);text-align:center;}
+
+    /* ── Card ── */
+    .quiz-card-wrap{width:100%;max-width:480px;position:relative;min-height:380px;}
+    .quiz-card{
+      background:var(--bg2);border:1px solid var(--border2);border-radius:20px;
+      padding:28px 24px;width:100%;
+      position:absolute;top:0;left:0;right:0;
+      transition:transform .3s ease, opacity .3s ease;
+    }
+    .quiz-card.enter{transform:translateX(-100%);opacity:0;}
+    .quiz-card.enter-active{transform:translateX(0);opacity:1;}
+    .quiz-card.exit-active{transform:translateX(100%);opacity:0;}
+
+    .quiz-q{font-size:18px;font-weight:700;line-height:1.5;margin-bottom:6px;}
+    .quiz-q-en{font-size:13px;color:var(--text3);margin-bottom:22px;font-weight:400;}
+
+    .quiz-options{display:flex;flex-direction:column;gap:10px;}
+    .quiz-opt{
+      display:flex;align-items:center;gap:12px;
+      background:var(--bg3);border:1px solid var(--border2);border-radius:12px;
+      padding:14px 16px;cursor:pointer;transition:all .18s;text-align:right;
+      font-family:'Tajawal',sans-serif;font-size:14px;font-weight:500;color:var(--text);
+    }
+    .quiz-opt:hover{border-color:rgba(157,78,237,.4);background:rgba(157,78,237,.06);transform:scale(1.02);}
+    .quiz-opt.selected{border-color:var(--accent);background:rgba(157,78,237,.15);}
+    .quiz-opt-emoji{font-size:20px;flex-shrink:0;}
+    .quiz-opt-text{flex:1;}
+    .quiz-opt-text-ar{display:block;font-size:14px;font-weight:600;}
+    .quiz-opt-text-en{display:block;font-size:11px;color:var(--text3);margin-top:2px;}
+
+    /* ── Result ── */
+    .quiz-result{
+      width:100%;max-width:480px;
+      background:var(--bg2);border:1px solid var(--border2);border-radius:20px;
+      padding:40px 28px;text-align:center;
+      animation:fadeUp .4s ease both;
+      display:none;
+    }
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+    .result-char-svg{display:inline-block;animation:bounce .6s ease both;}
+    @keyframes bounce{
+      0%{transform:scale(0);opacity:0;}
+      60%{transform:scale(1.1);opacity:1;}
+      80%{transform:scale(.95);}
+      100%{transform:scale(1);}
+    }
+    .result-label{font-size:14px;color:var(--text3);margin-top:20px;margin-bottom:6px;}
+    .result-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,#9d4edd,#4cc9f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
+    .result-desc{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:28px;}
+    .result-btns{display:flex;flex-direction:column;gap:10px;}
+    .result-btn-main{
+      padding:15px;border-radius:12px;font-family:'Tajawal',sans-serif;font-size:16px;font-weight:700;
+      cursor:pointer;border:none;background:var(--accent);color:#fff;transition:all .2s;
+    }
+    .result-btn-main:hover{background:var(--accent2);}
+    .result-btn-retry{
+      padding:12px;border-radius:12px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:600;
+      cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--text2);transition:all .2s;
+    }
+    .result-btn-retry:hover{border-color:var(--accent);color:var(--accent);}
+    @keyframes charFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+    .char-idle{animation:charFloat 2.2s ease-in-out infinite;will-change:transform;}
+    @media(prefers-reduced-motion:reduce){.char-idle{animation:none;}}
+    .result-btn-share{
+      padding:15px;border-radius:12px;font-family:'Tajawal',sans-serif;font-size:16px;font-weight:700;
+      cursor:pointer;border:1px solid var(--accent);background:transparent;color:var(--accent2);transition:all .2s;
+    }
+    .result-btn-share:hover{background:rgba(157,78,237,.1);}
+    .result-btn-share:disabled{opacity:.5;cursor:not-allowed;}
+
+    /* ── Toast ── */
+    .quiz-toast{
+      position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);
+      background:var(--bg3);border:1px solid var(--border2);border-radius:12px;
+      padding:12px 20px;font-size:14px;color:var(--text2);
+      opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;z-index:999;
+    }
+    .quiz-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+    @media(max-width:480px){
+      .quiz-q{font-size:16px;}
+      .quiz-opt{padding:12px 14px;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="quiz-header">
+  <div class="quiz-logo">⚛ Qemistry</div>
+  <div class="quiz-header-actions">
+    <button class="quiz-lang" id="quizLangBtn" onclick="toggleQuizLang()">EN</button>
+    <button class="quiz-skip" id="skipBtn" data-t="quiz-skip">تخطي للآن</button>
+  </div>
+</div>
+
+<div class="quiz-progress-wrap">
+  <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progressFill"></div></div>
+  <div class="quiz-progress-label" id="progressLabel">سؤال 1 من 5</div>
+</div>
+
+<div class="quiz-card-wrap" id="cardWrap">
+  <!-- cards injected by JS -->
+</div>
+
+<div class="quiz-result" id="quizResult">
+  <div class="result-char-svg" id="resultSvg"></div>
+  <div class="result-label" data-t="quiz-result-title">شخصيتك هي...</div>
+  <div class="result-name" id="resultName"></div>
+  <div class="result-desc" id="resultDesc"></div>
+  <div id="resultRank" style="display:none;margin:0 0 20px;font-size:13px;color:var(--text3);background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;line-height:1.5;"></div>
+  <div class="result-btns">
+    <button class="result-btn-share" id="resultShare">شارك نتيجتك 🚀</button>
+    <button class="result-btn-main" id="resultAccept" data-t="quiz-accept">ابدأ المغامرة 🚀</button>
+    <button class="result-btn-retry" id="resultRetry" data-t="quiz-retry">جرب مرة ثانية</button>
+  </div>
+</div>
+
+<div class="quiz-toast" id="quizToast"></div>
+
+<script src="avatars.js"></script>
+<script>
+const SERVER_URL  = 'https://www.qemistry.live';
+const authToken   = localStorage.getItem('qc_token') || '';
+const currentUser = (() => { try { return JSON.parse(localStorage.getItem('qc_currentUser') || 'null'); } catch { return null; } })();
+
+// Only redirect if logged in AND already has a permanent character
+if (authToken && currentUser?.character_type && !currentUser?.character_is_temp) { window.location.replace('/'); }
+
+// ── Questions ─────────────────────────────────────────────
+const QUESTIONS = [
+  {
+    ar: 'لو كنت بلعبة فيديو، شو دورك؟',
+    en: 'If you were in a video game, what\'s your role?',
+    opts: [
+      { emoji:'🔧', ar:'أحل الألغاز وأبني الاستراتيجية', en:'I solve puzzles and build strategy',       chars:['robot','scientist'] },
+      { emoji:'⚔️', ar:'مقاتل صامت يضرب ويختفي',         en:'Silent fighter who strikes and vanishes',   chars:['ninja','knight'] },
+      { emoji:'✨', ar:'ساحر عنده قدرات غامضة',           en:'Wizard with mysterious powers',             chars:['wizard'] },
+      { emoji:'👽', ar:'الشخصية الغريبة اللي ما أحد يفهمها', en:'The weird one nobody understands',      chars:['alien','ghost'] },
+      { emoji:'🦊', ar:'العبقري اللي يستغل كل ثغرة',      en:'The genius who exploits every gap',         chars:['fox','hacker'] }
+    ]
+  },
+  {
+    ar: 'شو أول شي تسويه الصبح؟',
+    en: 'What\'s the first thing you do in the morning?',
+    opts: [
+      { emoji:'📋', ar:'أخطط ليومي بدقة',             en:'Plan my day precisely',                     chars:['robot','scientist'] },
+      { emoji:'💪', ar:'تمارين أو شي منظم',            en:'Exercise or something structured',          chars:['ninja','knight'] },
+      { emoji:'🌙', ar:'أبقى بالسرير وأفكر بأفكار غريبة', en:'Stay in bed thinking weird thoughts',  chars:['wizard'] },
+      { emoji:'🌌', ar:'أتأمل أو أتجنب الناس',          en:'Meditate or avoid people',                  chars:['alien','ghost'] },
+      { emoji:'📱', ar:'أتصفح وأعرف شو صاير بالعالم',   en:'Scroll and see what\'s happening',          chars:['fox','hacker'] }
+    ]
+  },
+  {
+    ar: 'صديقك يوصفك بـ...',
+    en: 'Your friend would describe you as...',
+    opts: [
+      { emoji:'🧠', ar:'ذكي ومنطقي',                   en:'Smart and logical',                         chars:['robot','scientist'] },
+      { emoji:'🏆', ar:'منضبط ومنافس',                  en:'Disciplined and competitive',               chars:['ninja','knight'] },
+      { emoji:'🎭', ar:'غامض وإبداعي',                  en:'Mysterious and creative',                   chars:['wizard'] },
+      { emoji:'🛸', ar:'غريب ومميز (بطريقة حلوة)',       en:'Weird and unique (in a cool way)',          chars:['alien','ghost'] },
+      { emoji:'😏', ar:'ذكي ومتحيل',                    en:'Smart and cunning',                         chars:['fox','hacker'] }
+    ]
+  },
+  {
+    ar: 'أي بيئة تفضل؟',
+    en: 'Which environment do you prefer?',
+    opts: [
+      { emoji:'💻', ar:'مكتب مليء بالأجهزة والشاشات',    en:'Office full of gadgets and screens',        chars:['robot','scientist'] },
+      { emoji:'🏟️', ar:'ميدان تدريب أو ساحة تنافس',     en:'Training field or competition arena',       chars:['ninja','knight'] },
+      { emoji:'📚', ar:'مكتبة قديمة أو مكان مظلم هادي',  en:'Old library or quiet dark place',           chars:['wizard'] },
+      { emoji:'🌠', ar:'مكان مجهول ما أحد وصله',          en:'Unknown place nobody has reached',          chars:['alien','ghost'] },
+      { emoji:'🌆', ar:'المدينة الليلية، كل شي متاح',     en:'Night city, everything accessible',         chars:['fox','hacker'] }
+    ]
+  },
+  {
+    ar: 'لما تواجه مشكلة صعبة، شو تسوي؟',
+    en: 'When you face a hard problem, what do you do?',
+    opts: [
+      { emoji:'📊', ar:'أحللها بخطوات منطقية',            en:'Analyze it in logical steps',               chars:['robot','scientist'] },
+      { emoji:'🥊', ar:'أواجهها مباشرة بلا تردد',          en:'Face it directly without hesitation',       chars:['ninja','knight'] },
+      { emoji:'🔮', ar:'أتأملها من زوايا غير تقليدية',      en:'Contemplate from unconventional angles',    chars:['wizard'] },
+      { emoji:'🤷', ar:'أتجاهلها وأشوف إذا تحل لحالها',    en:'Ignore it and see if it solves itself',     chars:['alien','ghost'] },
+      { emoji:'🧩', ar:'أدور ثغرة أو طريق ما أحد فكر فيه', en:'Look for a loophole nobody thought of',    chars:['fox','hacker'] }
+    ]
+  }
+];
+
+// ── State ─────────────────────────────────────────────────
+let current  = 0;
+let answers  = [];   // array of chosen chars pairs per question
+let winnerChar = null;
+
+// ── Render questions ──────────────────────────────────────
+function buildCard(qi) {
+  const q    = QUESTIONS[qi];
+  const lang = getCurrentLang();
+  const div  = document.createElement('div');
+  div.className = 'quiz-card enter';
+  div.id = 'card-' + qi;
+  div.innerHTML = `
+    <div class="quiz-q">${lang === 'ar' ? q.ar : q.en}</div>
+    <div class="quiz-q-en">${lang === 'ar' ? q.en : q.ar}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o, oi) => `
+        <button class="quiz-opt" data-qi="${qi}" data-oi="${oi}" onclick="pick(${qi},${oi},this)">
+          <span class="quiz-opt-emoji">${o.emoji}</span>
+          <span class="quiz-opt-text">
+            <span class="quiz-opt-text-ar">${lang === 'ar' ? o.ar : o.en}</span>
+            <span class="quiz-opt-text-en">${lang === 'ar' ? o.en : o.ar}</span>
+          </span>
+        </button>
+      `).join('')}
+    </div>`;
+  return div;
+}
+
+function showCard(qi) {
+  const wrap = document.getElementById('cardWrap');
+  // remove old
+  const old = wrap.querySelector('.quiz-card');
+  if (old) {
+    old.classList.add('exit-active');
+    setTimeout(() => old.remove(), 300);
+  }
+  const card = buildCard(qi);
+  wrap.appendChild(card);
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      card.classList.remove('enter');
+      card.classList.add('enter-active');
+    });
+  });
+  updateProgress(qi);
+}
+
+function updateProgress(qi) {
+  const pct = ((qi) / QUESTIONS.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = t('quiz-progress').replace('{n}', qi + 1);
+}
+
+function pick(qi, oi, btn) {
+  const card = document.getElementById('card-' + qi);
+  card.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  answers.push(QUESTIONS[qi].opts[oi].chars);
+
+  setTimeout(() => {
+    if (qi + 1 < QUESTIONS.length) {
+      current = qi + 1;
+      showCard(current);
+    } else {
+      showResult();
+    }
+  }, 400);
+}
+
+// ── Scoring ───────────────────────────────────────────────
+function calcWinner() {
+  const scores = {};
+  window.AVATARS.chars.forEach(c => { scores[c.id] = 0; });
+  answers.forEach(pair => pair.forEach(id => { scores[id] = (scores[id] || 0) + 1; }));
+  const max = Math.max(...Object.values(scores));
+  const tied = Object.keys(scores).filter(id => scores[id] === max);
+  return tied[Math.floor(Math.random() * tied.length)];
+}
+
+// ── Share card ────────────────────────────────────────────
+async function generateShareCard(ch) {
+  const SIZE = 1080;
+  const dpr  = Math.min(window.devicePixelRatio || 1, 3);
+  const cv   = document.createElement('canvas');
+  cv.width   = SIZE * dpr;
+  cv.height  = SIZE * dpr;
+  const ctx  = cv.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  ctx.fillStyle = ch.bg;
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  const grd = ctx.createRadialGradient(SIZE / 2, SIZE * 0.42, 0, SIZE / 2, SIZE * 0.42, SIZE * 0.55);
+  grd.addColorStop(0, ch.color + '55');
+  grd.addColorStop(1, 'transparent');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, SIZE, SIZE);
+
+  ctx.strokeStyle = ch.color + 'cc';
+  ctx.lineWidth   = 10;
+  ctx.strokeRect(5, 5, SIZE - 10, SIZE - 10);
+
+  // SVG via data URL — blob URLs can fail on iOS Safari
+  const svgStr = window.AVATARS.renderSVG(ch.id, 400);
+  const svgUrl = 'data:image/svg+xml,' + encodeURIComponent(svgStr);
+  await new Promise(resolve => {
+    const img  = new Image();
+    img.onload = () => { ctx.drawImage(img, (SIZE - 400) / 2, SIZE * 0.1, 400, 400); resolve(); };
+    img.onerror = resolve;
+    img.src = svgUrl;
+  });
+
+  await document.fonts.ready;
+
+  const lang = getCurrentLang();
+  ctx.textAlign    = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.direction    = lang === 'ar' ? 'rtl' : 'ltr';
+
+  ctx.fillStyle = '#ffffff';
+  ctx.font      = `900 80px 'Tajawal', Arial, sans-serif`;
+  ctx.fillText(lang === 'ar' ? ch.nameAr : ch.nameEn, SIZE / 2, SIZE * 0.67);
+
+  ctx.fillStyle = ch.color;
+  ctx.font      = `500 46px 'Tajawal', Arial, sans-serif`;
+  ctx.fillText(lang === 'ar' ? ch.nameEn : ch.nameAr, SIZE / 2, SIZE * 0.745);
+
+  const fullDesc = lang === 'ar' ? ch.descAr : ch.descEn;
+  ctx.fillStyle  = '#94a3b8';
+  ctx.font       = `400 36px 'Tajawal', Arial, sans-serif`;
+  const maxW     = SIZE * 0.82;
+  let desc       = fullDesc;
+  while (ctx.measureText(desc).width > maxW && desc.length > 10) desc = desc.slice(0, -1);
+  if (desc !== fullDesc) desc = desc.trimEnd() + '...';
+  ctx.fillText(desc, SIZE / 2, SIZE * 0.82);
+
+  ctx.strokeStyle = ch.color + '44';
+  ctx.lineWidth   = 2;
+  ctx.beginPath();
+  ctx.moveTo(SIZE * 0.2, SIZE * 0.858);
+  ctx.lineTo(SIZE * 0.8, SIZE * 0.858);
+  ctx.stroke();
+
+  ctx.fillStyle = ch.color;
+  ctx.font      = `700 44px 'Tajawal', Arial, sans-serif`;
+  ctx.fillText('Qemistry', SIZE / 2, SIZE * 0.91);
+
+  ctx.fillStyle = '#475569';
+  ctx.font      = `400 32px 'Tajawal', Arial, sans-serif`;
+  ctx.fillText('qemistry.live', SIZE / 2, SIZE * 0.955);
+
+  return cv;
+}
+
+async function shareResult() {
+  if (!winnerChar) return;
+  const ch   = window.AVATARS.getById(winnerChar);
+  const btn  = document.getElementById('resultShare');
+  const lang = getCurrentLang();
+  btn.disabled    = true;
+  btn.textContent = lang === 'ar' ? 'جاري التحضير...' : 'Preparing...';
+  try {
+    const cv        = await generateShareCard(ch);
+    const blob      = await new Promise(r => cv.toBlob(r, 'image/png'));
+    const file      = new File([blob], 'qemistry-character.png', { type: 'image/png' });
+    const shareUrl  = `${SERVER_URL}/character/${ch.id}`;
+    const shareText = lang === 'ar'
+      ? `اكتشفت شخصيتي على Qemistry! أنا ${ch.nameAr} — اكتشف شخصيتك`
+      : `I discovered my Qemistry character! I'm ${ch.nameEn} — discover yours`;
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: 'Qemistry', text: shareText, url: shareUrl });
+    } else if (navigator.share) {
+      await navigator.share({ title: 'Qemistry', text: shareText, url: shareUrl });
+    } else {
+      const a    = document.createElement('a');
+      a.href     = URL.createObjectURL(blob);
+      a.download = 'qemistry-character.png';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      try { await navigator.clipboard.writeText(shareUrl); } catch (_) {}
+      showToast(lang === 'ar' ? 'تم تحميل الصورة والرابط نُسخ! 📥' : 'Image downloaded & link copied! 📥');
+    }
+  } catch (err) {
+    if (err.name !== 'AbortError') {
+      showToast(lang === 'ar' ? 'حدث خطأ، حاول مرة ثانية' : 'Something went wrong, try again');
+    }
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = lang === 'ar' ? 'شارك نتيجتك 🚀' : 'Share your result 🚀';
+  }
+}
+
+// ── Confetti ──────────────────────────────────────────────
+function launchConfetti(color) {
+  const count = 38;
+  for (let i = 0; i < count; i++) {
+    const el     = document.createElement('div');
+    const size   = 6 + Math.random() * 9;
+    const startX = window.innerWidth * 0.05 + Math.random() * window.innerWidth * 0.9;
+    const tint   = Math.random() > 0.4 ? color : '#ffffff';
+    const circle = Math.random() > 0.5;
+    el.style.cssText = [
+      'position:fixed', `width:${size}px`, `height:${size}px`,
+      `background:${tint}`, `border-radius:${circle ? '50%' : '2px'}`,
+      `left:${startX}px`, 'top:-12px', 'pointer-events:none', 'z-index:9999', 'opacity:1'
+    ].join(';');
+    document.body.appendChild(el);
+    const duration = 1100 + Math.random() * 900;
+    const xDrift   = (Math.random() - 0.5) * 160;
+    const fallDist = window.innerHeight * 0.88;
+    const t0       = performance.now();
+    (function tick(now) {
+      const p = Math.min((now - t0) / duration, 1);
+      el.style.transform = `translate(${xDrift * p}px,${fallDist * p}px) rotate(${p * 420}deg)`;
+      el.style.opacity   = p > 0.65 ? String(1 - (p - 0.65) / 0.35) : '1';
+      if (p < 1) requestAnimationFrame(tick);
+      else el.remove();
+    })(performance.now());
+  }
+}
+
+// ── Team rank ─────────────────────────────────────────────
+async function loadTeamRank(charId) {
+  const el = document.getElementById('resultRank');
+  el.style.display = 'none';
+  try {
+    const res   = await fetch(`${SERVER_URL}/api/leaderboard?mode=teams`);
+    const data  = await res.json();
+    const teams = data.teams || [];
+    const idx   = teams.findIndex(t => t.character_type === charId);
+    if (idx === -1) return;
+    const rank  = idx + 1;
+    const total = teams.length;
+    const lang  = getCurrentLang();
+    el.textContent = lang === 'ar'
+      ? `فريقك حالياً في المرتبة #${rank} من ${total} — ساعد فريقك يصعد! 🏆`
+      : `Your team is ranked #${rank} of ${total} — help them climb! 🏆`;
+    el.style.display = 'block';
+  } catch (_) {}
+}
+
+// ── Result ────────────────────────────────────────────────
+function showResult() {
+  document.getElementById('cardWrap').style.display = 'none';
+  document.querySelector('.quiz-progress-wrap').style.display = 'none';
+  document.getElementById('progressFill').style.width = '100%';
+
+  winnerChar = calcWinner();
+  localStorage.setItem('qc_pending_character', winnerChar);
+  const ch   = window.AVATARS.getById(winnerChar);
+  const res  = document.getElementById('quizResult');
+  const lang = getCurrentLang();
+
+  const svgEl = document.getElementById('resultSvg');
+  svgEl.innerHTML = window.AVATARS.renderSVG(winnerChar, 128);
+  svgEl.style.animation = 'none';
+  svgEl.offsetHeight; // force reflow so bounce replays on retry
+  svgEl.style.animation = '';
+  svgEl.classList.remove('char-idle');
+  svgEl.style.filter = '';
+
+  document.getElementById('resultName').textContent = lang === 'ar'
+    ? (ch.nameAr + ' / ' + ch.nameEn)
+    : (ch.nameEn + ' / ' + ch.nameAr);
+  document.getElementById('resultDesc').textContent = lang === 'ar' ? ch.descAr : ch.descEn;
+  document.getElementById('progressFill').style.background = ch.color;
+
+  res.style.display = 'block';
+
+  setTimeout(() => {
+    svgEl.classList.add('char-idle');
+    svgEl.style.filter = `drop-shadow(0 0 18px ${ch.color}bb)`;
+  }, 700);
+
+  launchConfetti(ch.color);
+  loadTeamRank(winnerChar);
+
+  if (!authToken || !currentUser) {
+    const acceptBtn = document.getElementById('resultAccept');
+    acceptBtn.textContent = lang === 'ar' ? 'سجّل وحفظ شخصيتك 🎯' : 'Sign up & save your character 🎯';
+  }
+}
+
+// ── Save & navigate ───────────────────────────────────────
+async function saveCharacter(charId, isTemp) {
+  try {
+    const res  = await fetch(`${SERVER_URL}/api/quiz/result`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${authToken}` },
+      body: JSON.stringify({ character_type: charId, is_temp: isTemp })
+    });
+    const data = await res.json();
+    if (data.ok && data.user) {
+      localStorage.setItem('qc_currentUser', JSON.stringify(data.user));
+    }
+  } catch (_) {}
+}
+
+document.getElementById('resultShare').addEventListener('click', shareResult);
+
+document.getElementById('resultAccept').addEventListener('click', async () => {
+  if (!winnerChar) return;
+  if (authToken && currentUser) {
+    await saveCharacter(winnerChar, false);
+    window.location.href = '/';
+  } else {
+    window.location.href = '/#auth';
+  }
+});
+
+document.getElementById('resultRetry').addEventListener('click', () => {
+  current  = 0;
+  answers  = [];
+  winnerChar = null;
+  document.getElementById('quizResult').style.display = 'none';
+  document.getElementById('cardWrap').style.display = '';
+  document.querySelector('.quiz-progress-wrap').style.display = '';
+  showCard(0);
+});
+
+// ── Skip ─────────────────────────────────────────────────
+document.getElementById('skipBtn').addEventListener('click', async () => {
+  showToast(t('quiz-skip-toast'));
+  const randomId = window.AVATARS.getRandomId();
+  await saveCharacter(randomId, true);
+  setTimeout(() => { window.location.href = '/'; }, 1500);
+});
+
+// ── Toast ────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('quizToast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ── Language ──────────────────────────────────────────────
+function applyQuizLang() {
+  const lang = getCurrentLang();
+  document.documentElement.lang = lang;
+  document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('quizLangBtn').textContent = lang === 'ar' ? 'EN' : 'ع';
+  applyTranslations();
+}
+
+window.toggleQuizLang = function() {
+  const next = getCurrentLang() === 'ar' ? 'en' : 'ar';
+  localStorage.setItem('qc_lang', next);
+  applyQuizLang();
+  // Re-render current card with new language
+  const wrap = document.getElementById('cardWrap');
+  const old  = wrap.querySelector('.quiz-card');
+  if (old) old.remove();
+  const card = buildCard(current);
+  wrap.appendChild(card);
+  card.classList.remove('enter');
+  card.classList.add('enter-active');
+  // Re-render result if shown
+  if (winnerChar && document.getElementById('quizResult').style.display !== 'none') {
+    const ch = window.AVATARS.getById(winnerChar);
+    const lang = getCurrentLang();
+    document.getElementById('resultName').textContent = lang === 'ar' ? (ch.nameAr + ' / ' + ch.nameEn) : (ch.nameEn + ' / ' + ch.nameAr);
+    document.getElementById('resultDesc').textContent = lang === 'ar' ? ch.descAr : ch.descEn;
+  }
+};
+
+// ── Boot ─────────────────────────────────────────────────
+applyQuizLang();
+showCard(0);
+</script>
+</body>
+</html>

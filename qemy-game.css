@@ -1,0 +1,903 @@
+/* ══ Qemy Game Board CSS ══════════════════════════════════════════════════ */
+/* Embedded in Qatar Chat — bilingual (RTL/LTR aware) */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap');
+* { backface-visibility: hidden;  -webkit-backface-visibility: hidden; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --midnight: #0a0e1a;
+  --table:    #0d1520;
+  --red:      #e63946;
+  --yellow:   #f4c430;
+  --green:    #2a9d8f;
+  --blue:     #457b9d;
+  --orange:   #f4a261;
+  --purple:   #7b2d8b;
+  --text:     #f0ede8;
+  --muted:    #6b7280;
+  --card-w:   72px;
+  --card-h:   108px;
+  --card-rad: 10px;
+
+  /* Card color glow tokens — used for playable-card ring */
+  --glow-red:    rgba(231, 76, 60, 0.65);
+  --glow-yellow: rgba(244, 196, 48, 0.65);
+  --glow-green:  rgba(42, 157, 143, 0.65);
+  --glow-blue:   rgba(69, 123, 157, 0.65);
+  --glow-black:  rgba(168, 85, 247, 0.65);
+}
+
+@media (max-width: 600px) {
+  :root { --card-w: 52px; --card-h: 78px; --card-rad: 7px; }
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--midnight);
+  color: var(--text);
+  font-family: 'Tajawal', 'Space Mono', monospace;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ── Screens ── */
+.qscreen { width: 100vw; height: 100vh; position: relative; }
+.qhidden { display: none !important; }
+
+/* ── Lobby ── */
+.qblob {
+  will-change: transform;
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); opacity: 0.15;
+  animation: qdrift 12s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.qblob-1 { width:500px;height:500px;background:var(--red);top:-150px;left:-150px; }
+.qblob-2 { width:400px;height:400px;background:var(--purple);bottom:-120px;right:-100px;animation-delay:-5s; }
+
+@keyframes qdrift {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(30px,20px) scale(1.08); }
+}
+
+.qlobby-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 16px; z-index: 10; padding: 20px;
+}
+
+.qlogo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: clamp(48px, 12vw, 80px);
+  letter-spacing: -3px; line-height: 1;
+  background: linear-gradient(135deg, var(--red) 0%, var(--orange) 60%, #fff 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.qroom-tag {
+  font-size: 11px; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--orange);
+}
+
+.qwaiting-players {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  justify-content: center; min-height: 48px;
+}
+.qplayer-chip {
+  padding: 8px 16px; border-radius: 99px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 13px; color: var(--text);
+  animation: qchipin 0.3s ease;
+  display: flex; align-items: center; gap: 8px;
+}
+.qchip-avatar {
+  width: 24px; height: 24px; border-radius: 50%;
+  object-fit: cover; background: rgba(255,255,255,0.1);
+}
+@keyframes qchipin {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.qwaiting-msg {
+  font-size: 12px; color: var(--muted);
+  letter-spacing: 2px;
+  animation: qpulse 1.5s ease-in-out infinite;
+}
+@keyframes qpulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.qstart-btn {
+  padding: 14px 40px; border-radius: 12px;
+  border: 1px solid rgba(244,162,97,0.6);
+  background: rgba(244,162,97,0.1);
+  color: var(--orange); font-family: 'Tajawal', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 1px; cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 20px rgba(244,162,97,0.15);
+}
+.qstart-btn:hover {
+  background: rgba(244,162,97,0.2);
+  border-color: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(244,162,97,0.3);
+}
+.qstart-btn:active { transform: translateY(0); }
+
+.qshare-box {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; padding: 10px 16px;
+  font-size: 12px; flex-wrap: wrap; justify-content: center;
+}
+.qshare-label { color: var(--muted); letter-spacing: 1px; }
+.qshare-code  { color: var(--orange); font-weight: 700; letter-spacing: 3px; font-size: 15px; }
+.qcopy-btn {
+  padding: 5px 14px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent; color: var(--text);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 12px; cursor: pointer; transition: all 0.15s;
+}
+.qcopy-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+/* ── Game Board ── */
+#qgameScreen {
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(123,45,139,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, #0f1e2e 0%, var(--midnight) 70%);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    ".     qtop    ."
+    "qleft qcenter qright"
+    ".     qbottom .";
+  gap: 0; padding: 12px;
+}
+
+/* ── Player zones ── */
+.qzone       { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.qtop-zone   { grid-area: qtop; }
+.qleft-zone  { grid-area: qleft; }
+.qright-zone { grid-area: qright; }
+.qbottom-zone { grid-area: qbottom; padding-bottom: 8px; }
+.qcenter-board {
+  grid-area: qcenter;
+  display: flex; align-items: center; justify-content: center; gap: 32px;
+  position: relative;
+}
+
+/* ── Opponent labels ── */
+.qopp-label {
+  font-size: 11px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #9ca3af; margin-bottom: 4px;
+  font-weight: 600;
+}
+.qopp-hand { display: flex; }
+
+/* Active-turn highlight on opponent zone label */
+.qopp-label.qturn-active {
+  color: var(--orange);
+  text-shadow: 0 0 10px rgba(244, 162, 97, 0.5);
+}
+/*peformance*/
+/* Add this to any element with heavy animations */
+.qcard, .qturn-banner, .qreaction-btn, .qdeck-pile, .qplayer-avatar {
+  will-change: transform;
+  transform: translateZ(0); /* forces GPU layer */
+}
+/* ── Cards ── */
+.qcard {
+  width: var(--card-w); height: var(--card-h);
+  border-radius: var(--card-rad);
+  position: relative; cursor: pointer; flex-shrink: 0;
+  z-index: 1; /* Establish a baseline z-index */
+  /* Add z-index to the transition with a 0.15s DELAY so it stays on top while sliding down */
+  transition: transform 0.15s ease, box-shadow 0.15s ease, z-index 0s 0.15s;
+}
+.qcard-back {
+  width: 100%; height: 100%;
+  border-radius: var(--card-rad);
+  background: linear-gradient(145deg, #0d1020, #1a1a35, #0d1020);
+  border: 2px solid rgba(139,92,246,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700;
+  color: rgba(139,92,246,0.35); letter-spacing: 2px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3);
+  position: relative; overflow: hidden;
+}
+/* Subtle diagonal pattern on card back */
+.qcard-back::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 6px,
+    rgba(139,92,246,0.04) 6px,
+    rgba(139,92,246,0.04) 7px
+  );
+  border-radius: inherit;
+}
+.qcard-front {
+  height: 100%; border-radius: var(--card-rad);
+  border: 2px solid rgba(255,255,255,0.15);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  font-family: 'Syne', sans-serif;
+}
+/* Removed opacity-wash pseudo-element — gradient now renders at full saturation */
+.qcard-number {
+  font-size: 32px; font-weight: 800;
+  color: rgba(255,255,255,0.95); position: relative; z-index: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.qcard-tl {
+  position: absolute; top: 5px; left: 8px;
+  font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.8); z-index: 1;
+}
+.qcard-br {
+  position: absolute; bottom: 5px; right: 8px;
+  font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.8);
+  transform: rotate(180deg); z-index: 1;
+}
+/* Vivid card color gradients — saturated for premium card feel */
+.qcard-red    { background: linear-gradient(145deg, #b71c1c 0%, #ef4444 55%, #ff6b6b 100%); }
+.qcard-yellow { background: linear-gradient(145deg, #b8860b 0%, #f4c430 55%, #ffe066 100%); }
+.qcard-green  { background: linear-gradient(145deg, #0d5c50 0%, #2a9d8f 55%, #3ecfbe 100%); }
+.qcard-blue   { background: linear-gradient(145deg, #1a3a52 0%, #457b9d 55%, #6aaed6 100%); }
+.qcard-black  { background: linear-gradient(145deg, #111 0%, #2d1b6b 50%, #1a1a1a 100%); }
+
+/* Inner top-edge highlight — physical card depth illusion */
+.qcard-front::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 35%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.18), transparent);
+  border-radius: var(--card-rad) var(--card-rad) 0 0;
+  pointer-events: none; z-index: 2;
+}
+
+#qmyHand .qcard:hover {
+  transform: translateY(-20px) scale(1.06);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.7); 
+  z-index: 100;
+  /* Instantly pop to the front on hover (0s delay) */
+  transition: transform 0.15s ease, box-shadow 0.15s ease, z-index 0s 0s;
+}
+@media (hover: none) {
+  #qmyHand .qcard:active {
+    /* We drastically reduce translateY so the card doesn't escape the user's finger */
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.5); z-index: 100;
+  }
+}
+
+/* Playable state: animated ring + color-matched glow */
+.qcard.qplayable {
+  box-shadow: 0 0 0 2.5px var(--orange), 0 0 22px rgba(244,162,97,0.45);
+  animation: qplayablepulse 1.8s ease-in-out infinite;
+}
+@keyframes qplayablepulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.75; }
+}
+/* Playable + hover — must override animation for the lifted state */
+#qmyHand .qcard.qplayable:hover {
+  animation: none;
+  transform: translateY(-20px) scale(1.06);
+  box-shadow: 0 0 0 3px var(--orange), 0 24px 48px rgba(0,0,0,0.7), 0 0 32px rgba(244,162,97,0.5);
+}
+
+/* Color-matched playable glows per card suit */
+.qcard.qplayable.qcard-red    { box-shadow: 0 0 0 2.5px #ef4444, 0 0 22px var(--glow-red);    animation: qplayablepulse-red    1.8s ease-in-out infinite; }
+.qcard.qplayable.qcard-yellow { box-shadow: 0 0 0 2.5px #f4c430, 0 0 22px var(--glow-yellow); animation: qplayablepulse-yellow 1.8s ease-in-out infinite; }
+.qcard.qplayable.qcard-green  { box-shadow: 0 0 0 2.5px #2a9d8f, 0 0 22px var(--glow-green);  animation: qplayablepulse-green  1.8s ease-in-out infinite; }
+.qcard.qplayable.qcard-blue   { box-shadow: 0 0 0 2.5px #457b9d, 0 0 22px var(--glow-blue);   animation: qplayablepulse-blue   1.8s ease-in-out infinite; }
+.qcard.qplayable.qcard-black  { box-shadow: 0 0 0 2.5px #a855f7, 0 0 22px var(--glow-black);  animation: qplayablepulse-black  1.8s ease-in-out infinite; }
+
+@keyframes qplayablepulse-red    { 0%,100%{box-shadow:0 0 0 2px #ef4444,0 0 16px var(--glow-red);   transform:translateY(0)} 50%{box-shadow:0 0 0 3px #ef4444,0 0 28px var(--glow-red);   transform:translateY(-3px)} }
+@keyframes qplayablepulse-yellow { 0%,100%{box-shadow:0 0 0 2px #f4c430,0 0 16px var(--glow-yellow);transform:translateY(0)} 50%{box-shadow:0 0 0 3px #f4c430,0 0 28px var(--glow-yellow);transform:translateY(-3px)} }
+@keyframes qplayablepulse-green  { 0%,100%{box-shadow:0 0 0 2px #2a9d8f,0 0 16px var(--glow-green); transform:translateY(0)} 50%{box-shadow:0 0 0 3px #2a9d8f,0 0 28px var(--glow-green); transform:translateY(-3px)} }
+@keyframes qplayablepulse-blue   { 0%,100%{box-shadow:0 0 0 2px #457b9d,0 0 16px var(--glow-blue);  transform:translateY(0)} 50%{box-shadow:0 0 0 3px #457b9d,0 0 28px var(--glow-blue);  transform:translateY(-3px)} }
+@keyframes qplayablepulse-black  { 0%,100%{box-shadow:0 0 0 2px #a855f7,0 0 16px var(--glow-black); transform:translateY(0)} 50%{box-shadow:0 0 0 3px #a855f7,0 0 28px var(--glow-black); transform:translateY(-3px)} }
+
+/* ── Deck ── */
+.qdeck-pile { position: relative; cursor: pointer; transition: transform 0.18s, filter 0.18s; }
+.qdeck-pile:hover { transform: translateY(-6px) scale(1.04); filter: brightness(1.15); }
+.qdeck-pile:active { transform: translateY(-2px) scale(1.01); }
+.qdeck-back {
+  width: var(--card-w); height: var(--card-h);
+  border-radius: var(--card-rad);
+  background: linear-gradient(145deg, #0d1020, #1a1a35, #0d1020);
+  border: 2px solid rgba(139,92,246,0.22);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow:
+    3px 3px 0 rgba(0,0,0,.5),
+    5px 5px 0 rgba(0,0,0,.35),
+    7px 7px 0 rgba(0,0,0,.22),
+    0 0 20px rgba(0,0,0,0.5);
+  position: relative; overflow: hidden;
+}
+/* Diagonal stripe pattern on deck */
+.qdeck-back::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 6px,
+    rgba(139,92,246,0.05) 6px,
+    rgba(139,92,246,0.05) 7px
+  );
+  border-radius: inherit;
+}
+.qdeck-label {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 12px;
+  letter-spacing: 2px; color: rgba(139,92,246,0.4);
+  position: relative; z-index: 1;
+}
+
+/* Deck glows orange on my turn — added via JS class */
+.qdeck-pile.qmy-turn-deck .qdeck-back {
+  border-color: rgba(244,162,97,0.5);
+  box-shadow:
+    3px 3px 0 rgba(0,0,0,.5),
+    5px 5px 0 rgba(0,0,0,.35),
+    7px 7px 0 rgba(0,0,0,.22),
+    0 0 24px rgba(244,162,97,0.35);
+  animation: qdeckglow 2s ease-in-out infinite;
+}
+@keyframes qdeckglow {
+  0%, 100% { box-shadow: 3px 3px 0 rgba(0,0,0,.5),5px 5px 0 rgba(0,0,0,.35),7px 7px 0 rgba(0,0,0,.22),0 0 18px rgba(244,162,97,0.3); }
+  50%       { box-shadow: 3px 3px 0 rgba(0,0,0,.5),5px 5px 0 rgba(0,0,0,.35),7px 7px 0 rgba(0,0,0,.22),0 0 32px rgba(244,162,97,0.55); }
+}
+
+/* ── Board card ── */
+.qboard-card { width: var(--card-w); height: var(--card-h); border-radius: var(--card-rad); position: relative; }
+.qcard-inner { width: 100%; height: 100%; border-radius: var(--card-rad); transition: transform 0.4s; }
+
+/* ── Color dot ── */
+.qcolor-dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%);
+  border: 2px solid rgba(255,255,255,0.35);
+  box-shadow: 0 0 14px currentColor, 0 0 4px rgba(0,0,0,0.4);
+  transition: background 0.35s;
+  animation: qdotpulse 2.5s ease-in-out infinite;
+}
+@keyframes qdotpulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50%       { transform: translateX(-50%) scale(1.2); }
+}
+
+/* ── Opp mini-cards ── */
+.qopp-card {
+  width: 32px; height: 48px; border-radius: 5px;
+  background: linear-gradient(145deg, #0d1020, #1a1a35);
+  border: 1px solid rgba(139,92,246,0.18);
+  margin-left: -12px; box-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+  transition: box-shadow 0.2s;
+  position: relative; overflow: hidden;
+}
+.qopp-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(139,92,246,0.04) 3px, rgba(139,92,246,0.04) 4px);
+}
+.qopp-card:first-child { margin-left: 0; }
+.qleft-zone .qopp-card, .qright-zone .qopp-card {
+  width: 28px; height: 42px; margin-left: 0; margin-top: -12px;
+}
+
+/* ── Turn banner ── */
+.qturn-banner {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  background: rgba(10,14,26,0.88); border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px); border-radius: 99px; padding: 9px 22px;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text);
+  z-index: 50; transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+  white-space: nowrap;
+}
+.qturn-banner.qmy-turn {
+  background: rgba(244, 162, 97, 0.14);
+  border-color: var(--orange);
+  color: var(--orange);
+  font-weight: 700;
+  letter-spacing: 3px;
+  box-shadow: 0 0 0 1px rgba(244,162,97,0.3), 0 0 28px rgba(244,162,97,0.45), 0 4px 16px rgba(0,0,0,0.4);
+  animation: qturnpulse 1.6s ease-in-out infinite;
+}
+@keyframes qturnpulse {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(244,162,97,0.3), 0 0 22px rgba(244,162,97,0.4), 0 4px 16px rgba(0,0,0,0.4);
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(244,162,97,0.5), 0 0 40px rgba(244,162,97,0.65), 0 4px 16px rgba(0,0,0,0.4);
+    transform: translateX(-50%) scale(1.04);
+  }
+}
+
+/* ── Reaction button ── */
+.qreaction-btn {
+  position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+  background: linear-gradient(135deg, var(--purple), #a855f7);
+  border-radius: 14px; padding: 14px 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  cursor: pointer; z-index: 40;
+  box-shadow: 0 0 30px rgba(123,45,139,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
+  font-size: 10px; letter-spacing: 1px; text-align: center; text-transform: uppercase;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: qreactionglow 2s ease-in-out infinite;
+}
+.qreaction-btn:hover { transform: translateY(-50%) scale(1.06); box-shadow: 0 0 40px rgba(123,45,139,0.8); }
+.qflask { font-size: 24px; }
+@keyframes qreactionglow {
+  0%,100% { box-shadow: 0 0 20px rgba(168,85,247,0.4); }
+  50%      { box-shadow: 0 0 40px rgba(168,85,247,0.8); }
+}
+
+/* ── Player label ── */
+.qplayer-label {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.qmy-name {
+  font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #9ca3af; font-weight: 600;
+}
+
+/* ── Hand container ── */
+.qhand-container {
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 0 8px; width: 100%; max-width: 100vw;
+  overflow-x: auto; overflow-y: visible;
+  min-height: calc(var(--card-h) + 24px);
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.qhand-container::-webkit-scrollbar { display: none; }
+#qmyHand .qcard { margin-left: -24px; flex-shrink: 0; }
+#qmyHand .qcard:first-child { margin-left: 0; }
+@media (max-width: 600px) {
+  /* ... other mobile styles ... */
+  /* Reduced from -30px to -20px to make neighboring cards more visible */
+  #qmyHand .qcard { margin-left: -20px; }
+  #qmyHand .qcard:first-child { margin-left: 0; }
+}
+/* ── Toasts ── */
+.qtoast-wrap {
+  position: fixed; bottom: 180px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; gap: 8px;
+  align-items: center; z-index: 200; pointer-events: none;
+}
+.qtoast {
+  background: rgba(10,14,26,0.9); border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px); border-radius: 99px;
+  padding: 8px 20px; font-size: 12px; color: var(--text); letter-spacing: 1px;
+  animation: qtoastin 0.3s ease, qtoastout 0.3s ease 2.7s forwards;
+}
+.qtoast.qred    { border-color: var(--red); }
+.qtoast.qorange { border-color: var(--orange); }
+.qtoast.qpurple { border-color: var(--purple); }
+.qtoast.qgreen  { border-color: var(--green); }
+@keyframes qtoastin  { from{transform:translateY(10px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes qtoastout { from{opacity:1} to{opacity:0} }
+
+/* ── Color chooser ── */
+.qcolor-chooser {
+  position: fixed; inset: 0; z-index: 300;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.82); backdrop-filter: blur(14px); gap: 28px;
+  animation: qchooserin 0.22s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes qchooserin {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.qchooser-title {
+  font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800;
+  letter-spacing: 3px; text-transform: uppercase;
+  background: linear-gradient(135deg, var(--orange), #fff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.qchooser-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.qcolor-opt {
+  width: 124px; height: 84px; border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.25);
+  font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 15px;
+  color: rgba(255,255,255,0.95); letter-spacing: 1px; cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.2);
+  position: relative; overflow: hidden;
+}
+.qcolor-opt::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 40%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.2), transparent);
+  border-radius: 12px 12px 0 0; pointer-events: none;
+}
+.qcolor-opt:hover {
+  transform: scale(1.08) translateY(-3px);
+  border-color: rgba(255,255,255,0.75);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.25);
+}
+.qcolor-opt:active { transform: scale(1.02); }
+.qcolor-opt.qopt-red    { background: linear-gradient(145deg, #b71c1c 0%, #ef4444 55%, #ff6b6b 100%); }
+.qcolor-opt.qopt-yellow { background: linear-gradient(145deg, #b8860b 0%, #f4c430 55%, #ffe066 100%); }
+.qcolor-opt.qopt-green  { background: linear-gradient(145deg, #0d5c50 0%, #2a9d8f 55%, #3ecfbe 100%); }
+.qcolor-opt.qopt-blue   { background: linear-gradient(145deg, #1a3a52 0%, #457b9d 55%, #6aaed6 100%); }
+
+/* ── Game over overlay ── */
+.qgame-overlay {
+  position: fixed; inset: 0; z-index: 400;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+
+/* Win state — golden glow */
+.qgame-overlay.qwin-state {
+  background: radial-gradient(ellipse at 50% 40%, rgba(244,162,97,0.12) 0%, rgba(0,0,0,0.85) 60%);
+}
+/* Loss state — subdued blue-grey */
+.qgame-overlay.qloss-state {
+  background: radial-gradient(ellipse at 50% 40%, rgba(69,123,157,0.08) 0%, rgba(0,0,0,0.88) 60%);
+}
+
+.qgame-over-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 28px; padding: 52px 60px; text-align: center;
+  animation: qcardreveal 0.55s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative; overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+}
+/* Inner top highlight */
+.qgame-over-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+}
+/* Win card gets gold border accent */
+.qwin-state .qgame-over-card {
+  border-color: rgba(244,162,97,0.35);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(244,162,97,0.15), 0 0 0 1px rgba(244,162,97,0.1);
+}
+/* Loss card gets muted border */
+.qloss-state .qgame-over-card {
+  border-color: rgba(69,123,157,0.25);
+}
+
+.qgo-emoji {
+  font-size: 72px; margin-bottom: 14px;
+  display: block;
+  animation: qemojidrop 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.15s both;
+}
+@keyframes qemojidrop {
+  from { transform: translateY(-30px) scale(0.5); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+.qgo-title {
+  font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 800;
+  letter-spacing: -1px; margin-bottom: 8px;
+  animation: qtitleslide 0.4s ease 0.3s both;
+}
+@keyframes qtitleslide {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.qwin-state  .qgo-title {
+  background: linear-gradient(135deg, var(--orange) 0%, #ffe066 60%, #fff 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.qloss-state .qgo-title { color: #9ca3af; }
+
+.qgo-name {
+  font-size: 18px; color: var(--orange); margin-bottom: 16px;
+  letter-spacing: 2px; font-weight: 600;
+  animation: qtitleslide 0.4s ease 0.4s both;
+}
+.qloss-state .qgo-name { color: #6aaed6; }
+
+.qgo-badge {
+  font-size: 13px; color: #c4b5fd; margin-bottom: 28px;
+  letter-spacing: 0.5px; line-height: 1.5;
+  animation: qbadgepop 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.5s both;
+}
+
+/* Button row */
+.qgo-btns {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  animation: qtitleslide 0.4s ease 0.6s both;
+}
+.qgo-btn {
+  padding: 14px 36px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--red), var(--orange));
+  border: none; color: #fff; font-family: 'Tajawal', sans-serif;
+  font-weight: 700; font-size: 14px; letter-spacing: 1px; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(230,57,70,0.35);
+}
+.qgo-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(230,57,70,0.5); }
+.qgo-btn:active { transform: translateY(0); }
+
+/* Rematch button */
+.qgo-rematch-btn {
+  padding: 14px 32px; border-radius: 12px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--text); font-family: 'Tajawal', sans-serif;
+  font-weight: 700; font-size: 14px; letter-spacing: 1px; cursor: pointer;
+  transition: transform 0.15s, background 0.2s, border-color 0.2s;
+}
+.qgo-rematch-btn:hover {
+  transform: translateY(-3px);
+  background: rgba(244,162,97,0.12);
+  border-color: var(--orange); color: var(--orange);
+}
+.qgo-rematch-btn:active { transform: translateY(0); }
+
+@keyframes qcardreveal {
+  from { transform: scale(0.72) translateY(44px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+@keyframes qbadgepop {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Confetti particles ── */
+.qconfetti-piece {
+  position: absolute; top: -20px;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  animation: qconfettifall linear both;
+  pointer-events: none; z-index: 401;
+  will-change: transform
+}
+@keyframes qconfettifall {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg) scale(0.5); opacity: 0; }
+}
+
+/* ── Card count badges ── */
+.qcount-badge { font-size: 10px; color: #8892a4; letter-spacing: 1px; margin-top: 4px; font-weight: 500; }
+.quno-badge {
+  background: linear-gradient(135deg, #b91c1c, #ef4444);
+  color: #fff; border-radius: 99px;
+  padding: 3px 12px; font-size: 10px; font-weight: 800;
+  letter-spacing: 3px; margin-top: 4px;
+  animation: qunoalert 0.7s ease-in-out infinite;
+  box-shadow: 0 0 12px rgba(239,68,68,0.6);
+}
+@keyframes qunoalert {
+  0%, 100% { transform: scale(1);    box-shadow: 0 0 8px  rgba(239,68,68,0.5); }
+  50%       { transform: scale(1.1); box-shadow: 0 0 20px rgba(239,68,68,0.8); }
+}
+
+/* ── Avatars ── */
+.qplayer-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.14);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0; overflow: hidden;
+  transition: box-shadow 0.3s, border-color 0.3s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
+.qplayer-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.qmy-avatar {
+  width: 46px; height: 46px; font-size: 22px;
+  background: rgba(244,162,97,0.1); border-color: rgba(244,162,97,0.35);
+  box-shadow: 0 0 0 3px rgba(244,162,97,0.12), 0 3px 12px rgba(0,0,0,0.4);
+}
+
+/* Active-turn avatar ring — applied via JS */
+.qplayer-avatar.qturn-active {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(244,162,97,0.25), 0 0 18px rgba(244,162,97,0.5);
+  animation: qavatarring 1.6s ease-in-out infinite;
+}
+@keyframes qavatarring {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(244,162,97,0.2), 0 0 12px rgba(244,162,97,0.4); }
+  50%       { box-shadow: 0 0 0 4px rgba(244,162,97,0.4), 0 0 24px rgba(244,162,97,0.7); }
+}
+
+/* ── Card animations ── */
+@keyframes qdealing {
+  from { transform: translateY(-120px) rotate(-8deg) scale(0.7); opacity: 0; }
+  to   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+}
+@keyframes qplaying {
+  0%  { transform: scale(1) rotate(0deg); }
+  40% { transform: scale(1.15) rotate(-5deg) translateY(-20px); }
+  100%{ transform: scale(1) rotate(0deg) translateY(0); }
+}
+@keyframes qsliding {
+  from { transform: translateX(60px) scale(0.8); opacity: 0; }
+  to   { transform: translateX(0) scale(1); opacity: 1; }
+}
+@keyframes qdrawpulse {
+  0%   { box-shadow: 0 0 0 0 rgba(244,162,97,0.6); }
+  70%  { box-shadow: 0 0 0 14px rgba(244,162,97,0); }
+  100% { box-shadow: 0 0 0 0 rgba(244,162,97,0); }
+}
+@keyframes qshakehand {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+.qcard.qdealing  { animation: qdealing 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+.qcard.qplaying  { animation: qplaying 0.35s ease both; box-shadow: 0 0 0 2.5px var(--orange); animation: qplayablepulse 1.8s ease-in-out infinite; }
+.qcard.qsliding  { animation: qsliding 0.3s ease both; }
+.qhand-container.qshake { animation: qshakehand 0.5s ease; }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  #qgameScreen { padding: 6px; }
+  .qcenter-board { gap: 14px; }
+  .qturn-banner  { font-size: 10px; padding: 7px 14px; top: 8px; max-width: 80vw; text-overflow: ellipsis; }
+  .qreaction-btn { right: 8px; padding: 10px; font-size: 9px; }
+  .qflask        { font-size: 18px; }
+  .qopp-card     { width: 24px; height: 36px; margin-left: -10px; }
+  .qopp-card:first-child { margin-left: 0; }
+  .qplayer-avatar { width: 32px; height: 32px; font-size: 14px; }
+  .qmy-avatar    { width: 36px; height: 36px; font-size: 16px; }
+  .qcard-number  { font-size: 22px; }
+  .qchooser-opts { gap: 10px; }
+  .qcolor-opt    { width: 38vw; max-width: 100px; height: 68px; font-size: 13px; }
+  .qtoast-wrap   { bottom: 150px; }
+  .qtoast        { font-size: 11px; padding: 6px 14px; }
+  .qgo-emoji     { font-size: 52px; }
+  .qgo-title     { font-size: 30px; }
+  .qgame-over-card { padding: 36px 24px; }
+  .qgo-btns      { flex-direction: column; align-items: center; }
+  .qgo-btn, .qgo-rematch-btn { width: 100%; max-width: 240px; }
+  /* Color dot repositioned for tighter mobile board */
+  .qcolor-dot { bottom: 150px; }
+  html { touch-action: manipulation; }
+  html, body { height: 100%; overflow: hidden; }
+  #qgameScreen { height: 100dvh; }
+  /* Push hand above fixed mic (148px) + button height (48px) + breathing room */
+  .qbottom-zone { padding-bottom: max(env(safe-area-inset-bottom, 8px), 210px); }
+}
+
+/* ── In-game Chat ────────────────────────────────────────────────────────── */
+
+.qchat-toggle {
+  position: fixed;
+  bottom: 90px;
+  left: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(30, 36, 50, 0.92);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  transition: transform .15s, background .15s;
+}
+.qchat-toggle:hover { transform: scale(1.08); background: rgba(50,56,80,0.95); }
+
+.qchat-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: #fff;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+.qchat-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 300px;
+  height: 420px;
+  background: rgba(15, 18, 24, 0.97);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 -4px 32px rgba(0,0,0,0.5);
+  animation: qslideUp .25s ease both;
+}
+@keyframes qslideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.qchat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+.qchat-title { font-size: 14px; font-weight: 700; color: #e8eaf0; }
+.qchat-close {
+  background: none; border: none; color: #8892a4;
+  font-size: 16px; cursor: pointer; line-height: 1;
+  padding: 2px 6px; border-radius: 6px; transition: background .15s;
+}
+.qchat-close:hover { background: rgba(255,255,255,0.08); color: #fff; }
+
+.qchat-messages {
+  flex: 1; overflow-y: auto; padding: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.qchat-messages::-webkit-scrollbar { width: 4px; }
+.qchat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+.qchat-bubble {
+  max-width: 85%; padding: 7px 10px; border-radius: 12px;
+  font-size: 13px; line-height: 1.5; word-break: break-word;
+  animation: qmsgIn .2s ease both;
+}
+@keyframes qmsgIn {
+  from { opacity: 0; transform: translateY(6px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.qchat-bubble.me {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+  color: #fff; align-self: flex-end; border-bottom-right-radius: 4px;
+}
+.qchat-bubble.them {
+  background: rgba(255,255,255,0.08);
+  color: #e8eaf0; align-self: flex-start; border-bottom-left-radius: 4px;
+}
+.qchat-bubble-name { font-size: 10px; font-weight: 700; color: #a78bfa; margin-bottom: 3px; }
+
+.qchat-input-row {
+  display: flex; gap: 8px; padding: 10px 12px;
+  border-top: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
+}
+.qchat-input {
+  flex: 1; background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 10px;
+  padding: 8px 12px; color: #e8eaf0; font-size: 13px;
+  font-family: 'Tajawal', sans-serif; outline: none; transition: border-color .15s;
+}
+.qchat-input::placeholder { color: #4a5568; }
+.qchat-input:focus { border-color: rgba(139,92,246,0.5); }
+.qchat-send {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+  border: none; border-radius: 10px; width: 36px; height: 36px;
+  color: #fff; font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .15s; flex-shrink: 0;
+}
+.qchat-send:hover { opacity: .85; }
+
+@media(max-width: 600px) {
+  .qchat-panel { width: 100%; border-radius: 16px 16px 0 0; height: 60vh; }
+  .qchat-toggle { bottom: 80px; left: 12px; }
+}

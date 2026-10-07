@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDYLP1GDF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PHDYLP1GDF');
+  </script>
+  <link rel="icon" type="image/png" href="icon.png">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Qemistry Talent Show — سجّل موهبتك</title>
+  <meta name="description" content="سجّل في Qemistry Talent Show — اكتشف المواهب وكن جزء من الحدث"/>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0d0d1a;--bg2:#13132a;--bg3:#1a1a35;
+      --accent:#9d4edd;--accent2:#c77dff;
+      --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
+      --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+      --radius:16px;--radius-sm:10px;
+      --green:#4ade80;
+    }
+    body{
+      font-family:'Tajawal',sans-serif;
+      background:var(--bg);color:var(--text);
+      min-height:100vh;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      padding:24px 16px;
+    }
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;
+      background:radial-gradient(ellipse 70% 50% at 50% -5%,rgba(157,78,237,.13),transparent 70%);
+    }
+
+    .lang-toggle{
+      position:fixed;top:16px;left:16px;
+      background:var(--bg2);border:1px solid var(--border2);
+      border-radius:20px;padding:6px 14px;
+      color:var(--text2);font-family:'Tajawal',sans-serif;
+      font-size:13px;cursor:pointer;transition:all .2s;z-index:10;
+    }
+    .lang-toggle:hover{border-color:var(--accent);color:var(--text);}
+
+    .back-link{
+      position:fixed;top:16px;right:16px;
+      color:var(--text3);font-size:13px;text-decoration:none;
+      display:flex;align-items:center;gap:6px;z-index:10;
+      transition:color .2s;
+    }
+    .back-link:hover{color:var(--text);}
+
+    .container{width:100%;max-width:480px;position:relative;}
+
+    .badge{
+      display:inline-block;
+      background:rgba(157,78,237,.12);border:1px solid rgba(157,78,237,.3);
+      border-radius:20px;padding:5px 16px;
+      font-size:12px;color:#c4b5fd;
+      margin-bottom:20px;text-align:center;
+    }
+
+    .headline{
+      font-size:clamp(26px,6vw,38px);font-weight:900;
+      line-height:1.25;text-align:center;margin-bottom:8px;
+      background:linear-gradient(135deg,#fff 0%,var(--accent2) 60%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .subline{
+      font-size:clamp(14px,3vw,16px);color:var(--text2);
+      text-align:center;line-height:1.7;margin-bottom:32px;
+    }
+
+    .card{
+      background:var(--bg2);border:1px solid var(--border2);
+      border-radius:20px;padding:32px 28px;
+      width:100%;
+    }
+
+    .field{margin-bottom:18px;}
+    .field label{
+      display:block;font-size:12px;font-weight:600;
+      color:var(--text2);margin-bottom:8px;
+    }
+
+    .inp{
+      width:100%;background:var(--bg3);
+      border:1px solid var(--border2);border-radius:var(--radius-sm);
+      padding:13px 14px;color:var(--text);
+      font-family:'Tajawal',sans-serif;font-size:15px;
+      outline:none;transition:border-color .2s;
+    }
+    .inp:focus{border-color:var(--accent);}
+    .inp::placeholder{color:var(--text3);}
+
+    select.inp{cursor:pointer;appearance:none;-webkit-appearance:none;}
+    .select-wrap{position:relative;}
+    .select-wrap::after{
+      content:'▾';position:absolute;
+      left:14px;top:50%;transform:translateY(-50%);
+      color:var(--text3);pointer-events:none;font-size:14px;
+    }
+
+    .submit-btn{
+      width:100%;padding:15px;border:none;border-radius:var(--radius-sm);
+      background:var(--accent);color:#fff;
+      font-family:'Tajawal',sans-serif;font-size:16px;font-weight:700;
+      cursor:pointer;transition:all .2s;margin-top:4px;
+    }
+    .submit-btn:hover:not(:disabled){background:var(--accent2);transform:translateY(-1px);}
+    .submit-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+
+    .msg{
+      border-radius:var(--radius-sm);padding:14px 16px;
+      font-size:14px;font-weight:600;text-align:center;
+      margin-top:16px;display:none;
+    }
+    .msg.error{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:#fca5a5;}
+    .msg.dup{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.25);color:#fde68a;}
+
+    .success-state{
+      display:none;text-align:center;
+      animation:fadeUp .4s ease both;
+    }
+    .success-icon{font-size:56px;margin-bottom:16px;}
+    .success-title{font-size:22px;font-weight:900;margin-bottom:8px;}
+    .success-sub{font-size:14px;color:var(--text2);line-height:1.7;}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+    .footer-note{
+      margin-top:24px;font-size:12px;color:var(--text3);text-align:center;
+    }
+  </style>
+</head>
+<body>
+
+<button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button>
+<a class="back-link" id="backLink" href="/">← <span id="backText">الرئيسية</span></a>
+
+<div class="container">
+  <div style="text-align:center;margin-bottom:24px;">
+    <div class="badge">🎤 Qemistry Talent Show</div>
+    <h1 class="headline" id="headline"></h1>
+    <p class="subline" id="subline"></p>
+  </div>
+
+  <!-- No account state -->
+  <div class="card" id="no-account-card" style="display:none;text-align:center;">
+    <div style="font-size:44px;margin-bottom:14px;">🔐</div>
+    <div style="font-size:18px;font-weight:700;margin-bottom:10px;" id="noarc-title"></div>
+    <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:24px;" id="noarc-sub"></p>
+    <button class="submit-btn" onclick="window.location.href='/#auth'" id="noarc-btn"></button>
+  </div>
+
+  <!-- Logged-in form (no email field) -->
+  <div class="card" id="form-card" style="display:none;">
+    <div class="field">
+      <label id="label-name"></label>
+      <input class="inp" id="inp-name" type="text" autocomplete="name"/>
+    </div>
+
+    <div class="field">
+      <label id="label-talent"></label>
+      <div class="select-wrap">
+        <select class="inp" id="inp-talent"></select>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="submitForm()">
+      <span id="btn-text"></span>
+    </button>
+
+    <div class="msg error" id="msg-error"></div>
+    <div class="msg dup" id="msg-dup"></div>
+  </div>
+
+  <div class="success-state card" id="success-state">
+    <div class="success-icon">🎉</div>
+    <div class="success-title" id="success-title"></div>
+    <p class="success-sub" id="success-sub"></p>
+  </div>
+
+  <p class="footer-note" id="footer-note"></p>
+</div>
+
+<script>
+const SERVER_URL = 'https://www.qemistry.live';
+let lang = localStorage.getItem('qc_lang') || 'ar';
+
+const currentUser = (() => {
+  try { return JSON.parse(localStorage.getItem('qc_currentUser')); } catch { return null; }
+})();
+const authToken = localStorage.getItem('qc_token');
+
+const COPY = {
+  ar: {
+    langBtn:       'EN',
+    backText:      'الرئيسية',
+    headline:      'سجّل في موهبتنا',
+    subline:       'اختار موهبتك وسنتواصل معك بتفاصيل الحدث',
+    labelName:     'الاسم الحقيقي',
+    labelTalent:   'موهبتك',
+    namePh:        'اسمك الحقيقي',
+    optPlaceholder:'— اختر موهبتك —',
+    talents: [
+      { value:'singing', label:'غناء' },
+      { value:'dancing', label:'رقص' },
+      { value:'music',   label:'موسيقى' },
+      { value:'comedy',  label:'كوميديا' },
+      { value:'art',     label:'رسم' },
+      { value:'acting',  label:'تمثيل' },
+      { value:'sports',  label:'رياضة' },
+      { value:'other',   label:'أخرى' },
+    ],
+    btnText:       'سجّل الحين 🚀',
+    btnLoading:    'جاري التسجيل...',
+    errFill:       'أكمل جميع الحقول',
+    errServer:     'خطأ في الاتصال — حاول مرة ثانية',
+    dupMsg:        'أنت مسجل مسبقاً ✓',
+    successTitle:  'تم التسجيل!',
+    successSub:    'شكراً — سنتواصل معك قريباً بتفاصيل Qemistry Talent Show.',
+    footerNote:    'لا سبام، وعد. فقط تفاصيل الحدث لما يصير.',
+    noAccTitle:    'لازم يكون عندك حساب',
+    noAccSub:      'عشان تسجل في Talent Show لازم يكون عندك حساب على Qemistry — مجاني وما يأخذ دقيقة.',
+    noAccBtn:      'أنشئ حساب — مجاناً 🚀',
+  },
+  en: {
+    langBtn:       'ع',
+    backText:      'Home',
+    headline:      'Join the Qemistry Talent Show',
+    subline:       'Pick your talent and we\'ll reach out with event details',
+    labelName:     'Real Name',
+    labelTalent:   'Your Talent',
+    namePh:        'Your real name',
+    optPlaceholder:'— Choose your talent —',
+    talents: [
+      { value:'singing', label:'Singing' },
+      { value:'dancing', label:'Dancing' },
+      { value:'music',   label:'Music' },
+      { value:'comedy',  label:'Comedy' },
+      { value:'art',     label:'Art' },
+      { value:'acting',  label:'Acting' },
+      { value:'sports',  label:'Sports' },
+      { value:'other',   label:'Other' },
+    ],
+    btnText:       'Sign me up 🚀',
+    btnLoading:    'Submitting...',
+    errFill:       'Please fill in all fields',
+    errServer:     'Connection error — please try again',
+    dupMsg:        'You\'re already registered ✓',
+    successTitle:  'You\'re in!',
+    successSub:    'Thanks — we\'ll reach out soon with Qemistry Talent Show details.',
+    footerNote:    'No spam, promise. Just event details when it happens.',
+    noAccTitle:    'You need an account',
+    noAccSub:      'To register for the Talent Show you need a Qemistry account — it\'s free and takes less than a minute.',
+    noAccBtn:      'Create an account — free 🚀',
+  }
+};
+
+function buildTalentOptions(c) {
+  const sel = document.getElementById('inp-talent');
+  const current = sel.value;
+  sel.innerHTML = `<option value="">${c.optPlaceholder}</option>` +
+    c.talents.map(t => `<option value="${t.value}"${t.value === current ? ' selected' : ''}>${t.label}</option>`).join('');
+}
+
+function applyLang() {
+  const c = COPY[lang];
+  const isAr = lang === 'ar';
+  document.documentElement.lang = lang;
+  document.documentElement.dir  = isAr ? 'rtl' : 'ltr';
+  document.getElementById('langBtn').textContent   = c.langBtn;
+  document.getElementById('backLink').innerHTML    = isAr
+    ? `← <span id="backText">${c.backText}</span>`
+    : `<span id="backText">${c.backText}</span> →`;
+  document.getElementById('headline').textContent  = c.headline;
+  document.getElementById('subline').textContent   = c.subline;
+  document.getElementById('footer-note').textContent = c.footerNote;
+  document.getElementById('success-title').textContent = c.successTitle;
+  document.getElementById('success-sub').textContent   = c.successSub;
+  // no-account card
+  document.getElementById('noarc-title').textContent = c.noAccTitle;
+  document.getElementById('noarc-sub').textContent   = c.noAccSub;
+  document.getElementById('noarc-btn').textContent   = c.noAccBtn;
+  // logged-in form
+  document.getElementById('label-name').textContent   = c.labelName;
+  document.getElementById('label-talent').textContent = c.labelTalent;
+  document.getElementById('inp-name').placeholder     = c.namePh;
+  document.getElementById('btn-text').textContent     = c.btnText;
+  buildTalentOptions(c);
+}
+
+function toggleLang() {
+  lang = lang === 'ar' ? 'en' : 'ar';
+  localStorage.setItem('qc_lang', lang);
+  applyLang();
+}
+
+async function submitForm() {
+  const c      = COPY[lang];
+  const name   = document.getElementById('inp-name').value.trim();
+  const email  = currentUser.email;
+  const talent = document.getElementById('inp-talent').value;
+  const btn    = document.getElementById('submit-btn');
+  const errEl  = document.getElementById('msg-error');
+  const dupEl  = document.getElementById('msg-dup');
+
+  errEl.style.display = 'none';
+  dupEl.style.display = 'none';
+
+  if (!name || !talent) {
+    errEl.textContent = c.errFill;
+    errEl.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  document.getElementById('btn-text').textContent = c.btnLoading;
+
+  try {
+    const res  = await fetch(`${SERVER_URL}/api/talent-waitlist`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${authToken}` },
+      body: JSON.stringify({ name, talent })
+    });
+    const data = await res.json();
+
+    if (data.duplicate) {
+      dupEl.textContent = c.dupMsg;
+      dupEl.style.display = 'block';
+      btn.disabled = false;
+      document.getElementById('btn-text').textContent = c.btnText;
+      return;
+    }
+    if (!data.ok) throw new Error(data.message || 'error');
+
+    document.getElementById('form-card').style.display     = 'none';
+    document.getElementById('success-state').style.display = 'block';
+    document.getElementById('footer-note').style.display   = 'none';
+
+  } catch (_) {
+    errEl.textContent = c.errServer;
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    document.getElementById('btn-text').textContent = c.btnText;
+  }
+}
+
+// Show the right state based on auth
+if (currentUser) {
+  document.getElementById('form-card').style.display = 'block';
+} else {
+  document.getElementById('no-account-card').style.display = 'block';
+}
+
+applyLang();
+</script>
+</body>
+</html>
