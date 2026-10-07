@@ -1,4 +1,4 @@
-const SERVER_URL = 'https://www.qemistry.live';
+const SERVER_URL = window.SERVER_URL;
 const ICE_SERVERS = null; // يتحمل من السيرفر عند الاتصال
 
 let username     = 'ضيف';

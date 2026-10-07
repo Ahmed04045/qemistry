@@ -13,6 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <title>Qemistry Talent Show — سجّل موهبتك</title>
   <meta name="description" content="سجّل في Qemistry Talent Show — اكتشف المواهب وكن جزء من الحدث"/>
+  <script src="local-config.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -189,7 +190,7 @@
 </div>
 
 <script>
-const SERVER_URL = 'https://www.qemistry.live';
+const SERVER_URL = window.SERVER_URL;
 let lang = localStorage.getItem('qc_lang') || 'ar';
 
 const currentUser = (() => {

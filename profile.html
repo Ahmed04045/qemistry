@@ -10,8 +10,7 @@
     gtag('config', 'G-PHDYLP1GDF');
   </script>
   <link rel="icon" type="image/png" href="/icon.png">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4271411908599611"
-     crossorigin="anonymous"></script>
+  <script src="local-config.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Profile — Qemistry</title>
@@ -93,7 +92,7 @@
 </div>
 
 <script>
-const SERVER_URL = 'https://www.qemistry.live';
+const SERVER_URL = window.SERVER_URL;
 const authToken   = localStorage.getItem('qc_token');
 const currentUser = JSON.parse(localStorage.getItem('qc_currentUser') || 'null');
 

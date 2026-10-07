@@ -7,7 +7,7 @@
 
 ## What This Project Is
 
-**Qemistry** (domain: `qemistry.live`) is a Qatar-focused social platform with:
+**Qemistry** (local development: `http://localhost:3000`) is a Qatar-focused social platform with:
 
 - **Video chat** — random stranger video chat (WebRTC)
 - **Friends system** — add friends, DM, presence indicators (online dot + last seen)

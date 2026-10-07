@@ -10,6 +10,7 @@
     gtag('config', 'G-PHDYLP1GDF');
   </script>
   <link rel="icon" type="image/png" href="icon.png">
+  <script src="local-config.js"></script>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <title>اكتشف شخصيتك — Qemistry</title>
@@ -163,7 +164,7 @@
 
 <script src="avatars.js"></script>
 <script>
-const SERVER_URL  = 'https://www.qemistry.live';
+const SERVER_URL  = window.SERVER_URL;
 const authToken   = localStorage.getItem('qc_token') || '';
 const currentUser = (() => { try { return JSON.parse(localStorage.getItem('qc_currentUser') || 'null'); } catch { return null; } })();
 
@@ -380,7 +381,7 @@ async function generateShareCard(ch) {
 
   ctx.fillStyle = '#475569';
   ctx.font      = `400 32px 'Tajawal', Arial, sans-serif`;
-  ctx.fillText('qemistry.live', SIZE / 2, SIZE * 0.955);
+  ctx.fillText('localhost:3000', SIZE / 2, SIZE * 0.955);
 
   return cv;
 }

@@ -26,7 +26,8 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 const app    = express();
 const server = http.createServer(app);
-const SITE_URL = process.env.SITE_URL || 'https://www.qemistry.live';
+const PORT = process.env.PORT || 3000;
+const SITE_URL = process.env.SITE_URL || `http://localhost:${PORT}`;
 const io     = new Server(server, { cors: { origin: SITE_URL } });
 
 // Trust the first proxy hop so req.ip reflects the real client IP correctly.
@@ -46,7 +47,6 @@ app.use(helmet({
         "'self'",
         "'unsafe-inline'",
         "https://cdn.socket.io",
-        "https://pagead2.googlesyndication.com",
         "https://accounts.google.com",
         "https://www.googletagmanager.com"
       ],
@@ -204,7 +204,7 @@ app.get('/character/:type', (req, res) => {
   const type = req.params.type.toLowerCase();
   if (!CHAR_IDS.includes(type)) return res.redirect('/');
   const m       = CHAR_META[type];
-  const siteUrl = process.env.SITE_URL || 'https://qemistry.live';
+  const siteUrl = SITE_URL;
   res.send(`<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -215,11 +215,11 @@ app.get('/character/:type', (req, res) => {
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="${siteUrl}/character/${type}"/>
 <meta property="og:title" content="I'm ${m.nameEn} (${m.nameAr}) on Qemistry!"/>
-<meta property="og:description" content="${m.descEn} \u2014 Discover your character at qemistry.live"/>
+<meta property="og:description" content="${m.descEn} \u2014 Discover your character on Qemistry"/>
 <meta property="og:site_name" content="Qemistry"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="I'm ${m.nameEn} on Qemistry!"/>
-<meta name="twitter:description" content="${m.descEn} \u2014 Discover your character at qemistry.live"/>
+<meta name="twitter:description" content="${m.descEn} \u2014 Discover your character on Qemistry"/>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet"/>
 <script src="/avatars.js"></script>
 <style>
@@ -263,7 +263,7 @@ h1{font-size:clamp(26px,6vw,52px);font-weight:900;margin-bottom:8px;}
     +'<div class="desc">'+desc+'</div>'
     +'<div class="rank" id="cr"></div>'
     +'<a class="cta" href="/quiz">'+ctaText+'</a>'
-    +'<div class="brand">\u26DB Qemistry \u2014 qemistry.live</div>';
+    +'<div class="brand">\u26DB Qemistry</div>';
   var cw=document.getElementById('cw');
   cw.innerHTML=window.AVATARS.renderSVG(type,140);
   var svg=cw.querySelector('svg');
@@ -1137,7 +1137,7 @@ app.post('/send-verification', authMiddleware, rateLimit(3, 60 * 60 * 1000), asy
   const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
   await supabase.from('email_tokens').insert([{ user_id: userId, token, type: 'verify', expires_at: expires.toISOString() }]);
   
-  const link = `${process.env.SITE_URL || 'https://www.qemistry.live'}/verify-email?token=${token}`;
+  const link = `${SITE_URL}/verify-email?token=${token}`;
   
   // 🛡️ The Try/Catch Safety Net prevents server crashes!
   try {
@@ -2123,6 +2123,5 @@ function notifyDefault(userId, event, data) {
 }
 const gameEngine = require('./game-logic')(io, supabase, JWT_SECRET, notifyDefault, updateTaskProgress, checkAndAwardBadges, awardPoints);
 
-const PORT = process.env.PORT || 3000;
 app.use((req, res) => { res.status(404).sendFile(path.join(__dirname, '404.html')); });
 server.listen(PORT, () => console.log(`Qemistry running on port ${PORT}`));

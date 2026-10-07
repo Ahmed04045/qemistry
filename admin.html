@@ -10,8 +10,7 @@
     gtag('config', 'G-PHDYLP1GDF');
   </script>
   <link rel="icon" type="image/png" href="icon.png">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4271411908599611"
-     crossorigin="anonymous"></script>
+  <script src="local-config.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>لوحة الإدارة — Qemistry</title>
@@ -284,7 +283,7 @@ body { font-family:'Tajawal',sans-serif; background:var(--bg); color:var(--text)
 <div class="status-toast" id="toast"></div>
 
 <script>
-const SERVER_URL = 'https://www.qemistry.live';
+const SERVER_URL = window.SERVER_URL;
 let adminToken = '';
 let allUsers = [];
 
