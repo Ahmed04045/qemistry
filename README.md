@@ -31,7 +31,8 @@ supports Arabic and English.
    ```
 
 3. Copy `.env.example` to `.env` and replace the example values with your
-   development credentials.
+   development credentials. The server loads `.env` automatically when it
+   starts.
 
    PowerShell:
 
