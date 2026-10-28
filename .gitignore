@@ -8,3 +8,24 @@ node_modules/
 
 *.log
 npm-debug.log*
+
+# OS / editor artifacts
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Generated build, test, and cache output
+build/
+dist/
+coverage/
+.nyc_output/
+.cache/
+*.tsbuildinfo
+
+# Temporary files
+*.tmp
+*.temp
